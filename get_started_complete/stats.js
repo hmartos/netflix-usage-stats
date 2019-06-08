@@ -1,0 +1,357 @@
+'use strict';
+
+const PAGE_SIZE = 20;
+const summary = {
+  viewedItemsCount: 0,
+  totalTime: 0,
+  maxTimeInDate: 0,
+  deviceCount: 0,
+  moviesCount: 0,
+  moviesTime: 0,
+  showsCount: 0,
+  episodesCount: 0,
+  showsTime: 0,
+  othersCount: 0
+}
+const WEEK_DAYS = {
+  0: 'Sunday',
+  1: 'Monday',
+  2: 'Tuesday',
+  3: 'Wednesday',
+  4: 'Thursday',
+  5: 'Friday',
+  6: 'Saturday',
+}
+
+// MAIN
+main();
+
+
+// FUNCTIONS
+function main() {
+  setupStatsPage();
+
+  showLoader();
+
+  // Load HTML page
+  fetch(chrome.extension.getURL('/stats.html'))
+    .then(response => response.text())
+    .then(statsTemplate => {
+      // Get viewing activity
+      getActivity().then(viewedItems => {
+        hideLoader(statsTemplate);
+
+        calculateStats(viewedItems);
+        
+        showStats();
+      })
+      .catch(error => console.error(error));
+    })
+    .catch(error => console.error(error));
+}
+
+/**
+ * Clear activity page to be used as the skeleton for stats page
+ */
+function setupStatsPage() {
+  // Change page title
+  document.querySelector('h1').innerHTML = 'Mis estadísticas';
+
+  // Remove watched/rated tabs
+  let tabs = document.querySelector('.pageToggle');
+  if (tabs) {
+    tabs.remove();
+  }
+
+  // Remove viewing activity footer
+  let footer = document.querySelector('.viewing-activity-footer');
+  if (footer) {
+    footer.remove();
+  }
+}
+
+/**
+ * Load viewing activity
+ */
+function getActivity() {
+  return new Promise((resolve, reject) => {
+    let viewedItems = [];
+  
+    // Get first page of activity
+    getActivityPage(0)
+    .then(response => response.json())
+    .then(data => {
+      // console.log("Results of page 0", data);
+      let count = data.vhSize;
+      console.log(`Viewing history size is ${count}`)
+      let pages = Math.ceil(count / PAGE_SIZE);
+      // TODO WARNING!!!!!!! UNCOMMENT LINE UP AND REMOVE LINE DOWN
+      //let pages = 5;
+      console.log(`Viewing history has ${pages} pages of ${PAGE_SIZE} elements per page`)
+      viewedItems = viewedItems.concat(data.viewedItems);
+
+      const pageList = [];
+      for (let pageNumber = 1; pageNumber < pages; pageNumber++) {
+        pageList.push(pageNumber);
+      }
+
+      // Executes a request for each activity page
+      const promises = pageList.map((page) => {
+        return getActivityPage(page)
+          .then(response => response.json())
+          .then(data => {
+            // console.log(`Results of page ${page}`, data);
+            viewedItems = viewedItems.concat(data.viewedItems);
+          })
+          .catch(error => console.error(`Error loading activity page ${page}`, error));
+      })
+
+      // Synchronizes when all requests are resolved
+      Promise.all(promises)
+      .then(response => {
+        // console.log(`All pages loaded, viewed items: `, viewedItems);
+        resolve(viewedItems);
+      })
+      .catch(error => {
+        console.error(`Error in executing ${error}`);
+        reject();
+      })
+    })
+    .catch(error => console.error(error));
+  });
+}
+
+/**
+ * Load viewwing activity page
+ * @param {*} page 
+ */
+function getActivityPage(page) {
+  // console.log(`Getting activity page ${page}`)
+  return fetch(`https://www.netflix.com/api/shakti/v0a906ca6/viewingactivity?pg=${page}&pgSize=${PAGE_SIZE}`, {credentials: 'same-origin'})
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log(data);
+    //   return data.viewedItems;
+    // })
+    // .catch(error => console.error(error));
+}
+
+/**
+ * Calculate stats based on viewed items
+ * @param {*} viewedItems 
+ */
+function calculateStats(viewedItems) {
+  console.log("Activity data", viewedItems);
+
+  // Time by date
+  const timeByDayGroup = _.groupBy(viewedItems, (viewedItem) => {
+    const date = new Date(viewedItem.date);
+    // TODO Change format depending on language
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  })
+
+  console.log("Time by day group", timeByDayGroup);
+  
+  const timeByDay = _.reduce(timeByDayGroup, (result, value, key) => {
+    const duration = _.sumBy(value, 'duration');
+    result[key] = duration;
+    return result;
+  }, {});
+
+  console.log("Time byday", timeByDay);
+  
+  const maxTimeInDate = _.maxBy(_.values(timeByDay))
+  const maxTimeInDateDate = _.findKey(timeByDay, (timeByDay) => { return timeByDay === maxTimeInDate });
+  console.log("Max time in a day " + maxTimeInDate, secondsToDhms(maxTimeInDate));
+  console.log("Date of max time in a day", maxTimeInDateDate);
+
+  // Time by day week
+  const timeByDayWeekGroup = _.groupBy(viewedItems, (viewedItem) => {
+    return new Date(viewedItem.date).getDay();
+  })
+  
+  // console.log("Time by day week", timeByDayWeekGroup);
+
+  const timeByDayWeek = _.reduce(timeByDayWeekGroup, (result, value, key) => {
+   //const duration = _.sumBy(value, 'duration');
+    const timeByDate = _.reduce(_.groupBy(value, 'dateStr'), (result, value, key) => {
+      result[key] = _.sumBy(value, 'duration');
+      return result;
+    }, {});
+
+    result[WEEK_DAYS[key]] = _.sum(_.values(timeByDate));
+    return result;
+  }, {});
+
+  console.log("Time by day week", timeByDayWeek);
+      
+  // Episodes
+  const episodes = _.filter(viewedItems, function(item) { return _.has(item, 'series') });
+  console.log("Episodes", episodes);
+
+  // Shows
+  const shows = _.groupBy(episodes, 'seriesTitle');
+  console.log("Shows", shows);
+
+  // Device Types
+  const deviceTypes = _.groupBy(viewedItems, 'deviceType');
+  console.log("deviceTypes", deviceTypes);
+
+  // Movies avoiding trailers
+  const movies = _.filter(viewedItems, function(item) { return !_.has(item, 'series') && item.duration > 0});
+  console.log("Movies", movies);
+
+  // Trailers and others
+  const others = _.filter(viewedItems, function(item) { return !_.has(item, 'series') && item.duration === 0});
+  console.log("Others", others);
+
+  summary.viewedItemsCount = viewedItems.length;
+  summary.totalTime = _.sumBy(viewedItems, 'duration');
+  summary.maxTimeInDate = maxTimeInDate;
+  summary.maxTimeInDateDate = maxTimeInDateDate;
+  summary.deviceCount = Object.keys(deviceTypes).length;
+  summary.moviesCount = movies.length;
+  summary.moviesTime = _.sumBy(movies, 'duration');
+  summary.episodesCount = episodes.length;
+  summary.showsCount = Object.keys(shows).length;
+  summary.showsTime = _.sumBy(episodes, 'duration');
+  summary.othersCount = others.length;
+  summary.timeByDayWeek = timeByDayWeek;
+  
+  console.log(`Time spent on Netflix: ${secondsToDhms(summary.totalTime)}`);
+  console.log(`Time spent on Movies: ${secondsToDhms(summary.moviesTime)}`);
+  console.log(`Time spent on Shows: ${secondsToDhms(summary.showsTime)}`);
+  console.log("Activity Summary", summary);
+}
+
+/**
+ * Show stats in stats template
+ */
+function showStats() {
+  // Summary
+  document.querySelector('#viewedItemsCount .ns-number').innerHTML = summary.viewedItemsCount;
+  document.querySelector('#totalTime .ns-time').innerHTML = secondsToDhms(summary.totalTime);
+  document.querySelector('#maxTimeInDate .ns-time').innerHTML = secondsToDhms(summary.maxTimeInDate);
+  document.querySelector('#maxTimeInDate .ns-extra-info').innerHTML = `(${summary.maxTimeInDateDate})`;
+  document.querySelector('#deviceCount .ns-number').innerHTML = summary.deviceCount;
+
+  // Movies
+  document.querySelector('#moviesCount .ns-number').innerHTML = summary.moviesCount;
+  document.querySelector('#moviesTime .ns-time').innerHTML = secondsToDhms(summary.moviesTime);
+
+  // Shows
+  document.querySelector('#showsCount .ns-number').innerHTML = summary.showsCount;
+  document.querySelector('#showsCount .ns-extra-info').innerHTML = `(${summary.episodesCount} Capítulos)`;
+  document.querySelector('#showsTime .ns-time').innerHTML = secondsToDhms(summary.showsTime);
+
+  // Charts
+  createTvVsShowsTimeChart();
+  createMeanTimeByWeekDayChart();
+}
+
+/**
+ * Format time from seconds to years, days, hours, minutes and seconds
+ * @param {*} seconds 
+ */
+function secondsToDhms(seconds) {
+  seconds = Number(seconds);
+  var d = Math.floor(seconds / (3600*24));
+  var h = Math.floor(seconds % (3600*24) / 3600);
+  var m = Math.floor(seconds % 3600 / 60);
+  var s = Math.floor(seconds % 60);
+  
+  var dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
+  var hDisplay = (h > 0) || (d > 0 && h === 0) ? h + (h === 1 ? " hour, " : " hours, ") : "";
+  var mDisplay = (m > 0) || (h > 0 && m === 0) ? m + (m === 1 ? " minute, " : " minutes, ") : "";
+  var sDisplay = s + (s === 1 ? " second" : " seconds");
+  return dDisplay + hDisplay + mDisplay + sDisplay;
+}
+
+/**
+ * Create time watching movies vs shows pie chart
+ */
+function createTvVsShowsTimeChart() {
+  // Generates chart
+  var ctx = document.getElementById('moviesVsTvTime');
+  var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+          labels: ['Películas', 'Series'],
+          datasets: [{
+              data: [summary.moviesTime, summary.showsTime],
+              backgroundColor: [
+                'rgb(178, 7, 16)',
+                'rgb(229, 9, 20)'
+              ]
+          }]
+      }
+  });
+}
+
+/**
+ * Create mean time watching Netflix by week day bar chart
+ */
+function createMeanTimeByWeekDayChart() {
+  var ctx = document.getElementById('meanTimeByWeekDay');
+  var myBarChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+      labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+      datasets: [{
+        label: 'Tiempo viendo Netflix',
+        data: [
+          ((summary.timeByDayWeek['Monday'] / summary.totalTime) * 100).toFixed(2),
+          ((summary.timeByDayWeek['Tuesday'] / summary.totalTime) * 100).toFixed(2),
+          ((summary.timeByDayWeek['Wednesday'] / summary.totalTime) * 100).toFixed(2),
+          ((summary.timeByDayWeek['Thursday'] / summary.totalTime) * 100).toFixed(2),
+          ((summary.timeByDayWeek['Friday'] / summary.totalTime) * 100).toFixed(2),
+          ((summary.timeByDayWeek['Saturday'] / summary.totalTime) * 100).toFixed(2),
+          ((summary.timeByDayWeek['Sunday'] / summary.totalTime) * 100).toFixed(2),
+        ],
+        backgroundColor: [
+            '#e50914',
+            '#e50914',
+            '#e50914',
+            '#e50914',
+            '#e50914',
+            '#e50914',
+            '#e50914'
+        ]
+    }]
+    },
+    options: {
+      legend: {
+        display: false
+      }
+    }
+});
+}
+
+/**
+ * Shows loader while data is being retrieved
+ */
+function showLoader() {
+  // Loader
+  let loader = document.createElement('div');
+  loader.className = 'nfLoader';
+
+  // Get Netflix activity table
+  let activityTable = document.querySelector('.retable');
+  console.log(activityTable);
+
+  // Show loader
+  activityTable.replaceWith(loader);
+}
+
+/**
+ * Hide loader replacing it with stats template
+ * @param {*} statsTemplate 
+ */
+function hideLoader(statsTemplate) {
+  // Hide loader
+  let statsSection = document.createElement("div");
+  statsSection.id = "stats-section"
+  statsSection.classList.add("structural", "stdHeight");
+  statsSection.innerHTML = statsTemplate;
+  document.querySelector('.nfLoader').replaceWith(statsSection);
+}

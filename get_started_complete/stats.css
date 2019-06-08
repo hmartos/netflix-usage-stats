@@ -1,0 +1,117 @@
+/* Netflix loader - https://codepen.io/PEELONIONS/pen/rvvwzq */
+.nfLoader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 37px 0 0 -25px;
+  width: 50px;
+  height: 50px;
+}
+.nfLoader:after {
+  content: "";
+  background-image: url(https://assets.nflxext.com/en_us/pages/wiplayer/site-spinner.png);
+  background-repeat: no-repeat;
+  background-position-x: 50%;
+  background-position-y: 50%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  position: absolute;
+  margin: -6px;
+  width: inherit;
+  height: inherit;
+  animation: nfLoader-spin 1.1s linear infinite,1!important;
+  -webkit-animation: nfLoader-spin 1.1s linear infinite,1!important; 
+}
+@keyframes nfLoader-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes nfLoader-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+/* Cards */
+.ns-section {
+  width: 100%;
+  display: flex;
+  font-family: 'Netflix Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+  margin-bottom: 50px;
+}
+
+.ns-section-50 {
+  width: 50%;
+  display: inline-flex;
+}
+
+.ns-card {
+  min-width: 256px;
+  width: 25%;
+  text-align: center;
+}
+
+.ns-card-chart {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ns-title-container {
+  font-size: 14px;
+}
+
+.ns-card .ns-title-container {
+  margin-top: 10px;
+}
+
+.ns-card-chart .ns-title-container {
+  margin-top: 10px;
+}
+
+.ns-title {
+  text-transform: uppercase;
+  border: solid 1px #333;
+  padding: 0 .4em;
+  unicode-bidi: normal;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ns-number {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.ns-time{
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.ns-extra-info {
+  font-size: 14px;
+}
+
+.ns-icon {
+  font-size: 36px;
+}
+
+.ns-chart {
+  width: 100%;
+  height: 100%;
+  
+}
+
+.ns-pie-chart {
+  margin-top: 10px;
+  min-width: 450px;
+}
+
+.ns-bar-chart {
+  margin-top: 15px;
+  min-width: 512px;
+}
+

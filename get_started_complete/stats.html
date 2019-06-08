@@ -1,0 +1,99 @@
+<div class="ns-section">
+  <div id="viewedItemsCount" class="ns-card">
+    <i class="material-icons ns-icon">live_tv</i>
+    <div class="ns-title-container" aria-label="Elementos reproducidos">
+      <span class="ns-title">Elementos reproducidos</span>
+    </div>
+    <div class="ns-number"></div>
+  </div>
+
+  <div id="totalTime" class="ns-card">
+    <i class="material-icons ns-icon">access_time</i>
+    <div class="ns-title-container" aria-label="Tiempo total en Netflix">
+      <span class="ns-title">Tiempo total en Netflix</span>
+    </div>
+    <div class="ns-time"></div>
+  </div>
+
+    <div id="maxTimeInDate" class="ns-card">
+      <i class="material-icons ns-icon">timelapse</i>
+      <div class="ns-title-container" aria-label="Maratón de Netflix (en un día)">
+        <span class="ns-title">Maratón de Netflix (en un día)</span>
+      </div>
+      <div>
+        <div class="ns-time"></div>
+        <span class="ns-extra-info"></span>
+      </div>
+    </div>
+
+    <div id="deviceCount" class="ns-card">
+      <i class="material-icons ns-icon">devices_other</i>
+      <div class="ns-title-container" aria-label="Dispositivos utilizados">
+        <span class="ns-title">Dispositivos utilizados</span>
+      </div>
+      <div class="ns-number"></div>
+    </div>
+</div>
+
+<div class="ns-section">
+  <div class="ns-section-50">
+    <div id="moviesCount" class="ns-card">
+      <i class="material-icons ns-icon">local_movies</i>
+      <div class="ns-title-container" aria-label="Películas vistas">
+        <span class="ns-title">Películas vistas</span>
+      </div>
+      <div class="ns-number"></div>
+    </div>
+  
+    <div id="moviesTime" class="ns-card">
+      <i class="material-icons ns-icon">access_time</i>
+      <div class="ns-title-container" aria-label="Tiempo total viendo películas">
+        <span class="ns-title">Tiempo total viendo películas</span>
+      </div>
+      <div class="ns-time"></div>
+    </div>
+  </div>
+
+  <div class="ns-section-50">
+    <div id="showsCount" class="ns-card">
+      <i class="material-icons ns-icon">tv</i>
+      <div class="ns-title-container" aria-label="Series vistas">
+        <span class="ns-title">Series vistas</span>
+      </div>
+      <div>
+        <div class="ns-number"></div>
+        <span class="ns-extra-info"></span>
+      </div>
+    </div>
+  
+    <div id="showsTime" class="ns-card">
+      <i class="material-icons ns-icon">access_time</i>
+      <div class="ns-title-container" aria-label="Tiempo total viendo series">
+        <span class="ns-title">Tiempo total viendo series</span>
+      </div>
+      <div class="ns-time"></div>
+    </div>
+  </div>
+</div>
+
+<div class="ns-section">
+  <div class="ns-section-50">
+    <div class="ns-card-chart">
+      <i class="material-icons ns-icon">pie_chart</i>
+      <div class="ns-title-container" aria-label="Tiempo viendo películas/series">
+        <span class="ns-title">Tiempo viendo películas/series</span>
+      </div>
+      <canvas id="moviesVsTvTime" class="ns-chart ns-pie-chart"></canvas>
+    </div>
+  </div>
+
+  <div class="ns-section-50">
+    <div class="ns-card-chart">
+      <i class="material-icons ns-icon">bar_chart</i>
+      <div class="ns-title-container" aria-label="Porcentaje de tiempo en Netflix por día de la semana">
+        <span class="ns-title">Porcentaje de tiempo en Netflix por día de la semana</span>
+      </div>
+      <canvas id="meanTimeByWeekDay" class="ns-chart ns-bar-chart"></canvas>
+    </div>
+  </div>
+</div>
