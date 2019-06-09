@@ -79,6 +79,9 @@ function setupStatsPage() {
   if (footer) {
     footer.remove();
   }
+
+  // Set default font for charts
+  Chart.defaults.global.defaultFontFamily = 'Netflix Sans';
 }
 
 /**
@@ -298,6 +301,18 @@ function createTvVsShowsTimeChart() {
                 'rgb(229, 9, 20)'
               ]
           }]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem, data) {
+              return `${secondsToDhms(data.datasets[0].data[tooltipItem.index])}`;
+            }
+          }
+        }
       }
   });
 }
@@ -315,7 +330,7 @@ function createMeanTimeByWeekDayChart() {
         i18next.t('Tuesday'), 
         i18next.t('Wednesday'), 
         i18next.t('Thursday'), 
-        i18next.t('Firday'), 
+        i18next.t('Friday'), 
         i18next.t('Saturday'), 
         i18next.t('Sunday')
       ],
@@ -339,11 +354,18 @@ function createMeanTimeByWeekDayChart() {
             '#e50914',
             '#e50914'
         ]
-    }]
+      }]
     },
     options: {
       legend: {
         display: false
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            return `${tooltipItem.value}%`;
+          }
+        }
       }
     }
 });
