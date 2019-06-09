@@ -23,6 +23,9 @@ const WEEK_DAYS = {
   6: 'Saturday',
 }
 
+let language = 'en';
+
+
 // MAIN
 main();
 
@@ -41,6 +44,8 @@ function main() {
       getActivity().then(viewedItems => {
         hideLoader(statsTemplate);
 
+        initializeLanguage(language);
+
         calculateStats(viewedItems);
         
         showStats();
@@ -54,8 +59,14 @@ function main() {
  * Clear activity page to be used as the skeleton for stats page
  */
 function setupStatsPage() {
+  // TODO Change language REMOVE!!!!!
+  // document.querySelector('html').setAttribute('lang', 'en')
+
+  // Get page language
+  language = document.querySelector('html').getAttribute('lang') || 'en';
+  
   // Change page title
-  document.querySelector('h1').innerHTML = 'Mis estadísticas';
+  document.querySelector('h1').innerHTML = language === 'es' ? 'Mis estadísticas' : 'My stats';
 
   // Remove watched/rated tabs
   let tabs = document.querySelector('.pageToggle');
@@ -241,7 +252,7 @@ function showStats() {
 
   // Shows
   document.querySelector('#showsCount .ns-number').innerHTML = summary.showsCount;
-  document.querySelector('#showsCount .ns-extra-info').innerHTML = `(${summary.episodesCount} Capítulos)`;
+  document.querySelector('#showsCount .ns-extra-info').innerHTML = `(${summary.episodesCount} ${i18next.t('episodes')})`;
   document.querySelector('#showsTime .ns-time').innerHTML = secondsToDhms(summary.showsTime);
 
   // Charts
@@ -260,10 +271,10 @@ function secondsToDhms(seconds) {
   var m = Math.floor(seconds % 3600 / 60);
   var s = Math.floor(seconds % 60);
   
-  var dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
-  var hDisplay = (h > 0) || (d > 0 && h === 0) ? h + (h === 1 ? " hour, " : " hours, ") : "";
-  var mDisplay = (m > 0) || (h > 0 && m === 0) ? m + (m === 1 ? " minute, " : " minutes, ") : "";
-  var sDisplay = s + (s === 1 ? " second" : " seconds");
+  var dDisplay = d > 0 ? d + (d === 1 ? ` ${i18next.t('day')}, ` : ` ${i18next.t('day')}s, `) : "";
+  var hDisplay = (h > 0) || (d > 0 && h === 0) ? h + (h === 1 ? ` ${i18next.t('hour')}, ` : ` ${i18next.t('hour')}s, `) : "";
+  var mDisplay = (m > 0) || (h > 0 && m === 0) ? m + (m === 1 ? ` ${i18next.t('minute')}, ` : ` ${i18next.t('minute')}s, `) : "";
+  var sDisplay = s + (s === 1 ? ` ${i18next.t('second')}` : ` ${i18next.t('second')}s`);
   return dDisplay + hDisplay + mDisplay + sDisplay;
 }
 
@@ -272,11 +283,14 @@ function secondsToDhms(seconds) {
  */
 function createTvVsShowsTimeChart() {
   // Generates chart
-  var ctx = document.getElementById('moviesVsTvTime');
+  var ctx = document.getElementById('moviesVsTvTimeChart');
   var myChart = new Chart(ctx, {
       type: 'pie',
       data: {
-          labels: ['Películas', 'Series'],
+          labels: [
+            i18next.t('movies'), 
+            i18next.t('shows')
+          ],
           datasets: [{
               data: [summary.moviesTime, summary.showsTime],
               backgroundColor: [
@@ -292,13 +306,21 @@ function createTvVsShowsTimeChart() {
  * Create mean time watching Netflix by week day bar chart
  */
 function createMeanTimeByWeekDayChart() {
-  var ctx = document.getElementById('meanTimeByWeekDay');
+  var ctx = document.getElementById('meanTimeByWeekDayChart');
   var myBarChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
-      labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+      labels: [
+        i18next.t('Monday'), 
+        i18next.t('Tuesday'), 
+        i18next.t('Wednesday'), 
+        i18next.t('Thursday'), 
+        i18next.t('Firday'), 
+        i18next.t('Saturday'), 
+        i18next.t('Sunday')
+      ],
       datasets: [{
-        label: 'Tiempo viendo Netflix',
+        label: i18next.t('timeWatchingNetflix'),
         data: [
           ((summary.timeByDayWeek['Monday'] / summary.totalTime) * 100).toFixed(2),
           ((summary.timeByDayWeek['Tuesday'] / summary.totalTime) * 100).toFixed(2),
@@ -354,4 +376,119 @@ function hideLoader(statsTemplate) {
   statsSection.classList.add("structural", "stdHeight");
   statsSection.innerHTML = statsTemplate;
   document.querySelector('.nfLoader').replaceWith(statsSection);
+}
+
+/**
+ * Initialize i18n with given language
+ * @param {*} language 
+ */
+function initializeLanguage(language) {
+  i18next.init({
+    lng: language,
+    debug: true,
+    resources: {
+      en: {
+        translation: {
+          "myStats": "My stats",
+          "viewedItemsCount": "Elements watched",
+          "totalTime": "Total time on Netflix",
+          "maxTimeInDate": "Netflix marathon (in a day)",
+          "deviceCount": "Used devices",
+          "moviesCount": "Movies watched",
+          "moviesTime": "Total time watching movies",
+          "showsCount": "Shows watched",
+          "showsTime": "Total time watching shows",
+          "moviesVsTvTime": "Time watching movies/shows",
+          "meanTimeByWeekDay": "Percentage of time on Netflix by day of week",
+          "episodes": "Episodes",
+          "movies": "Movies",
+          "shows": "Shows",
+          "timeWatchingNetflix": "Time watching Netflix",
+          "Monday": "Monday",
+          "Tuesday": "Tuesday",
+          "Wednesday": "Wednesday",
+          "Thursday": "Thursday",
+          "Friday": "Friday",
+          "Saturday": "Saturday",
+          "Sunday": "Sunday",
+          "year": "year",
+          "day": "day",
+          "hour": "hour",
+          "minute": "minute",
+          "second": "second",
+        }
+      },
+      es: {
+        translation: {
+          "myStats": "Mis estadísticas",
+          "viewedItemsCount": "Elementos reproducidos",
+          "totalTime": "Tiempo total en Netflix",
+          "maxTimeInDate": "Maratón de Netflix (en un día)",
+          "deviceCount": "Dispositivos utilizados",
+          "moviesCount": "Películas vistas",
+          "moviesTime": "Tiempo total viendo películas",
+          "showsCount": "Series vistas",
+          "showsTime": "Tiempo total viendo series",
+          "moviesVsTvTime": "Tiempo viendo películas/series",
+          "meanTimeByWeekDay": "Porcentaje de tiempo en Netflix por día de la semana",
+          "episodes": "Capítulos",
+          "movies": "Películas",
+          "shows": "Series",
+          "timeWatchingNetflix": "Tiempo viendo Netflix",
+          "Monday": "Lunes",
+          "Tuesday": "Martes",
+          "Wednesday": "Miércoles",
+          "Thursday": "Jueves",
+          "Friday": "Viernes",
+          "Saturday": "Sábado",
+          "Sunday": "Domingo",
+          "year": "año",
+          "day": "día",
+          "hour": "hora",
+          "minute": "minuto",
+          "second": "segundo",
+        }
+      }
+    }
+  }, function(error, t) {
+    if (error) {
+      console.error(error);
+    }
+    translatePage();
+  });
+}
+
+/**
+ * Translate texts in page
+ */
+function translatePage() {
+  document.querySelector('#viewedItemsCount .ns-title').innerHTML = i18next.t('viewedItemsCount');
+  document.querySelector('#viewedItemsCount .ns-title-container').setAttribute('aria-label', i18next.t('viewedItemsCount'));
+
+  document.querySelector('#totalTime .ns-title').innerHTML = i18next.t('totalTime');
+  document.querySelector('#totalTime .ns-title-container').setAttribute('aria-label', i18next.t('totalTime'));
+
+  document.querySelector('#maxTimeInDate .ns-title').innerHTML = i18next.t('maxTimeInDate');
+  document.querySelector('#maxTimeInDate .ns-title-container').setAttribute('aria-label', i18next.t('maxTimeInDate'));
+
+  document.querySelector('#deviceCount .ns-title').innerHTML = i18next.t('deviceCount');
+  document.querySelector('#deviceCount .ns-title-container').setAttribute('aria-label', i18next.t('deviceCount'));
+
+  document.querySelector('#moviesCount .ns-title').innerHTML = i18next.t('moviesCount');
+  document.querySelector('#moviesCount .ns-title-container').setAttribute('aria-label', i18next.t('moviesCount'));
+
+  document.querySelector('#moviesTime .ns-title').innerHTML = i18next.t('moviesTime');
+  document.querySelector('#moviesTime .ns-title-container').setAttribute('aria-label', i18next.t('moviesTime'));
+
+  document.querySelector('#showsCount .ns-title').innerHTML = i18next.t('showsCount');
+  document.querySelector('#showsCount .ns-title-container').setAttribute('aria-label', i18next.t('showsCount'));
+
+  document.querySelector('#showsTime .ns-title').innerHTML = i18next.t('showsTime');
+  document.querySelector('#showsTime .ns-title-container').setAttribute('aria-label', i18next.t('showsTime'));
+
+  document.querySelector('#moviesVsTvTime .ns-title').innerHTML = i18next.t('moviesVsTvTime');
+  document.querySelector('#moviesVsTvTime .ns-title-container').setAttribute('aria-label', i18next.t('moviesVsTvTime'));
+
+  document.querySelector('#meanTimeByWeekDay .ns-title').innerHTML = i18next.t('meanTimeByWeekDay');
+  document.querySelector('#meanTimeByWeekDay .ns-title-container').setAttribute('aria-label', i18next.t('meanTimeByWeekDay'));
 }

@@ -13,7 +13,7 @@
       "matches": [
         "https://www.netflix.com/viewingactivity?stats=true"
       ],
-      "js": ["vendor/lodash.min.js", "vendor/chart.min.js", "stats.js"],
+      "js": ["vendor/i18next.min.js", "vendor/lodash.min.js", "vendor/chart.min.js", "stats.js"],
       "css": ["material-icons.css", "stats.css"]
     },
     {
