@@ -1,7 +1,7 @@
 {
-  "name": "Getting Started Example",
-  "version": "1.0",
-  "description": "Build an Extension!",
+  "name": "Netflix Usage Stats",
+  "version": "0.1.0",
+  "description": "Shows Netflix usage stats to know about how you spend your time on Netflix.",
   "permissions": ["activeTab", "declarativeContent", "storage", "cookies", "*://*.netflix.com/*", "https://www.netflix.com/"],
   "options_page": "options.html",
   "background": {
