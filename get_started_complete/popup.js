@@ -16,7 +16,7 @@ goToStatsBtn.onclick = function(element) {
 };
 
 chrome.tabs.executeScript({
-    code: '(' + function(params) {
+    code: '(' + function() {
         return {language: document.querySelector('html').getAttribute('lang') || 'en'};
     } + ')();'
 }, function(results) {
