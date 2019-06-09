@@ -1,22 +1,145 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset=UTF-8>
+
     <style>
-      button {
-        height: 30px;
-        width: 30px;
+      body {
+        background-color: #fff;
+        width: 250px;
+        height: 200px;
+        font-family: 'Netflix Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+        margin: 0;
+        font-size: 16px;
+        color: #141414;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: subpixel-antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+        box-sizing: border-box;
+        display: inline-block;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+        margin-top: 25px;
+      }
+
+      .statsBtn {
+        margin: 0 auto;
+        max-width: 75%;
+      }
+
+      *, :after, :before {
+        box-sizing: inherit;
+      }
+
+      a {
+        font-family: Regular-font,Arial;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 1;
+        text-decoration: none;
+        cursor: pointer;
+        color: #141414;
+        transition: color .2s;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        margin-top: 50px;
+      }
+
+      a:hover {
+        color: #e50914;
+      }
+
+      .button-default {
+        font-family: Bold-font,Arial;
+        font-weight: 700;
+        position: relative;
+        display: block;
+        padding: 12px 25px;
+        font-size: 14px;
+        text-align: center;
+        line-height: 18px;
+        color: #221f1f;
+        background: #fff;
         outline: none;
+        border: none;
+        background-color: #fff;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
+      }
+
+      .button-default:hover {
+        box-shadow: 0 5px 16px rgba(229,9,20,.3);
+      }
+
+      .button {
+        overflow: hidden;
+        color: #e50914;
+        transition: color .25s cubic-bezier(.215,.61,.355,1);
+        margin: 0 auto;
+      }
+
+      .button:before {
+        border: 2px solid rgba(34,31,31,.15);
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      .button:after {
+        background: #e50914;
+        transform: translateX(-101%);
+        transition: all .2s cubic-bezier(.215,.61,.355,1);
+      }
+
+      .button:after, .button:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      .button:hover {
+        color: #fff;
+      }
+
+      .button:hover:after {
+        transform: translateX(0);
+      }
+
+      .button.red:before, .button:after {
+        border: 2px solid #e50914;
+      }
+
+      .button span {
+        position: relative;
+        z-index: 1;
       }
     </style>
   </head>
   <body>
-    <button id="changeColor"></button>
-    <div id="lodash"></div>
-    <div id="activity"></div>
-    <canvas id="myChart" width="400" height="400"></canvas>
-
-    <script src="vendor/chart.min.js"></script>
-    <script src="vendor/lodash.min.js"></script>
+    <div class="container">
+      <div class="statsBtn">
+        <a id="goToStatsBtn" class="button button-default red">
+            <span>SHOW STATS</span>
+          </a>
+      </div>
+    </div>
+   
+    <!-- <button id="goToStatsBtn">Go to stats page</button> -->
     <script src="popup.js"></script>
+    <script src="vendor/i18next.min.js"></script>
   </body>
 </html>
