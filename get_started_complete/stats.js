@@ -243,19 +243,19 @@ function calculateStats(viewedItems) {
  */
 function showStats() {
   // Summary
-  document.querySelector('#viewedItemsCount .ns-number').innerHTML = summary.viewedItemsCount;
+  document.querySelector('#viewedItemsCount .ns-number').innerHTML = formatNumber(summary.viewedItemsCount);
   document.querySelector('#totalTime .ns-time').innerHTML = secondsToDhms(summary.totalTime);
   document.querySelector('#maxTimeInDate .ns-time').innerHTML = secondsToDhms(summary.maxTimeInDate);
   document.querySelector('#maxTimeInDate .ns-extra-info').innerHTML = `(${summary.maxTimeInDateDate})`;
-  document.querySelector('#deviceCount .ns-number').innerHTML = summary.deviceCount;
+  document.querySelector('#deviceCount .ns-number').innerHTML = formatNumber(summary.deviceCount);
 
   // Movies
-  document.querySelector('#moviesCount .ns-number').innerHTML = summary.moviesCount;
+  document.querySelector('#moviesCount .ns-number').innerHTML = formatNumber(summary.moviesCount);
   document.querySelector('#moviesTime .ns-time').innerHTML = secondsToDhms(summary.moviesTime);
 
   // Shows
-  document.querySelector('#showsCount .ns-number').innerHTML = summary.showsCount;
-  document.querySelector('#showsCount .ns-extra-info').innerHTML = `(${summary.episodesCount} ${i18next.t('episodes')})`;
+  document.querySelector('#showsCount .ns-number').innerHTML = formatNumber(summary.showsCount);
+  document.querySelector('#showsCount .ns-extra-info').innerHTML = `(${formatNumber(summary.episodesCount)} ${i18next.t('episodes')})`;
   document.querySelector('#showsTime .ns-time').innerHTML = secondsToDhms(summary.showsTime);
 
   // Charts
@@ -513,4 +513,16 @@ function translatePage() {
 
   document.querySelector('#meanTimeByWeekDay .ns-title').innerHTML = i18next.t('meanTimeByWeekDay');
   document.querySelector('#meanTimeByWeekDay .ns-title-container').setAttribute('aria-label', i18next.t('meanTimeByWeekDay'));
+}
+
+/**
+ * Format number adding thousands separator (comma in english and point in spanish)
+ * @param {*} number 
+ */
+function formatNumber(number) {
+  if(language === 'es')  {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  } else {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
 }
