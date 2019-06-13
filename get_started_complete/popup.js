@@ -12,6 +12,7 @@ goToStatsBtn.onclick = function(element) {
         tabs[0].id,
         {code: `location.replace('https://www.netflix.com/viewingactivity?stats=true')`}
     );
+    window.close();
   });
 };
 
