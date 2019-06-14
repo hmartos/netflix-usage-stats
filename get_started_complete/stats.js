@@ -269,9 +269,9 @@ function showStats() {
  */
 function secondsToYdhms(seconds) {
   seconds = Number(seconds);
-  const y = Math.floor(seconds / 31536000) // 60x60x24x365
-  const d = Math.floor(seconds / (3600*24)); //60x60x24
-  const h = Math.floor(seconds % (3600*24) / 3600);
+  const y = Math.floor(seconds / 31536000);
+  const d = Math.floor(seconds / 86400);
+  const h = Math.floor(seconds % 86400 / 3600);
   const m = Math.floor(seconds % 3600 / 60);
   const s = Math.floor(seconds % 60);
   
