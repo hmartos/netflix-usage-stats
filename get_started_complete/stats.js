@@ -176,7 +176,7 @@ function calculateStats(viewedItems) {
   
   const maxTimeInDate = _.maxBy(_.values(timeByDay))
   const maxTimeInDateDate = _.findKey(timeByDay, (timeByDay) => { return timeByDay === maxTimeInDate });
-  console.log("Max time in a day " + maxTimeInDate, secondsToDhms(maxTimeInDate));
+  console.log("Max time in a day " + maxTimeInDate, secondsToYdhms(maxTimeInDate));
   console.log("Date of max time in a day", maxTimeInDateDate);
 
   // Time by day week
@@ -232,9 +232,9 @@ function calculateStats(viewedItems) {
   summary.othersCount = others.length;
   summary.timeByDayWeek = timeByDayWeek;
   
-  console.log(`Time spent on Netflix: ${secondsToDhms(summary.totalTime)}`);
-  console.log(`Time spent on Movies: ${secondsToDhms(summary.moviesTime)}`);
-  console.log(`Time spent on Shows: ${secondsToDhms(summary.showsTime)}`);
+  console.log(`Time spent on Netflix: ${secondsToYdhms(summary.totalTime)}`);
+  console.log(`Time spent on Movies: ${secondsToYdhms(summary.moviesTime)}`);
+  console.log(`Time spent on Shows: ${secondsToYdhms(summary.showsTime)}`);
   console.log("Activity Summary", summary);
 }
 
@@ -244,19 +244,19 @@ function calculateStats(viewedItems) {
 function showStats() {
   // Summary
   document.querySelector('#viewedItemsCount .ns-number').innerHTML = formatNumber(summary.viewedItemsCount);
-  document.querySelector('#totalTime .ns-time').innerHTML = secondsToDhms(summary.totalTime);
-  document.querySelector('#maxTimeInDate .ns-time').innerHTML = secondsToDhms(summary.maxTimeInDate);
+  document.querySelector('#totalTime .ns-time').innerHTML = secondsToYdhms(summary.totalTime);
+  document.querySelector('#maxTimeInDate .ns-time').innerHTML = secondsToYdhms(summary.maxTimeInDate);
   document.querySelector('#maxTimeInDate .ns-extra-info').innerHTML = `(${summary.maxTimeInDateDate})`;
   document.querySelector('#deviceCount .ns-number').innerHTML = formatNumber(summary.deviceCount);
 
   // Movies
   document.querySelector('#moviesCount .ns-number').innerHTML = formatNumber(summary.moviesCount);
-  document.querySelector('#moviesTime .ns-time').innerHTML = secondsToDhms(summary.moviesTime);
+  document.querySelector('#moviesTime .ns-time').innerHTML = secondsToYdhms(summary.moviesTime);
 
   // Shows
   document.querySelector('#showsCount .ns-number').innerHTML = formatNumber(summary.showsCount);
   document.querySelector('#showsCount .ns-extra-info').innerHTML = `(${formatNumber(summary.episodesCount)} ${i18next.t('episodes')})`;
-  document.querySelector('#showsTime .ns-time').innerHTML = secondsToDhms(summary.showsTime);
+  document.querySelector('#showsTime .ns-time').innerHTML = secondsToYdhms(summary.showsTime);
 
   // Charts
   createTvVsShowsTimeChart();
@@ -267,18 +267,20 @@ function showStats() {
  * Format time from seconds to years, days, hours, minutes and seconds
  * @param {*} seconds 
  */
-function secondsToDhms(seconds) {
+function secondsToYdhms(seconds) {
   seconds = Number(seconds);
-  var d = Math.floor(seconds / (3600*24));
-  var h = Math.floor(seconds % (3600*24) / 3600);
-  var m = Math.floor(seconds % 3600 / 60);
-  var s = Math.floor(seconds % 60);
+  const y = Math.floor(seconds / 31536000);
+  const d = Math.floor(seconds / 86400);
+  const h = Math.floor(seconds % 86400 / 3600);
+  const m = Math.floor(seconds % 3600 / 60);
+  const s = Math.floor(seconds % 60);
   
-  var dDisplay = d > 0 ? d + (d === 1 ? ` ${i18next.t('day')}, ` : ` ${i18next.t('day')}s, `) : "";
-  var hDisplay = (h > 0) || (d > 0 && h === 0) ? h + (h === 1 ? ` ${i18next.t('hour')}, ` : ` ${i18next.t('hour')}s, `) : "";
-  var mDisplay = (m > 0) || (h > 0 && m === 0) ? m + (m === 1 ? ` ${i18next.t('minute')}, ` : ` ${i18next.t('minute')}s, `) : "";
-  var sDisplay = s + (s === 1 ? ` ${i18next.t('second')}` : ` ${i18next.t('second')}s`);
-  return dDisplay + hDisplay + mDisplay + sDisplay;
+  const yDisplay = y > 0 ? y + (y === 1 ? ` ${i18next.t('year')}, ` : ` ${i18next.t('year')}s, `) : "";
+  const dDisplay = d > 0 ? d + (d === 1 ? ` ${i18next.t('day')}, ` : ` ${i18next.t('day')}s, `) : "";
+  const hDisplay = (h > 0) || (d > 0 && h === 0) ? h + (h === 1 ? ` ${i18next.t('hour')}, ` : ` ${i18next.t('hour')}s, `) : "";
+  const mDisplay = (m > 0) || (h > 0 && m === 0) ? m + (m === 1 ? ` ${i18next.t('minute')}, ` : ` ${i18next.t('minute')}s, `) : "";
+  const sDisplay = s + (s === 1 ? ` ${i18next.t('second')}` : ` ${i18next.t('second')}s`);
+  return yDisplay + dDisplay + hDisplay + mDisplay + sDisplay;
 }
 
 /**
@@ -309,7 +311,7 @@ function createTvVsShowsTimeChart() {
         tooltips: {
           callbacks: {
             label: function(tooltipItem, data) {
-              return `${secondsToDhms(data.datasets[0].data[tooltipItem.index])}`;
+              return `${secondsToYdhms(data.datasets[0].data[tooltipItem.index])}`;
             }
           }
         }
