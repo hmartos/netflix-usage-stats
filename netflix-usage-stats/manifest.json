@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "Shows Netflix usage stats to know about how you spend your time on Netflix.",
   "permissions": ["activeTab", "declarativeContent", "storage", "cookies", "*://*.netflix.com/*", "https://www.netflix.com/"],
-  "options_page": "options.html",
   "background": {
     "scripts": ["background.js"],
     "persistent": false
