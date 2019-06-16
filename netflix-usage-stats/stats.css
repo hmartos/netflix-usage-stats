@@ -38,24 +38,22 @@
 .ns-section {
   width: 100%;
   display: flex;
+  flex-flow: row wrap;
   font-family: 'Netflix Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
-  margin-bottom: 50px;
-}
-
-.ns-section-50 {
-  width: 50%;
-  display: inline-flex;
 }
 
 .ns-card {
   min-width: 256px;
   width: 25%;
   text-align: center;
+  margin: 0 auto;
+  margin-bottom: 50px;
 }
 
 .ns-card-chart {
   margin: 0 auto;
   text-align: center;
+  margin-bottom: 50px;
 }
 
 .ns-title-container {
