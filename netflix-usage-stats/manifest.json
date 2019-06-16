@@ -1,6 +1,6 @@
 {
   "name": "Netflix Usage Stats",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shows Netflix usage stats to know about how you spend your time on Netflix.",
   "permissions": ["activeTab", "declarativeContent", "*://*.netflix.com/*", "https://www.netflix.com/*"],
   "background": {

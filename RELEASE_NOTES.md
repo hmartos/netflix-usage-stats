@@ -49,3 +49,28 @@ Other miscellaneous changes that don't fit into any of the above categories. Try
 ### Improvements
 
 ### Other Changes
+
+## 0.2.0
+
+### Upgrade Steps
+
+* Folder name has been renamed to 'netflix-usage-stats' so when upgrading from 0.1.0 version you should remove extension and load again the unpacked extension from this new folder
+
+### Breaking Changes
+
+### New Features
+
+* Formatted numbers adding thousands separator
+* Added years to time calculations
+
+### Bug Fixes
+
+### Improvements
+
+* Responsive design
+* Popup is now closed when 'Show Stats' button is clicked
+* Some code improvements like removing unused code and reviewed extension permissions
+
+### Other Changes
+
+* Added new logo
