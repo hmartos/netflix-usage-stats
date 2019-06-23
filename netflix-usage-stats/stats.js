@@ -23,9 +23,6 @@ const WEEK_DAYS = {
   6: 'Saturday',
 }
 
-let language = 'en';
-
-
 // MAIN
 main();
 
@@ -44,7 +41,7 @@ function main() {
       getActivity().then(viewedItems => {
         hideLoader(statsTemplate);
 
-        initializeLanguage(language);
+        translatePage();
 
         calculateStats(viewedItems);
         
@@ -58,15 +55,9 @@ function main() {
 /**
  * Clear activity page to be used as the skeleton for stats page
  */
-function setupStatsPage() {
-  // TODO Change language REMOVE!!!!!
-  // document.querySelector('html').setAttribute('lang', 'en')
-
-  // Get page language
-  language = document.querySelector('html').getAttribute('lang') || 'en';
-  
+function setupStatsPage() {  
   // Change page title
-  document.querySelector('h1').innerHTML = language === 'es' ? 'Mis estadísticas' : 'My stats';
+  document.querySelector('h1').innerHTML = chrome.i18n.getMessage("myViewingStats");
 
   // Remove watched/rated tabs
   let tabs = document.querySelector('.pageToggle');
@@ -99,8 +90,7 @@ function getActivity() {
       let count = data.vhSize;
       console.log(`Viewing history size is ${count}`)
       let pages = Math.ceil(count / PAGE_SIZE);
-      // TODO WARNING!!!!!!! UNCOMMENT LINE UP AND REMOVE LINE DOWN
-      //let pages = 5;
+
       console.log(`Viewing history has ${pages} pages of ${PAGE_SIZE} elements per page`)
       viewedItems = viewedItems.concat(data.viewedItems);
 
@@ -255,7 +245,7 @@ function showStats() {
 
   // Shows
   document.querySelector('#showsCount .ns-number').innerHTML = formatNumber(summary.showsCount);
-  document.querySelector('#showsCount .ns-extra-info').innerHTML = `(${formatNumber(summary.episodesCount)} ${i18next.t('episodes')})`;
+  document.querySelector('#showsCount .ns-extra-info').innerHTML = `(${formatNumber(summary.episodesCount)} ${chrome.i18n.getMessage('episodes')})`;
   document.querySelector('#showsTime .ns-time').innerHTML = secondsToYdhms(summary.showsTime);
 
   // Charts
@@ -275,11 +265,11 @@ function secondsToYdhms(seconds) {
   const m = Math.floor(seconds % 3600 / 60);
   const s = Math.floor(seconds % 60);
   
-  const yDisplay = y > 0 ? y + (y === 1 ? ` ${i18next.t('year')}, ` : ` ${i18next.t('year')}s, `) : "";
-  const dDisplay = d > 0 ? d + (d === 1 ? ` ${i18next.t('day')}, ` : ` ${i18next.t('day')}s, `) : "";
-  const hDisplay = (h > 0) || (d > 0 && h === 0) ? h + (h === 1 ? ` ${i18next.t('hour')}, ` : ` ${i18next.t('hour')}s, `) : "";
-  const mDisplay = (m > 0) || (h > 0 && m === 0) ? m + (m === 1 ? ` ${i18next.t('minute')}, ` : ` ${i18next.t('minute')}s, `) : "";
-  const sDisplay = s + (s === 1 ? ` ${i18next.t('second')}` : ` ${i18next.t('second')}s`);
+  const yDisplay = y > 0 ? y + (y === 1 ? ` ${chrome.i18n.getMessage('year')}, ` : ` ${chrome.i18n.getMessage('year')}s, `) : "";
+  const dDisplay = d > 0 ? d + (d === 1 ? ` ${chrome.i18n.getMessage('day')}, ` : ` ${chrome.i18n.getMessage('day')}s, `) : "";
+  const hDisplay = (h > 0) || (d > 0 && h === 0) ? h + (h === 1 ? ` ${chrome.i18n.getMessage('hour')}, ` : ` ${chrome.i18n.getMessage('hour')}s, `) : "";
+  const mDisplay = (m > 0) || (h > 0 && m === 0) ? m + (m === 1 ? ` ${chrome.i18n.getMessage('minute')}, ` : ` ${chrome.i18n.getMessage('minute')}s, `) : "";
+  const sDisplay = s + (s === 1 ? ` ${chrome.i18n.getMessage('second')}` : ` ${chrome.i18n.getMessage('second')}s`);
   return yDisplay + dDisplay + hDisplay + mDisplay + sDisplay;
 }
 
@@ -293,8 +283,8 @@ function createTvVsShowsTimeChart() {
       type: 'pie',
       data: {
           labels: [
-            i18next.t('movies'), 
-            i18next.t('shows')
+            chrome.i18n.getMessage('movies'), 
+            chrome.i18n.getMessage('shows')
           ],
           datasets: [{
               data: [summary.moviesTime, summary.showsTime],
@@ -328,16 +318,16 @@ function createMeanTimeByWeekDayChart() {
     type: 'horizontalBar',
     data: {
       labels: [
-        i18next.t('Monday'), 
-        i18next.t('Tuesday'), 
-        i18next.t('Wednesday'), 
-        i18next.t('Thursday'), 
-        i18next.t('Friday'), 
-        i18next.t('Saturday'), 
-        i18next.t('Sunday')
+        chrome.i18n.getMessage('Monday'), 
+        chrome.i18n.getMessage('Tuesday'), 
+        chrome.i18n.getMessage('Wednesday'), 
+        chrome.i18n.getMessage('Thursday'), 
+        chrome.i18n.getMessage('Friday'), 
+        chrome.i18n.getMessage('Saturday'), 
+        chrome.i18n.getMessage('Sunday')
       ],
       datasets: [{
-        label: i18next.t('timeWatchingNetflix'),
+        label: chrome.i18n.getMessage('timeWatchingNetflix'),
         data: [
           ((summary.timeByDayWeek['Monday'] / summary.totalTime) * 100).toFixed(2),
           ((summary.timeByDayWeek['Tuesday'] / summary.totalTime) * 100).toFixed(2),
@@ -403,118 +393,38 @@ function hideLoader(statsTemplate) {
 }
 
 /**
- * Initialize i18n with given language
- * @param {*} language 
- */
-function initializeLanguage(language) {
-  i18next.init({
-    lng: language,
-    debug: true,
-    resources: {
-      en: {
-        translation: {
-          "myStats": "My stats",
-          "viewedItemsCount": "Elements watched",
-          "totalTime": "Total time on Netflix",
-          "maxTimeInDate": "Netflix marathon (in a day)",
-          "deviceCount": "Used devices",
-          "moviesCount": "Movies watched",
-          "moviesTime": "Total time watching movies",
-          "showsCount": "Shows watched",
-          "showsTime": "Total time watching shows",
-          "moviesVsTvTime": "Time watching movies/shows",
-          "meanTimeByWeekDay": "Percentage of time on Netflix by day of week",
-          "episodes": "Episodes",
-          "movies": "Movies",
-          "shows": "Shows",
-          "timeWatchingNetflix": "Time watching Netflix",
-          "Monday": "Monday",
-          "Tuesday": "Tuesday",
-          "Wednesday": "Wednesday",
-          "Thursday": "Thursday",
-          "Friday": "Friday",
-          "Saturday": "Saturday",
-          "Sunday": "Sunday",
-          "year": "year",
-          "day": "day",
-          "hour": "hour",
-          "minute": "minute",
-          "second": "second",
-        }
-      },
-      es: {
-        translation: {
-          "myStats": "Mis estadísticas",
-          "viewedItemsCount": "Elementos reproducidos",
-          "totalTime": "Tiempo total en Netflix",
-          "maxTimeInDate": "Maratón de Netflix (en un día)",
-          "deviceCount": "Dispositivos utilizados",
-          "moviesCount": "Películas vistas",
-          "moviesTime": "Tiempo total viendo películas",
-          "showsCount": "Series vistas",
-          "showsTime": "Tiempo total viendo series",
-          "moviesVsTvTime": "Tiempo viendo películas/series",
-          "meanTimeByWeekDay": "Porcentaje de tiempo en Netflix por día de la semana",
-          "episodes": "Capítulos",
-          "movies": "Películas",
-          "shows": "Series",
-          "timeWatchingNetflix": "Tiempo viendo Netflix",
-          "Monday": "Lunes",
-          "Tuesday": "Martes",
-          "Wednesday": "Miércoles",
-          "Thursday": "Jueves",
-          "Friday": "Viernes",
-          "Saturday": "Sábado",
-          "Sunday": "Domingo",
-          "year": "año",
-          "day": "día",
-          "hour": "hora",
-          "minute": "minuto",
-          "second": "segundo",
-        }
-      }
-    }
-  }, function(error, t) {
-    if (error) {
-      console.error(error);
-    }
-    translatePage();
-  });
-}
-
-/**
  * Translate texts in page
  */
 function translatePage() {
-  document.querySelector('#viewedItemsCount .ns-title').innerHTML = i18next.t('viewedItemsCount');
-  document.querySelector('#viewedItemsCount .ns-title-container').setAttribute('aria-label', i18next.t('viewedItemsCount'));
+  document.querySelector('#viewedItemsCount .ns-title').innerHTML = chrome.i18n.getMessage('viewedItemsCount');
+  document.querySelector('#viewedItemsCount .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('viewedItemsCount'));
 
-  document.querySelector('#totalTime .ns-title').innerHTML = i18next.t('totalTime');
-  document.querySelector('#totalTime .ns-title-container').setAttribute('aria-label', i18next.t('totalTime'));
+  document.querySelector('#totalTime .ns-title').innerHTML = chrome.i18n.getMessage('totalTime');
+  document.querySelector('#totalTime .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('totalTime'));
 
-  document.querySelector('#maxTimeInDate .ns-title').innerHTML = i18next.t('maxTimeInDate');
-  document.querySelector('#maxTimeInDate .ns-title-container').setAttribute('aria-label', i18next.t('maxTimeInDate'));
+  document.querySelector('#maxTimeInDate .ns-title').innerHTML = chrome.i18n.getMessage('maxTimeInDate');
+  document.querySelector('#maxTimeInDate .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('maxTimeInDate'));
 
-  document.querySelector('#deviceCount .ns-title').innerHTML = i18next.t('deviceCount');
-  document.querySelector('#deviceCount .ns-title-container').setAttribute('aria-label', i18next.t('deviceCount'));
+  document.querySelector('#deviceCount .ns-title').innerHTML = chrome.i18n.getMessage('deviceCount');
+  document.querySelector('#deviceCount .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('deviceCount'));
 
-  document.querySelector('#moviesCount .ns-title').innerHTML = i18next.t('moviesCount');
-  document.querySelector('#moviesCount .ns-title-container').setAttribute('aria-label', i18next.t('moviesCount'));
+  document.querySelector('#moviesCount .ns-title').innerHTML = chrome.i18n.getMessage('moviesCount');
+  document.querySelector('#moviesCount .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('moviesCount'));
 
-  document.querySelector('#moviesTime .ns-title').innerHTML = i18next.t('moviesTime');
-  document.querySelector('#moviesTime .ns-title-container').setAttribute('aria-label', i18next.t('moviesTime'));
+  document.querySelector('#moviesTime .ns-title').innerHTML = chrome.i18n.getMessage('moviesTime');
+  document.querySelector('#moviesTime .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('moviesTime'));
 
-  document.querySelector('#showsCount .ns-title').innerHTML = i18next.t('showsCount');
-  document.querySelector('#showsCount .ns-title-container').setAttribute('aria-label', i18next.t('showsCount'));
+  document.querySelector('#showsCount .ns-title').innerHTML = chrome.i18n.getMessage('showsCount');
+  document.querySelector('#showsCount .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('showsCount'));
 
-  document.querySelector('#showsTime .ns-title').innerHTML = i18next.t('showsTime');
-  document.querySelector('#showsTime .ns-title-container').setAttribute('aria-label', i18next.t('showsTime'));
+  document.querySelector('#showsTime .ns-title').innerHTML = chrome.i18n.getMessage('showsTime');
+  document.querySelector('#showsTime .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('showsTime'));
 
-  document.querySelector('#moviesVsTvTime .ns-title').innerHTML = i18next.t('moviesVsTvTime');
-  document.querySelector('#moviesVsTvTime .ns-title-container').setAttribute('aria-label', i18next.t('moviesVsTvTime'));
+  document.querySelector('#moviesVsTvTime .ns-title').innerHTML = chrome.i18n.getMessage('moviesVsTvTime');
+  document.querySelector('#moviesVsTvTime .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('moviesVsTvTime'));
 
-  document.querySelector('#meanTimeByWeekDay .ns-title').innerHTML = i18next.t('meanTimeByWeekDay');
-  document.querySelector('#meanTimeByWeekDay .ns-title-container').setAttribute('aria-label', i18next.t('meanTimeByWeekDay'));
+  document.querySelector('#meanTimeByWeekDay .ns-title').innerHTML = chrome.i18n.getMessage('meanTimeByWeekDay');
+  document.querySelector('#meanTimeByWeekDay .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('meanTimeByWeekDay'));
 }
 
 /**
@@ -522,7 +432,7 @@ function translatePage() {
  * @param {*} number 
  */
 function formatNumber(number) {
-  if(language === 'es')  {
+  if(chrome.i18n.getUILanguage() === 'es')  {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   } else {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
