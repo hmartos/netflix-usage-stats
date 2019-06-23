@@ -4,6 +4,7 @@
 
 'use strict';
 
+document.querySelector('#goToStatsBtn span').innerHTML = chrome.i18n.getMessage("showStats");
 let goToStatsBtn = document.getElementById('goToStatsBtn');
 
 goToStatsBtn.onclick = function(element) {
@@ -15,47 +16,3 @@ goToStatsBtn.onclick = function(element) {
     window.close();
   });
 };
-
-chrome.tabs.executeScript({
-    code: '(' + function() {
-        return {language: document.querySelector('html').getAttribute('lang') || 'en'};
-    } + ')();'
-}, function(results) {
-    console.log("Language: " + results[0].language);
-    initializeLanguage(results[0].language);
-});
-
-/**
- * Initialize i18n with given language
- * @param {*} language 
- */
-function initializeLanguage(language) {
-    i18next.init({
-      lng: language,
-      debug: true,
-      resources: {
-        en: {
-          translation: {
-            "goToStats": "SHOW STATS",
-          }
-        },
-        es: {
-          translation: {
-            "goToStats": "VER ESTADÍSTICAS",
-          }
-        }
-      }
-    }, function(error, t) {
-      if (error) {
-        console.error(error);
-      }
-      translatePage();
-    });
-  }
-
-  /**
- * Translate texts in page
- */
-function translatePage() {
-    document.querySelector('#goToStatsBtn span').innerHTML = i18next.t('goToStats');
-}  

@@ -1,0 +1,127 @@
+
+{
+  "extensionTitle": {
+    "message": "Netflix Viewing Stats",
+    "description": "The title of the extension, displayed in the web store"
+  },
+  "extensionDescription": {
+    "message": "Shows Netflix viewing stats to know about how you spend your time on Netflix.",
+    "description": "The description of the extension, displayed in the web store"
+  },
+  "showStats": {
+    "message": "SHOW STATS",
+    "description": "Show stats text in popup button"
+  },
+  "viewingStats": {
+    "message": "Viewing stats",
+    "description": "Link text on my account page"
+  },
+  "myViewingStats": {
+    "message": "My viewing stats",
+    "description": ""
+  },
+  "viewedItemsCount": {
+    "message": "Elements watched",
+    "description": ""
+  },
+  "totalTime": {
+    "message": "Total time on Netflix",
+    "description": ""
+  },
+  "maxTimeInDate": {
+    "message": "Netflix marathon (in a day)",
+    "description": ""
+  },
+  "deviceCount": {
+    "message": "Used devices",
+    "description": ""
+  },
+  "moviesCount": {
+    "message": "Movies watched",
+    "description": ""
+  },
+  "moviesTime": {
+    "message": "Total time watching movies",
+    "description": ""
+  },
+  "showsCount": {
+    "message": "Shows watched",
+    "description": ""
+  },
+  "showsTime": {
+    "message": "Total time watching shows",
+    "description": ""
+  },
+  "moviesVsTvTime": {
+    "message": "Time watching movies/shows",
+    "description": ""
+  },
+  "meanTimeByWeekDay": {
+    "message": "Percentage of time on Netflix by day of week",
+    "description": ""
+  },
+  "episodes": {
+    "message": "Episodes",
+    "description": ""
+  },
+  "movies": {
+    "message": "Movies",
+    "description": ""
+  },
+  "shows": {
+    "message": "Shows",
+    "description": ""
+  },
+  "timeWatchingNetflix": {
+    "message": "Time watching Netflix",
+    "description": ""
+  },
+  "Monday": {
+    "message": "Monday",
+    "description": ""
+  },
+  "Tuesday": {
+    "message": "Tuesday",
+    "description": ""
+  },
+  "Wednesday": {
+    "message": "Wednesday",
+    "description": ""
+  },
+  "Thursday": {
+    "message": "Thursday",
+    "description": ""
+  },
+  "Friday": {
+    "message": "Friday",
+    "description": ""
+  },
+  "Saturday": {
+    "message": "Saturday",
+    "description": ""
+  },
+  "Sunday": {
+    "message": "Sunday",
+    "description": ""
+  },
+  "year": {
+    "message": "year",
+    "description": ""
+  },
+  "day": {
+    "message": "day",
+    "description": ""
+  },
+  "hour": {
+    "message": "hour",
+    "description": ""
+  },
+  "minute": {
+    "message": "minute",
+    "description": ""
+  },
+  "second": {
+    "message": "second",
+    "description": ""
+  }
+}
