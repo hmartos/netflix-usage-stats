@@ -14,7 +14,8 @@
         "https://www.netflix.com/viewingactivity?stats=true"
       ],
       "js": ["vendor/lodash.min.js", "vendor/chart.min.js", "stats.js"],
-      "css": ["material-icons.css", "stats.css"]
+      "css": ["material-icons.css", "stats.css"],
+      "run_at": "document_start"
     },
     {
       "matches": [

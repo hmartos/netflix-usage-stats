@@ -24,7 +24,12 @@ const WEEK_DAYS = {
 }
 
 // MAIN
-main();
+document.documentElement.style.visibility = 'hidden';
+document.addEventListener('DOMContentLoaded', function() {
+    document.documentElement.style.visibility = '';
+    main();
+});
+
 
 
 // FUNCTIONS
