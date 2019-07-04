@@ -373,15 +373,26 @@ function createMeanTimeByWeekDayChart() {
  */
 function showLoader() {
   // Loader
+  let container = document.createElement('div');
+  container.id = 'nf-loader-container'
+
   let loader = document.createElement('div');
-  loader.className = 'nfLoader';
+  loader.className = 'nf-loader';
+
+  let paragraph = document.createElement('p');
+  paragraph.className = 'nf-loading-message'
+  let message = document.createTextNode(`${chrome.i18n.getMessage("loadingMessage")}`);
+  paragraph.appendChild(message); 
+  
+  container.appendChild(loader);
+  container.appendChild(paragraph)
 
   // Get Netflix activity table
   let activityTable = document.querySelector('.retable');
   console.log(activityTable);
 
   // Show loader
-  activityTable.replaceWith(loader);
+  activityTable.replaceWith(container);
 }
 
 /**
@@ -394,7 +405,7 @@ function hideLoader(statsTemplate) {
   statsSection.id = "stats-section"
   statsSection.classList.add("structural", "stdHeight");
   statsSection.innerHTML = statsTemplate;
-  document.querySelector('.nfLoader').replaceWith(statsSection);
+  document.querySelector('#nf-loader-container').replaceWith(statsSection);
 }
 
 /**
