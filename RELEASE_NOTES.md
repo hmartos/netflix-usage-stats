@@ -24,6 +24,22 @@ Improvements/enhancements to a workflow, performance, logging, error messaging, 
 Other Changes
 Other miscellaneous changes that don't fit into any of the above categories. Try to leave this empty - ideally, all changes fit into the categories above
 
+## 0.3.1
+
+### Upgrade Steps
+
+### Breaking Changes
+
+### New Features
+
+### Bug Fixes
+
+* Fixed incorrect first use date by sorting fetched activity data
+
+### Improvements
+
+### Other Changes
+
 ## 0.3.0
 
 ### Upgrade Steps
