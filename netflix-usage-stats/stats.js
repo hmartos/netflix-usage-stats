@@ -23,6 +23,8 @@ const WEEK_DAYS = {
   6: 'Saturday',
 }
 
+let BUILD_IDENTIFIER;
+
 // MAIN
 document.documentElement.style.visibility = 'hidden';
 document.addEventListener('DOMContentLoaded', function() {
@@ -60,7 +62,10 @@ function main() {
 /**
  * Clear activity page to be used as the skeleton for stats page
  */
-function setupStatsPage() {  
+function setupStatsPage() { 
+  BUILD_IDENTIFIER = getNetflixBuildId();
+  console.log(`Netflix BUILD_IDENTIFIER: ${BUILD_IDENTIFIER}`);
+
   // Change page title
   document.querySelector('h1').innerHTML = chrome.i18n.getMessage("myViewingStats");
 
@@ -78,6 +83,24 @@ function setupStatsPage() {
 
   // Set default font for charts
   Chart.defaults.global.defaultFontFamily = 'Netflix Sans';
+}
+
+/**
+ * Get Netlfix Build ID
+ */
+function getNetflixBuildId() {
+  const scripts = Array.prototype.slice.call( document.scripts );
+  let buildId = null;
+
+  scripts.forEach((script, index) => {
+    const buildIdIndex = script.innerHTML.indexOf('BUILD_IDENTIFIER');
+    if (buildIdIndex > -1) {
+      const text = script.innerHTML.substring(buildIdIndex + 19);
+      buildId = text.substring(0, text.indexOf('\"'));
+    }
+  });
+
+  return buildId;
 }
 
 /**
@@ -136,7 +159,9 @@ function getActivity() {
  */
 function getActivityPage(page) {
   // console.log(`Getting activity page ${page}`)
-  return fetch(`https://www.netflix.com/api/shakti/v0a906ca6/viewingactivity?pg=${page}&pgSize=${PAGE_SIZE}`, {credentials: 'same-origin'})
+  // If BUILD_IDENTIFIER couldn't be retrieved, fallback to last working BUILD_IDENTIFIER
+  let buildId = BUILD_IDENTIFIER ? BUILD_IDENTIFIER : 'v8056e71b';
+  return fetch(`https://www.netflix.com/api/shakti/${buildId}/viewingactivity?pg=${page}&pgSize=${PAGE_SIZE}`, {credentials: 'same-origin'})
     // .then(response => response.json())
     // .then(data => {
     //   console.log(data);
