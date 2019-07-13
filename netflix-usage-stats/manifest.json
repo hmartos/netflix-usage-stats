@@ -1,7 +1,8 @@
 {
-  "name": "Netflix Usage Stats",
-  "version": "0.2.0",
-  "description": "Shows Netflix usage stats to know about how you spend your time on Netflix.",
+  "name": "__MSG_extensionTitle__",
+  "version": "0.3.0",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en",
   "permissions": ["activeTab", "declarativeContent", "*://*.netflix.com/*", "https://www.netflix.com/*"],
   "background": {
     "scripts": ["background.js"],
@@ -12,8 +13,9 @@
       "matches": [
         "https://www.netflix.com/viewingactivity?stats=true"
       ],
-      "js": ["vendor/i18next.min.js", "vendor/lodash.min.js", "vendor/chart.min.js", "stats.js"],
-      "css": ["material-icons.css", "stats.css"]
+      "js": ["vendor/lodash.min.js", "vendor/chart.min.js", "stats.js"],
+      "css": ["material-icons.css", "stats.css"],
+      "run_at": "document_start"
     },
     {
       "matches": [

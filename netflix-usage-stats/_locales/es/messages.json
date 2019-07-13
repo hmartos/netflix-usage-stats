@@ -1,0 +1,103 @@
+
+{
+  "extensionTitle": {
+    "message": "Estadísticas de visionado de Netflix"
+  },
+  "extensionDescription": {
+    "message": "Muestra estadísticas de visionado de Netflix para saber cómo inviertes tu tiempo en Netflix."
+  },
+  "showStats": {
+    "message": "VER ESTADÍSTICAS"
+  },
+  "viewingStats": {
+    "message": "Estadísticas de visionado"
+  },
+  "myViewingStats": {
+    "message": "Mis estadísticas de visionado"
+  },
+  "loadingMessage": {
+    "message": "Cargando tu actividad de visionado, esto puede tardar un poco..."
+  },
+  "viewedItemsCount": {
+    "message": "Elementos reproducidos"
+  },
+  "totalTime": {
+    "message": "Tiempo total en Netflix"
+  },
+  "maxTimeInDate": {
+    "message": "Maratón de Netflix (en un día)"
+  },
+  "deviceCount": {
+    "message": "Dispositivos utilizados"
+  },
+  "moviesCount": {
+    "message": "Películas vistas"
+  },
+  "moviesTime": {
+    "message": "Tiempo total viendo películas"
+  },
+  "showsCount": {
+    "message": "Series vistas",
+    "description": ""
+  },
+  "showsTime": {
+    "message": "Tiempo total viendo series"
+  },
+  "moviesVsTvTime": {
+    "message": "Tiempo viendo películas/series"
+  },
+  "meanTimeByWeekDay": {
+    "message": "Porcentaje de tiempo en Netflix por día de la semana"
+  },
+  "episodes": {
+    "message": "Capítulos"
+  },
+  "movies": {
+    "message": "Películas"
+  },
+  "shows": {
+    "message": "Series"
+  },
+  "timeWatchingNetflix": {
+    "message": "Tiempo viendo Netflix"
+  },
+  "Monday": {
+    "message": "Lunes"
+  },
+  "Tuesday": {
+    "message": "Martes"
+  },
+  "Wednesday": {
+    "message": "Miércoles"
+  },
+  "Thursday": {
+    "message": "Jueves"
+  },
+  "Friday": {
+    "message": "Viernes"
+  },
+  "Saturday": {
+    "message": "Sábado"
+  },
+  "Sunday": {
+    "message": "Domingo"
+  },
+  "year": {
+    "message": "año"
+  },
+  "day": {
+    "message": "día"
+  },
+  "hour": {
+    "message": "hora"
+  },
+  "minute": {
+    "message": "minuto"
+  },
+  "second": {
+    "message": "segundo"
+  },
+  "since": {
+    "message": "desde el"
+  }
+}

@@ -1,5 +1,5 @@
 /* Netflix loader - https://codepen.io/PEELONIONS/pen/rvvwzq */
-.nfLoader {
+.nf-loader {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -7,7 +7,7 @@
   width: 50px;
   height: 50px;
 }
-.nfLoader:after {
+.nf-loader:after {
   content: "";
   background-image: url(https://assets.nflxext.com/en_us/pages/wiplayer/site-spinner.png);
   background-repeat: no-repeat;
@@ -20,18 +20,28 @@
   margin: -6px;
   width: inherit;
   height: inherit;
-  animation: nfLoader-spin 1.1s linear infinite,1!important;
-  -webkit-animation: nfLoader-spin 1.1s linear infinite,1!important; 
+  animation: nf-loader-spin 1.1s linear infinite,1!important;
+  -webkit-animation: nf-loader-spin 1.1s linear infinite,1!important; 
 }
-@keyframes nfLoader-spin {
+@keyframes nf-loader-spin {
   100% {
     transform: rotate(360deg);
   }
 }
-@-webkit-keyframes nfLoader-spin {
+@-webkit-keyframes nf-loader-spin {
   100% {
     -webkit-transform: rotate(360deg);
   }
+}
+
+.nf-loading-message {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  text-align: center;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
 }
 
 /* Cards */
