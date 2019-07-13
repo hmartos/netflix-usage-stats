@@ -24,7 +24,7 @@ Improvements/enhancements to a workflow, performance, logging, error messaging, 
 Other Changes
 Other miscellaneous changes that don't fit into any of the above categories. Try to leave this empty - ideally, all changes fit into the categories above
 
-## 0.1.0
+## 0.3.0
 
 ### Upgrade Steps
 
@@ -32,23 +32,19 @@ Other miscellaneous changes that don't fit into any of the above categories. Try
 
 ### New Features
 
-* First fully functional version (not responsive yet) with a set of usage statistics:
-  * Total watched elements
-  * Total time on Netflix
-  * Netlix marathon (maximum time watching Netflix in a day)
-  * Used devices
-  * Watched movies
-  * Time watching movies
-  * Watched shows
-  * Time watching shows
-  * Time watching movies vs time watching shows (in a pie chart)
-  * Percentage of time watching Netflix by day of the week (in a bar chart)
+* Added first Netflix use below total watched elements
+* Added loading message to warn it can take some time to load the hole activity data
 
 ### Bug Fixes
 
 ### Improvements
 
+* Fixed annoying screen gap at page loading
+* Netflix BUILD_IDENTIFIER is now loaded dinamically instead of using a hardcoded value
+
 ### Other Changes
+
+* Internationalization is now done using i18n-chrome service instead of i18next
 
 ## 0.2.0
 
@@ -74,3 +70,29 @@ Other miscellaneous changes that don't fit into any of the above categories. Try
 ### Other Changes
 
 * Added new logo
+
+## 0.1.0
+
+### Upgrade Steps
+
+### Breaking Changes
+
+### New Features
+
+* First fully functional version (not responsive yet) with a set of usage statistics:
+  * Total watched elements
+  * Total time on Netflix
+  * Netlix marathon (maximum time watching Netflix in a day)
+  * Used devices
+  * Watched movies
+  * Time watching movies
+  * Watched shows
+  * Time watching shows
+  * Time watching movies vs time watching shows (in a pie chart)
+  * Percentage of time watching Netflix by day of the week (in a bar chart)
+
+### Bug Fixes
+
+### Improvements
+
+### Other Changes
