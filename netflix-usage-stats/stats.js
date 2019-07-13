@@ -177,9 +177,7 @@ function getActivityPage(page) {
 function calculateStats(viewedItems) {
   console.log("Activity data", viewedItems);
 
-  summary.viewedItemsCount = viewedItems.length;
-  summary.firstUse = viewedItems[viewedItems.length - 1]['dateStr'];
-  summary.totalTime = _.sumBy(viewedItems, 'duration');
+  const sortedViewedItems = _.sortBy(viewedItems, ['date']);
 
   // Time by date
   const timeByDayGroup = _.groupBy(viewedItems, (viewedItem) => {
@@ -243,6 +241,9 @@ function calculateStats(viewedItems) {
   const others = _.filter(viewedItems, function(item) { return !_.has(item, 'series') && item.duration === 0});
   console.log("Others", others);
 
+  summary.viewedItemsCount = viewedItems.length;
+  summary.firstUse = sortedViewedItems[0]['dateStr'];
+  summary.totalTime = _.sumBy(viewedItems, 'duration');
   summary.maxTimeInDate = maxTimeInDate;
   summary.maxTimeInDateDate = maxTimeInDateDate;
   summary.deviceCount = Object.keys(deviceTypes).length;
