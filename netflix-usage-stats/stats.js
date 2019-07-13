@@ -152,6 +152,10 @@ function getActivityPage(page) {
 function calculateStats(viewedItems) {
   console.log("Activity data", viewedItems);
 
+  summary.viewedItemsCount = viewedItems.length;
+  summary.firstUse = viewedItems[viewedItems.length - 1]['dateStr'];
+  summary.totalTime = _.sumBy(viewedItems, 'duration');
+
   // Time by date
   const timeByDayGroup = _.groupBy(viewedItems, (viewedItem) => {
     const date = new Date(viewedItem.date);
@@ -214,8 +218,6 @@ function calculateStats(viewedItems) {
   const others = _.filter(viewedItems, function(item) { return !_.has(item, 'series') && item.duration === 0});
   console.log("Others", others);
 
-  summary.viewedItemsCount = viewedItems.length;
-  summary.totalTime = _.sumBy(viewedItems, 'duration');
   summary.maxTimeInDate = maxTimeInDate;
   summary.maxTimeInDateDate = maxTimeInDateDate;
   summary.deviceCount = Object.keys(deviceTypes).length;
@@ -239,6 +241,7 @@ function calculateStats(viewedItems) {
 function showStats() {
   // Summary
   document.querySelector('#viewedItemsCount .ns-number').innerHTML = formatNumber(summary.viewedItemsCount);
+  document.querySelector('#viewedItemsCount .ns-extra-info').innerHTML = `(${chrome.i18n.getMessage('since')} ${summary.firstUse})`;
   document.querySelector('#totalTime .ns-time').innerHTML = secondsToYdhms(summary.totalTime);
   document.querySelector('#maxTimeInDate .ns-time').innerHTML = secondsToYdhms(summary.maxTimeInDate);
   document.querySelector('#maxTimeInDate .ns-extra-info').innerHTML = `(${summary.maxTimeInDateDate})`;
