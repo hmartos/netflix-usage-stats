@@ -13,8 +13,23 @@
       "matches": [
         "https://www.netflix.com/viewingactivity?stats=true"
       ],
-      "js": ["vendor/lodash.min.js", "vendor/chart.min.js", "stats.js"],
-      "css": ["material-icons.css", "stats.css"],
+      "js": [
+        "vendor/js/lodash.min.js", 
+        "vendor/js/chart.min.js", 
+        "vendor/js/jquery.min.js", 
+        "vendor/js/dataTables.min.js", 
+        "vendor/js/dataTables.scroller.min.js", 
+        "vendor/js/dataTables.responsive.min.js",
+        "vendor/js/dataTables.fixedHeader.min.js",
+        "vendor/js/accent-neutralise.js", 
+        "stats.js"],
+      "css": [
+        "vendor/css/material-icons.css", 
+        "vendor/css/dataTables.min.css", 
+        "vendor/css/scroller.dataTables.min.css", 
+        "vendor/css/responsive.dataTables.min.css", 
+        "vendor/css/fixedHeader.dataTables.min.css", 
+        "stats.css"],
       "run_at": "document_start"
     },
     {

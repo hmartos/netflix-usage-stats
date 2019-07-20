@@ -15,6 +15,9 @@
   "myViewingStats": {
     "message": "Mis estadísticas de visionado"
   },
+  "viewingActivity": {
+    "message": "Actividad de visionado"
+  },
   "loadingMessage": {
     "message": "Cargando tu actividad de visionado, esto puede tardar un poco..."
   },
@@ -51,6 +54,12 @@
   },
   "episodes": {
     "message": "Capítulos"
+  },
+  "movie": {
+    "message": "Película"
+  },
+  "show": {
+    "message": "Serie"
   },
   "movies": {
     "message": "Películas"
@@ -99,5 +108,41 @@
   },
   "since": {
     "message": "desde el"
+  },
+  "title": {
+    "message": "Título"
+  },
+  "date": {
+    "message": "Fecha"
+  },
+  "duration": {
+    "message": "Duración"
+  },
+  "type": {
+    "message": "Tipo"
+  },
+  "processing": {
+    "message": "Procesando..."
+  },
+  "search": {
+    "message": "Buscar"
+  },
+  "info": {
+    "message": "Mostrando _START_ a _END_ de _TOTAL_ registros"
+  },
+  "infoEmpty": {
+    "message": "Mostrando 0 a 0 de 0 registros"
+  },
+  "infoFiltered": {
+    "message": "(filtrado de _MAX_ registros en total)"
+  },
+  "loadingRecords": {
+    "message": "Cargando..."
+  },
+  "zeroRecords": {
+    "message": "No hay registros coincidentes con la búsqueda"
+  },
+  "emptyTable": {
+    "message": "No hay datos para mostrar en la tabla"
   }
 }
