@@ -434,11 +434,12 @@ function createDatatable(viewedItems) {
       { "data": "type" }
     ],
     columnDefs: [
-      { "targets": [0], "className": "dt-body-left" },
+      { "targets": [0], "className": "dt-body-left", render: renderTitleColumn },
       { "targets": [1], "visible": false, "searchable": false }, // Hide column date and make it not searchable
-      { "targets": [2], "orderData": 1 }, // Order column dateFormatted by hidden column date
+      { "targets": [2], "orderData": 1, render: renderDateColumn }, // Order column dateFormatted by hidden column date
       { "targets": [3], "visible": false, "searchable": false }, // Hide column duration and make it not searchable
-      { "targets": [4], "orderData": 3, "className": "dt-body-right" }, // Order column durationFormatted by hidden column duration
+      { "targets": [4], "orderData": 3, "className": "dt-body-right", render: renderDurationColumn }, // Order column durationFormatted by hidden column duration
+      { "targets": [5], render: renderTypeColumn }
     ],
     order: [[1, 'desc']],
     language: {
@@ -459,8 +460,29 @@ function createDatatable(viewedItems) {
     deferRender: true,
     scrollY: 375,
     scrollCollapse: true,
-    scroller: true
+    scroller: true,
+    responsive: {
+      details: {
+        renderer: function ( api, rowIdx, columns ) {
+          var data = $.map( columns, function(col, i) {
+            return col.hidden ?
+              '<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+                '<td>'+col.title+':'+'</td> '+
+                '<td>'+col.data+'</td>'+
+              '</tr>' :
+              '';
+          }).join('');
+
+          return data ?
+            $('<table/>').append( data ) :
+            false;
+        }
+      }
+    }
   });
+
+  // Fixed header
+  new $.fn.dataTable.FixedHeader(datatable);
 
   // Neutralise accents
   $('#activityDataTable_filter label input').on('focus', function () {
@@ -473,6 +495,50 @@ function createDatatable(viewedItems) {
         .draw()
     });
   });
+}
+
+/**
+ * Render datatable title column
+ * @param {*} data 
+ * @param {*} type 
+ * @param {*} row 
+ * @param {*} meta 
+ */
+function renderTitleColumn(data, type, row, meta) {
+  return `<div class="ns-title-column">${data}</div>`;
+}
+
+/**
+ * Render datatable date column
+ * @param {*} data 
+ * @param {*} type 
+ * @param {*} row 
+ * @param {*} meta 
+ */
+function renderDateColumn(data, type, row, meta) {
+  return `<div class="ns-date-column">${data}</div>`;
+}
+
+/**
+ * Render datatable duration column
+ * @param {*} data 
+ * @param {*} type 
+ * @param {*} row 
+ * @param {*} meta 
+ */
+function renderDurationColumn(data, type, row, meta) {
+  return `<div class="ns-duration-column">${data}</div>`;
+}
+
+/**
+ * Render datatable type column
+ * @param {*} data 
+ * @param {*} type 
+ * @param {*} row 
+ * @param {*} meta 
+ */
+function renderTypeColumn(data, type, row, meta) {
+  return `<div class="ns-type-column">${data}</div>`;
 }
 
 /**

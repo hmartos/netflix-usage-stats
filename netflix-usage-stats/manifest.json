@@ -19,12 +19,16 @@
         "vendor/js/jquery.min.js", 
         "vendor/js/dataTables.min.js", 
         "vendor/js/dataTables.scroller.min.js", 
+        "vendor/js/dataTables.responsive.min.js",
+        "vendor/js/dataTables.fixedHeader.min.js",
         "vendor/js/accent-neutralise.js", 
         "stats.js"],
       "css": [
         "vendor/css/material-icons.css", 
         "vendor/css/dataTables.min.css", 
         "vendor/css/scroller.dataTables.min.css", 
+        "vendor/css/responsive.dataTables.min.css", 
+        "vendor/css/fixedHeader.dataTables.min.css", 
         "stats.css"],
       "run_at": "document_start"
     },
