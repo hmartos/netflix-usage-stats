@@ -434,10 +434,11 @@ function createDatatable(viewedItems) {
       { "data": "type" }
     ],
     columnDefs: [
+      { "targets": [0], "className": "dt-body-left" },
       { "targets": [1], "visible": false, "searchable": false }, // Hide column date and make it not searchable
       { "targets": [2], "orderData": 1 }, // Order column dateFormatted by hidden column date
       { "targets": [3], "visible": false, "searchable": false }, // Hide column duration and make it not searchable
-      { "targets": [4], "orderData": 3 }, // Order column durationFormatted by hidden column duration
+      { "targets": [4], "orderData": 3, "className": "dt-body-right" }, // Order column durationFormatted by hidden column duration
     ],
     order: [[1, 'desc']],
     language: {
@@ -547,6 +548,9 @@ function translatePage() {
 
   document.querySelector('#meanTimeByWeekDay .ns-title').innerHTML = chrome.i18n.getMessage('meanTimeByWeekDay');
   document.querySelector('#meanTimeByWeekDay .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('meanTimeByWeekDay'));
+
+  document.querySelector('#activity .ns-title').innerHTML = chrome.i18n.getMessage('viewingActivity');
+  document.querySelector('#activity .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('viewingActivity'));
 
   document.querySelector('#activityDataTable #dataTableTitle').innerHTML = chrome.i18n.getMessage('title');
   document.querySelector('#activityDataTable #dataTableDateFormatted').innerHTML = chrome.i18n.getMessage('date');

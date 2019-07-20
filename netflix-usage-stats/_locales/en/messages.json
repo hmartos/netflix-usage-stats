@@ -20,8 +20,12 @@
     "message": "My viewing stats",
     "description": ""
   },
+  "viewingActivity": {
+    "message": "Viewing activity",
+    "description": ""
+  },
   "loadingMessage": {
-    "message": "Loading your watching activity, this may take some time...",
+    "message": "Loading your viewing activity, this may take some time...",
     "description": "Message to show loading can take some time"
   },
   "viewedItemsCount": {

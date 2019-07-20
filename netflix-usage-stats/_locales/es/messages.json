@@ -15,6 +15,9 @@
   "myViewingStats": {
     "message": "Mis estadísticas de visionado"
   },
+  "viewingActivity": {
+    "message": "Actividad de visionado"
+  },
   "loadingMessage": {
     "message": "Cargando tu actividad de visionado, esto puede tardar un poco..."
   },
