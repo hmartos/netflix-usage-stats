@@ -8,7 +8,7 @@
   height: 50px;
 }
 .nf-loader:after {
-  content: "";
+  content: '';
   background-image: url(https://assets.nflxext.com/en_us/pages/wiplayer/site-spinner.png);
   background-repeat: no-repeat;
   background-position-x: 50%;
@@ -20,8 +20,8 @@
   margin: -6px;
   width: inherit;
   height: inherit;
-  animation: nf-loader-spin 1.1s linear infinite,1!important;
-  -webkit-animation: nf-loader-spin 1.1s linear infinite,1!important; 
+  animation: nf-loader-spin 1.1s linear infinite, 1 !important;
+  -webkit-animation: nf-loader-spin 1.1s linear infinite, 1 !important;
 }
 @keyframes nf-loader-spin {
   100% {
@@ -49,7 +49,7 @@
   width: 100%;
   display: flex;
   flex-flow: row wrap;
-  font-family: 'Netflix Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .ns-card {
@@ -90,7 +90,7 @@
 .ns-title {
   text-transform: uppercase;
   border: solid 1px #333;
-  padding: 0 .4em;
+  padding: 0 0.4em;
   unicode-bidi: normal;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
@@ -103,7 +103,7 @@
   margin-top: 10px;
 }
 
-.ns-time{
+.ns-time {
   font-size: 18px;
   margin-top: 10px;
 }
@@ -131,29 +131,29 @@
 }
 
 .ns-title-column {
-  white-space: normal; 
-  max-width: 600px; 
+  white-space: normal;
+  max-width: 600px;
 }
 
 .ns-date-column {
-  white-space: nowrap; 
-  width: 175px; 
+  white-space: nowrap;
+  width: 175px;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
 }
 
 .ns-duration-column {
-  white-space: nowrap; 
-  max-width: 75px; 
+  white-space: nowrap;
+  max-width: 75px;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
 }
 
 .ns-type-column {
-  white-space: nowrap; 
-  max-width: 75px; 
+  white-space: nowrap;
+  max-width: 75px;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
 }
 
 .dts_label {
