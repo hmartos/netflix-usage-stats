@@ -39,7 +39,10 @@
       "js": ["account.js"]
     }
   ],
-  "web_accessible_resources": ["stats.html"],
+  "web_accessible_resources": [
+    "stats.html", 
+    "error.html"
+  ],
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {

@@ -159,3 +159,11 @@
 .dts_label {
   display: none;
 }
+
+.ns-error-section {
+  text-align: center;
+}
+
+.ns-crying-emojis {
+  font-size: 48px;
+}

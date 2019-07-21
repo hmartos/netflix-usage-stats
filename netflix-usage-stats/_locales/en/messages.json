@@ -191,5 +191,13 @@
   "emptyTable": {
     "message": "No data available in table",
     "description": ""
+  },
+  "errorMessage": {
+    "message": "Oh, an error ocurred, I'm so sorry.",
+    "description": ""
+  },
+  "createIssueMessage": {
+    "message": "You can create a new issue describing your problem",
+    "description": ""
   }
 }
