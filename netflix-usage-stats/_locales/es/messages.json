@@ -144,5 +144,11 @@
   },
   "emptyTable": {
     "message": "No hay datos para mostrar en la tabla"
+  },
+  "errorMessage": {
+    "message": "Vaya, ocurrió un error, lo siento mucho."
+  },
+  "createIssueMessage": {
+    "message": "Si quieres puedes crear una incidencia con la descripción de tu problema"
   }
 }

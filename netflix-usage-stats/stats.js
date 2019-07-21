@@ -26,6 +26,10 @@ let BUILD_IDENTIFIER;
 
 // MAIN
 document.documentElement.style.visibility = 'hidden';
+window.addEventListener("unhandledrejection", function(promiseRejectionEvent) { 
+  console.error(`Something went wrong, sorry... but here is a trace that could help to fix the problem`, promiseRejectionEvent);
+  showErrorPage();
+});
 document.addEventListener('DOMContentLoaded', function() {
     document.documentElement.style.visibility = '';
     main();
@@ -38,7 +42,7 @@ function main() {
   setupStatsPage();
 
   showLoader();
-
+  
   // Load HTML page
   fetch(chrome.extension.getURL('/stats.html'))
     .then(response => response.text())
@@ -46,16 +50,21 @@ function main() {
       // Get viewing activity
       getActivity().then(viewedItems => {
         hideLoader(statsTemplate);
-
+        
         translatePage();
 
         calculateStats(viewedItems);
         
         showStats(viewedItems);
+      }).catch(error => {
+        console.error('Error loading viewing activity and calculating stats', error);
+        throw error;
       })
-      .catch(error => console.error(error));
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error('Error loading stats.html template', error);
+      throw error;
+    });
 }
 
 /**
@@ -115,6 +124,7 @@ function getActivity() {
     .then(data => {
       // console.log("Results of page 0", data);
       let count = data.vhSize;
+      
       console.log(`Viewing history size is ${count}`)
       let pages = Math.ceil(count / PAGE_SIZE);
 
@@ -144,11 +154,14 @@ function getActivity() {
         resolve(_.sortBy(viewedItems, ['date']).reverse());
       })
       .catch(error => {
-        console.error(`Error in executing ${error}`);
-        reject();
+        console.error(`Unknown error loading viewing activity pages`, error);
+        reject(error);
       })
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error("First page of viewing activity could not be fetched");
+      throw error;
+    });
   });
 }
 
@@ -643,4 +656,26 @@ function formatDate(dateString) {
   const minutes = date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
   const seconds = date.getSeconds() > 9 ? date.getSeconds() : `0${date.getSeconds()}`;
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+}
+
+/**
+ * Shows error page is something does not work as expected
+ */
+function showErrorPage() {
+  // Load HTML page
+  fetch(chrome.extension.getURL('/error.html'))
+  .then(response => response.text())
+  .then(errorTemplate => {
+    let errorSection = document.createElement("div");
+    errorSection.id = "error-section"
+    errorSection.classList.add("structural", "stdHeight");
+    errorSection.innerHTML = errorTemplate;
+    errorSection.querySelector('h1').innerHTML = chrome.i18n.getMessage("myViewingStats");
+    errorSection.querySelector('h2').innerHTML = chrome.i18n.getMessage("errorMessage");
+    errorSection.querySelector('h3').innerHTML = chrome.i18n.getMessage("createIssueMessage");
+    document.querySelector('.responsive-account-container div').replaceWith(errorSection);
+  })
+  .catch(error => {
+    console.log('Error loading error page, this is embarrasing...', error);
+  })
 }
