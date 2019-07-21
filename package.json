@@ -1,0 +1,29 @@
+{
+  "name": "netflix-stats",
+  "version": "0.4.0",
+  "description": "Shows Netflix viewing stats to know about how you spend your time on Netflix.",
+  "main": "netfix-usage-stats/manifest.json",
+  "scripts": {
+    "build": "npm run zip",
+    "zip": "bestzip netflix-usage-stats.zip netflix-usage-stats/*",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmartos/netflix-usage-stats.git"
+  },
+  "keywords": [
+    "stats",
+    "usage",
+    "analitycs"
+  ],
+  "author": "hmartos <hectormartosg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hmartos/netflix-usage-stats/issues"
+  },
+  "homepage": "https://github.com/hmartos/netflix-usage-stats#readme",
+  "devDependencies": {
+    "bestzip": "^2.1.4"
+  }
+}
