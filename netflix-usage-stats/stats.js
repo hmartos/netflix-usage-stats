@@ -10,8 +10,7 @@ const summary = {
   moviesTime: 0,
   showsCount: 0,
   episodesCount: 0,
-  showsTime: 0,
-  othersCount: 0
+  showsTime: 0
 }
 const WEEK_DAYS = {
   0: 'Sunday',
@@ -52,7 +51,7 @@ function main() {
 
         calculateStats(viewedItems);
         
-        showStats();
+        showStats(viewedItems);
       })
       .catch(error => console.error(error));
     })
@@ -136,13 +135,13 @@ function getActivity() {
             viewedItems = viewedItems.concat(data.viewedItems);
           })
           .catch(error => console.error(`Error loading activity page ${page}`, error));
-      })
+      });
 
       // Synchronizes when all requests are resolved
       Promise.all(promises)
       .then(response => {
         // console.log(`All pages loaded, viewed items: `, viewedItems);
-        resolve(viewedItems);
+        resolve(_.sortBy(viewedItems, ['date']).reverse());
       })
       .catch(error => {
         console.error(`Error in executing ${error}`);
@@ -176,8 +175,6 @@ function getActivityPage(page) {
  */
 function calculateStats(viewedItems) {
   console.log("Activity data", viewedItems);
-
-  const sortedViewedItems = _.sortBy(viewedItems, ['date']);
 
   // Time by date
   const timeByDayGroup = _.groupBy(viewedItems, (viewedItem) => {
@@ -233,16 +230,12 @@ function calculateStats(viewedItems) {
   const deviceTypes = _.groupBy(viewedItems, 'deviceType');
   console.log("deviceTypes", deviceTypes);
 
-  // Movies avoiding trailers
-  const movies = _.filter(viewedItems, function(item) { return !_.has(item, 'series') && item.duration > 0});
+  // Movies
+  const movies = _.filter(viewedItems, function(item) { return !_.has(item, 'series') });
   console.log("Movies", movies);
 
-  // Trailers and others
-  const others = _.filter(viewedItems, function(item) { return !_.has(item, 'series') && item.duration === 0});
-  console.log("Others", others);
-
   summary.viewedItemsCount = viewedItems.length;
-  summary.firstUse = sortedViewedItems[0]['dateStr'];
+  summary.firstUse = viewedItems[viewedItems.length - 1]['dateStr'];
   summary.totalTime = _.sumBy(viewedItems, 'duration');
   summary.maxTimeInDate = maxTimeInDate;
   summary.maxTimeInDateDate = maxTimeInDateDate;
@@ -252,7 +245,6 @@ function calculateStats(viewedItems) {
   summary.episodesCount = episodes.length;
   summary.showsCount = Object.keys(shows).length;
   summary.showsTime = _.sumBy(episodes, 'duration');
-  summary.othersCount = others.length;
   summary.timeByDayWeek = timeByDayWeek;
   
   console.log(`Time spent on Netflix: ${secondsToYdhms(summary.totalTime)}`);
@@ -264,7 +256,7 @@ function calculateStats(viewedItems) {
 /**
  * Show stats in stats template
  */
-function showStats() {
+function showStats(viewedItems) {
   // Summary
   document.querySelector('#viewedItemsCount .ns-number').innerHTML = formatNumber(summary.viewedItemsCount);
   document.querySelector('#viewedItemsCount .ns-extra-info').innerHTML = `(${chrome.i18n.getMessage('since')} ${summary.firstUse})`;
@@ -285,6 +277,9 @@ function showStats() {
   // Charts
   createTvVsShowsTimeChart();
   createMeanTimeByWeekDayChart();
+
+  // DataTable
+  createDatatable(viewedItems);
 }
 
 /**
@@ -308,6 +303,21 @@ function secondsToYdhms(seconds) {
 }
 
 /**
+ * Format time from seconds to minutes
+ * @param {*} seconds 
+ */
+function secondsToMinutes(seconds) {
+  const durationFormatted = new Date(seconds * 1000).toISOString().substr(11, 8);
+  if (durationFormatted === '00:00:00') {
+    return 'N/A';
+  } else if (durationFormatted.startsWith('00')) {
+    return durationFormatted.substr(3, 5);
+  } else {
+    return durationFormatted
+  }
+}
+
+/**
  * Create time watching movies vs shows pie chart
  */
 function createTvVsShowsTimeChart() {
@@ -317,8 +327,8 @@ function createTvVsShowsTimeChart() {
       type: 'pie',
       data: {
           labels: [
-            chrome.i18n.getMessage('movies'), 
-            chrome.i18n.getMessage('shows')
+            `${chrome.i18n.getMessage('movies')}`, 
+            `${chrome.i18n.getMessage('shows')}`
           ],
           datasets: [{
               data: [summary.moviesTime, summary.showsTime],
@@ -329,13 +339,10 @@ function createTvVsShowsTimeChart() {
           }]
       },
       options: {
-        legend: {
-          display: false
-        },
         tooltips: {
           callbacks: {
             label: function(tooltipItem, data) {
-              return `${secondsToYdhms(data.datasets[0].data[tooltipItem.index])}`;
+              return `${data.labels[tooltipItem.index]}: ${secondsToYdhms(data.datasets[0].data[tooltipItem.index])}`;
             }
           }
         }
@@ -394,7 +401,138 @@ function createMeanTimeByWeekDayChart() {
         }
       }
     }
-});
+  });
+}
+
+/**
+ * Create datatable
+ */
+function createDatatable(viewedItems) {
+  const dataset = viewedItems.map((viewedItem) => {
+    viewedItem.title = viewedItem.series ? `${viewedItem.seriesTitle} ${viewedItem.title}` : `${viewedItem.title}`;
+    viewedItem.dateFormatted = formatDate(viewedItem.date);
+    viewedItem.durationFormatted = secondsToMinutes(viewedItem.duration);
+    viewedItem.type = viewedItem.series ? `${chrome.i18n.getMessage('show')}` : `${chrome.i18n.getMessage('movie')}`;
+    return viewedItem;
+  });
+  console.log(`Datatable data`, dataset);
+
+  const datatable = $('#activityDataTable').DataTable({
+    data: dataset,
+    columns: [
+      { "data": "title" },
+      { "data": "date" },
+      { "data": "dateFormatted" },
+      { "data": "duration" },
+      { "data": "durationFormatted" },
+      { "data": "type" }
+    ],
+    columnDefs: [
+      { "targets": [0], "className": "dt-body-left", render: renderTitleColumn },
+      { "targets": [1], "visible": false, "searchable": false }, // Hide column date and make it not searchable
+      { "targets": [2], "orderData": 1, render: renderDateColumn }, // Order column dateFormatted by hidden column date
+      { "targets": [3], "visible": false, "searchable": false }, // Hide column duration and make it not searchable
+      { "targets": [4], "orderData": 3, "className": "dt-body-right", render: renderDurationColumn }, // Order column durationFormatted by hidden column duration
+      { "targets": [5], render: renderTypeColumn }
+    ],
+    order: [[1, 'desc']],
+    language: {
+      processing: `${chrome.i18n.getMessage('processing')}`,
+      search: `${chrome.i18n.getMessage('search')}`,
+      lengthMenu: `${chrome.i18n.getMessage('lengthMenu')}`,
+      info: `${chrome.i18n.getMessage('info')}`,
+      infoEmpty: `${chrome.i18n.getMessage('infoEmpty')}`,
+      infoFiltered: `${chrome.i18n.getMessage('infoFiltered')}`,
+      loadingRecords: `${chrome.i18n.getMessage('loadingRecords')}`,
+      zeroRecords: `${chrome.i18n.getMessage('zeroRecords')}`,
+      emptyTable: `${chrome.i18n.getMessage('emptyTable')}`,
+      aria: {
+        sortAscending: `${chrome.i18n.getMessage('sortAscending')}`,
+        sortDescending: `${chrome.i18n.getMessage('sortDescending')}`
+      }
+    },
+    deferRender: true,
+    scrollY: 375,
+    scrollCollapse: true,
+    scroller: true,
+    responsive: {
+      details: {
+        renderer: function ( api, rowIdx, columns ) {
+          var data = $.map( columns, function(col, i) {
+            return col.hidden ?
+              '<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+                '<td>'+col.title+':'+'</td> '+
+                '<td>'+col.data+'</td>'+
+              '</tr>' :
+              '';
+          }).join('');
+
+          return data ?
+            $('<table/>').append( data ) :
+            false;
+        }
+      }
+    }
+  });
+
+  // Fixed header
+  new $.fn.dataTable.FixedHeader(datatable);
+
+  // Neutralise accents
+  $('#activityDataTable_filter label input').on('focus', function () {
+    this.setAttribute( 'id', 'datatableSearchInput' );
+   
+    // Remove accented character from search input as well
+    $('#datatableSearchInput').keyup(function () {
+      datatable
+        .search(jQuery.fn.DataTable.ext.type.search.string(this.value))
+        .draw()
+    });
+  });
+}
+
+/**
+ * Render datatable title column
+ * @param {*} data 
+ * @param {*} type 
+ * @param {*} row 
+ * @param {*} meta 
+ */
+function renderTitleColumn(data, type, row, meta) {
+  return `<div class="ns-title-column">${data}</div>`;
+}
+
+/**
+ * Render datatable date column
+ * @param {*} data 
+ * @param {*} type 
+ * @param {*} row 
+ * @param {*} meta 
+ */
+function renderDateColumn(data, type, row, meta) {
+  return `<div class="ns-date-column">${data}</div>`;
+}
+
+/**
+ * Render datatable duration column
+ * @param {*} data 
+ * @param {*} type 
+ * @param {*} row 
+ * @param {*} meta 
+ */
+function renderDurationColumn(data, type, row, meta) {
+  return `<div class="ns-duration-column">${data}</div>`;
+}
+
+/**
+ * Render datatable type column
+ * @param {*} data 
+ * @param {*} type 
+ * @param {*} row 
+ * @param {*} meta 
+ */
+function renderTypeColumn(data, type, row, meta) {
+  return `<div class="ns-type-column">${data}</div>`;
 }
 
 /**
@@ -470,6 +608,14 @@ function translatePage() {
 
   document.querySelector('#meanTimeByWeekDay .ns-title').innerHTML = chrome.i18n.getMessage('meanTimeByWeekDay');
   document.querySelector('#meanTimeByWeekDay .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('meanTimeByWeekDay'));
+
+  document.querySelector('#activity .ns-title').innerHTML = chrome.i18n.getMessage('viewingActivity');
+  document.querySelector('#activity .ns-title-container').setAttribute('aria-label', chrome.i18n.getMessage('viewingActivity'));
+
+  document.querySelector('#activityDataTable #dataTableTitle').innerHTML = chrome.i18n.getMessage('title');
+  document.querySelector('#activityDataTable #dataTableDateFormatted').innerHTML = chrome.i18n.getMessage('date');
+  document.querySelector('#activityDataTable #dataTableDurationFormatted').innerHTML = chrome.i18n.getMessage('duration');
+  document.querySelector('#activityDataTable #dataTableType').innerHTML = chrome.i18n.getMessage('type');
 }
 
 /**
@@ -482,4 +628,19 @@ function formatNumber(number) {
   } else {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
+}
+
+/**
+ * Format date in dd/MM/yyyy HH:mm:ss format
+ * @param {*} dateString 
+ */
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
+  const month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : `0${date.getMonth() + 1}`;
+  const year = date.getFullYear();
+  const hours = date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
+  const minutes = date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
+  const seconds = date.getSeconds() > 9 ? date.getSeconds() : `0${date.getSeconds()}`;
+  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 }

@@ -66,6 +66,11 @@
   margin-bottom: 50px;
 }
 
+.ns-card-table {
+  text-align: center;
+  width: inherit;
+}
+
 .ns-title-container {
   font-size: 14px;
 }
@@ -76,6 +81,10 @@
 
 .ns-card-chart .ns-title-container {
   margin-top: 10px;
+}
+
+.ns-card-table .ns-title-container {
+  padding-bottom: 15px;
 }
 
 .ns-title {
@@ -121,3 +130,32 @@
   min-width: 512px;
 }
 
+.ns-title-column {
+  white-space: normal; 
+  max-width: 600px; 
+}
+
+.ns-date-column {
+  white-space: nowrap; 
+  width: 175px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.ns-duration-column {
+  white-space: nowrap; 
+  max-width: 75px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.ns-type-column {
+  white-space: nowrap; 
+  max-width: 75px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.dts_label {
+  display: none;
+}

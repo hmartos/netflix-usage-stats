@@ -24,6 +24,27 @@ Improvements/enhancements to a workflow, performance, logging, error messaging, 
 Other Changes
 Other miscellaneous changes that don't fit into any of the above categories. Try to leave this empty - ideally, all changes fit into the categories above
 
+## 0.4.0
+
+### Upgrade Steps
+
+### Breaking Changes
+
+### New Features
+
+* Added datatable with the whole user viewing activity
+
+### Bug Fixes
+
+* Fixed incorrect count of movies
+* Added label to time watching movies vs shows chart
+
+### Improvements
+
+### Other Changes
+
+* Reorganized vendor files in folders
+
 ## 0.3.1
 
 ### Upgrade Steps
