@@ -2,7 +2,7 @@ body {
   background-color: #fff;
   width: 250px;
   height: 200px;
-  font-family: 'Netflix Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin: 0;
   font-size: 16px;
   color: #141414;
@@ -25,19 +25,21 @@ body {
   max-width: 75%;
 }
 
-*, :after, :before {
+*,
+:after,
+:before {
   box-sizing: inherit;
 }
 
 a {
-  font-family: Regular-font,Arial;
+  font-family: Regular-font, Arial;
   font-weight: 600;
   font-size: 14px;
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
   color: #141414;
-  transition: color .2s;
+  transition: color 0.2s;
   margin: 0;
   padding: 0;
   border: 0;
@@ -49,7 +51,7 @@ a:hover {
 }
 
 .button-default {
-  font-family: Bold-font,Arial;
+  font-family: Bold-font, Arial;
   font-weight: 700;
   position: relative;
   display: block;
@@ -68,19 +70,19 @@ a:hover {
 }
 
 .button-default:hover {
-  box-shadow: 0 5px 16px rgba(229,9,20,.3);
+  box-shadow: 0 5px 16px rgba(229, 9, 20, 0.3);
 }
 
 .button {
   overflow: hidden;
   color: #e50914;
-  transition: color .25s cubic-bezier(.215,.61,.355,1);
+  transition: color 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
   margin: 0 auto;
 }
 
 .button:before {
-  border: 2px solid rgba(34,31,31,.15);
-  content: "";
+  border: 2px solid rgba(34, 31, 31, 0.15);
+  content: '';
   display: block;
   position: absolute;
   width: 100%;
@@ -92,11 +94,12 @@ a:hover {
 .button:after {
   background: #e50914;
   transform: translateX(-101%);
-  transition: all .2s cubic-bezier(.215,.61,.355,1);
+  transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-.button:after, .button:before {
-  content: "";
+.button:after,
+.button:before {
+  content: '';
   display: block;
   position: absolute;
   width: 100%;
@@ -113,7 +116,8 @@ a:hover {
   transform: translateX(0);
 }
 
-.button.red:before, .button:after {
+.button.red:before,
+.button:after {
   border: 2px solid #e50914;
 }
 
