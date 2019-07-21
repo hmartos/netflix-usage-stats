@@ -10,8 +10,7 @@ const summary = {
   moviesTime: 0,
   showsCount: 0,
   episodesCount: 0,
-  showsTime: 0,
-  othersCount: 0
+  showsTime: 0
 }
 const WEEK_DAYS = {
   0: 'Sunday',
@@ -231,13 +230,9 @@ function calculateStats(viewedItems) {
   const deviceTypes = _.groupBy(viewedItems, 'deviceType');
   console.log("deviceTypes", deviceTypes);
 
-  // Movies avoiding trailers
-  const movies = _.filter(viewedItems, function(item) { return !_.has(item, 'series') && item.duration > 0});
+  // Movies
+  const movies = _.filter(viewedItems, function(item) { return !_.has(item, 'series') });
   console.log("Movies", movies);
-
-  // Trailers and others
-  const others = _.filter(viewedItems, function(item) { return !_.has(item, 'series') && item.duration === 0});
-  console.log("Others", others);
 
   summary.viewedItemsCount = viewedItems.length;
   summary.firstUse = viewedItems[viewedItems.length - 1]['dateStr'];
@@ -250,7 +245,6 @@ function calculateStats(viewedItems) {
   summary.episodesCount = episodes.length;
   summary.showsCount = Object.keys(shows).length;
   summary.showsTime = _.sumBy(episodes, 'duration');
-  summary.othersCount = others.length;
   summary.timeByDayWeek = timeByDayWeek;
   
   console.log(`Time spent on Netflix: ${secondsToYdhms(summary.totalTime)}`);
