@@ -4,7 +4,7 @@
   "description": "Shows Netflix viewing stats to know about how you spend your time on Netflix.",
   "main": "netfix-usage-stats/manifest.json",
   "scripts": {
-    "build": "npm run zip",
+    "build": "npm run prettier-check && npm run zip",
     "zip": "bestzip netflix-usage-stats.zip netflix-usage-stats/*",
     "prettier-check": "prettier --check './netflix-usage-stats/**/*.html' './netflix-usage-stats/**/*.css' './netflix-usage-stats/**/*.html'",
     "prettier-format": "prettier --write './netflix-usage-stats/**/*.html' './netflix-usage-stats/**/*.css' './netflix-usage-stats/**/*.html'",
