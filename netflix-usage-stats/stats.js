@@ -342,7 +342,7 @@ function createTvVsShowsTimeChart() {
         tooltips: {
           callbacks: {
             label: function(tooltipItem, data) {
-              return `${secondsToYdhms(data.datasets[0].data[tooltipItem.index])}`;
+              return `${data.labels[tooltipItem.index]}: ${secondsToYdhms(data.datasets[0].data[tooltipItem.index])}`;
             }
           }
         }
