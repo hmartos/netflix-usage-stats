@@ -1,5 +1,6 @@
 'use strict';
 
+const DEBUG_MODE = false;
 const PAGE_SIZE = 20;
 const summary = {
   viewedItemsCount: 0,
@@ -86,7 +87,7 @@ function main() {
  */
 function setupStatsPage() {
   BUILD_IDENTIFIER = getNetflixBuildId();
-  console.log(`Netflix BUILD_IDENTIFIER: ${BUILD_IDENTIFIER}`);
+  debug(`Netflix BUILD_IDENTIFIER: ${BUILD_IDENTIFIER}`);
 
   // Change page title
   document.querySelector('h1').textContent = chrome.i18n.getMessage(
@@ -138,13 +139,12 @@ function getActivity() {
     getActivityPage(0)
       .then(response => response.json())
       .then(data => {
-        // console.log("Results of page 0", data);
         let count = data.vhSize;
 
-        console.log(`Viewing history size is ${count}`);
+        debug(`Viewing history size is ${count}`);
         let pages = Math.ceil(count / PAGE_SIZE);
 
-        console.log(
+        debug(
           `Viewing history has ${pages} pages of ${PAGE_SIZE} elements per page`
         );
         viewedItems = viewedItems.concat(data.viewedItems);
@@ -159,7 +159,6 @@ function getActivity() {
           return getActivityPage(page)
             .then(response => response.json())
             .then(data => {
-              // console.log(`Results of page ${page}`, data);
               viewedItems = viewedItems.concat(data.viewedItems);
             })
             .catch(error =>
@@ -170,7 +169,7 @@ function getActivity() {
         // Synchronizes when all requests are resolved
         Promise.all(promises)
           .then(response => {
-            // console.log(`All pages loaded, viewed items: `, viewedItems);
+            debug(`All pages loaded, viewed items: `, viewedItems);
             resolve(_.sortBy(viewedItems, ['date']).reverse());
           })
           .catch(error => {
@@ -193,19 +192,12 @@ function getActivity() {
  * @param {*} page
  */
 function getActivityPage(page) {
-  // console.log(`Getting activity page ${page}`)
   // If BUILD_IDENTIFIER couldn't be retrieved, fallback to last working BUILD_IDENTIFIER
   let buildId = BUILD_IDENTIFIER ? BUILD_IDENTIFIER : 'v8056e71b';
   return fetch(
     `https://www.netflix.com/api/shakti/${buildId}/viewingactivity?pg=${page}&pgSize=${PAGE_SIZE}`,
     { credentials: 'same-origin' }
   );
-  // .then(response => response.json())
-  // .then(data => {
-  //   console.log(data);
-  //   return data.viewedItems;
-  // })
-  // .catch(error => console.error(error));
 }
 
 /**
@@ -213,16 +205,12 @@ function getActivityPage(page) {
  * @param {*} viewedItems
  */
 function calculateStats(viewedItems) {
-  console.log('Activity data', viewedItems);
-
   // Time by date
   const timeByDayGroup = _.groupBy(viewedItems, viewedItem => {
     const date = new Date(viewedItem.date);
     // TODO Change format depending on language
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   });
-
-  console.log('Time by day group', timeByDayGroup);
 
   const timeByDay = _.reduce(
     timeByDayGroup,
@@ -234,24 +222,19 @@ function calculateStats(viewedItems) {
     {}
   );
 
-  console.log('Time byday', timeByDay);
+  debug('Time by day', timeByDay);
 
   const maxTimeInDate = _.maxBy(_.values(timeByDay));
   const maxTimeInDateDate = _.findKey(timeByDay, timeByDay => {
     return timeByDay === maxTimeInDate;
   });
-  console.log(
-    'Max time in a day ' + maxTimeInDate,
-    secondsToYdhms(maxTimeInDate)
-  );
-  console.log('Date of max time in a day', maxTimeInDateDate);
+  debug('Max time in a day ' + maxTimeInDate, secondsToYdhms(maxTimeInDate));
+  debug('Date of max time in a day', maxTimeInDateDate);
 
   // Time by day week
   const timeByDayWeekGroup = _.groupBy(viewedItems, viewedItem => {
     return new Date(viewedItem.date).getDay();
   });
-
-  // console.log("Time by day week", timeByDayWeekGroup);
 
   const timeByDayWeek = _.reduce(
     timeByDayWeekGroup,
@@ -272,27 +255,27 @@ function calculateStats(viewedItems) {
     {}
   );
 
-  console.log('Time by day week', timeByDayWeek);
+  debug('Time by day week', timeByDayWeek);
 
   // Episodes
   const episodes = _.filter(viewedItems, function(item) {
     return _.has(item, 'series');
   });
-  console.log('Episodes', episodes);
+  debug('Episodes', episodes);
 
   // Shows
   const shows = _.groupBy(episodes, 'seriesTitle');
-  console.log('Shows', shows);
+  debug('Shows', shows);
 
   // Device Types
   const deviceTypes = _.groupBy(viewedItems, 'deviceType');
-  console.log('deviceTypes', deviceTypes);
+  debug('deviceTypes', deviceTypes);
 
   // Movies
   const movies = _.filter(viewedItems, function(item) {
     return !_.has(item, 'series');
   });
-  console.log('Movies', movies);
+  debug('Movies', movies);
 
   summary.viewedItemsCount = viewedItems.length;
   summary.firstUse = viewedItems[viewedItems.length - 1]['dateStr'];
@@ -307,10 +290,10 @@ function calculateStats(viewedItems) {
   summary.showsTime = _.sumBy(episodes, 'duration');
   summary.timeByDayWeek = timeByDayWeek;
 
-  console.log(`Time spent on Netflix: ${secondsToYdhms(summary.totalTime)}`);
-  console.log(`Time spent on Movies: ${secondsToYdhms(summary.moviesTime)}`);
-  console.log(`Time spent on Shows: ${secondsToYdhms(summary.showsTime)}`);
-  console.log('Activity Summary', summary);
+  debug(`Time spent on Netflix: ${secondsToYdhms(summary.totalTime)}`);
+  debug(`Time spent on Movies: ${secondsToYdhms(summary.moviesTime)}`);
+  debug(`Time spent on Shows: ${secondsToYdhms(summary.showsTime)}`);
+  debug('Activity Summary', summary);
 }
 
 /**
@@ -557,7 +540,7 @@ function createDatatable(viewedItems) {
       : `${chrome.i18n.getMessage('movie')}`;
     return viewedItem;
   });
-  console.log(`Datatable data`, dataset);
+  debug(`Datatable data`, dataset);
 
   const datatable = $('#activityDataTable').DataTable({
     data: dataset,
@@ -712,7 +695,6 @@ function showLoader() {
 
   // Get Netflix activity table
   let activityTable = document.querySelector('.retable');
-  console.log(activityTable);
 
   // Show loader
   activityTable.replaceWith(container);
@@ -882,6 +864,16 @@ function showErrorPage() {
         .replaceWith(errorSection);
     })
     .catch(error => {
-      console.log('Error loading error page, this is embarrasing...', error);
+      console.error('Error loading error page, this is embarrasing...', error);
     });
+}
+
+function debug(message, data) {
+  if (DEBUG_MODE) {
+    if (data) {
+      console.log(message, data);
+    } else {
+      console.log(message);
+    }
+  }
 }
