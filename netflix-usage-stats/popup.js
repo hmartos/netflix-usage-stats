@@ -4,7 +4,7 @@
 
 'use strict';
 
-document.querySelector('#goToStatsBtn span').innerHTML = chrome.i18n.getMessage("showStats");
+document.querySelector('#goToStatsBtn span').textContent = chrome.i18n.getMessage("showStats");
 let goToStatsBtn = document.getElementById('goToStatsBtn');
 
 goToStatsBtn.onclick = function(element) {

@@ -22,6 +22,7 @@
         "vendor/js/dataTables.responsive.min.js",
         "vendor/js/dataTables.fixedHeader.min.js",
         "vendor/js/accent-neutralise.min.js", 
+        "vendor/js/purify.min.js",
         "stats.js"],
       "css": [
         "vendor/css/material-icons.css", 
