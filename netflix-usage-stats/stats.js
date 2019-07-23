@@ -548,7 +548,7 @@ function createMeanTimeByWeekDayChart() {
 function createDatatable(viewedItems) {
   const dataset = viewedItems.map(viewedItem => {
     viewedItem.title = viewedItem.series
-      ? `${viewedItem.seriesTitle} ${viewedItem.title}`
+      ? `${viewedItem.seriesTitle} - ${viewedItem.title}`
       : `${viewedItem.title}`;
     viewedItem.dateFormatted = formatDate(viewedItem.date);
     viewedItem.durationFormatted = secondsToMinutes(viewedItem.duration);
