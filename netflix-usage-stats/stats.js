@@ -667,7 +667,8 @@ function renderTitleColumn(title, type, row, meta) {
  */
 function renderDateColumn(date, type, row, meta) {
   return `<div class="ns-date-column" title="${formatDate4Title(
-    date
+    date,
+    true
   )}">${formatFullDate(date)}</div>`;
 }
 
@@ -892,14 +893,23 @@ function formatDate(dateMilliseconds) {
  * Format depends on locale
  * @param number dateMilliseconds
  */
-function formatDate4Title(dateMilliseconds) {
+function formatDate4Title(dateMilliseconds, showHours) {
   const date = new Date(dateMilliseconds);
   const dayOfWeek = chrome.i18n.getMessage(WEEK_DAYS[date.getDay()]);
   const day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
   const month = chrome.i18n.getMessage(MONTHS[date.getMonth()]);
   const year = date.getFullYear();
 
-  return `${dayOfWeek}, ${day} ${month} ${year}`;
+  if (!showHours) {
+    return `${dayOfWeek}, ${day} ${month} ${year}`;
+  }
+
+  const hours = date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
+  const minutes =
+    date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
+  const seconds =
+    date.getSeconds() > 9 ? date.getSeconds() : `0${date.getSeconds()}`;
+  return `${dayOfWeek}, ${day} ${month} ${year} ${hours}:${minutes}:${seconds}`;
 }
 
 /**
