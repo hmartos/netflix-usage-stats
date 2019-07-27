@@ -318,11 +318,11 @@ function showStats(viewedItems) {
   document.querySelector(
     '#viewedItemsCount .ns-extra-info'
   ).textContent = `(${chrome.i18n.getMessage('since')} ${formatDate(
-    new Date(summary.firstUse)
+    summary.firstUse
   )})`;
   document.querySelector(
     '#viewedItemsCount .ns-extra-info'
-  ).title = `${formatDate4Title(new Date(summary.firstUse))}`;
+  ).title = `${formatDate4Title(summary.firstUse)}`;
   document.querySelector('#totalTime .ns-time').textContent = secondsToYdhms(
     summary.totalTime
   );
@@ -331,10 +331,10 @@ function showStats(viewedItems) {
   ).textContent = secondsToYdhms(summary.maxTimeInDate);
   document.querySelector(
     '#maxTimeInDate .ns-extra-info'
-  ).textContent = `(${formatDate(new Date(summary.maxTimeInDateDate))})`;
+  ).textContent = `(${formatDate(summary.maxTimeInDateDate)})`;
   document.querySelector(
     '#maxTimeInDate .ns-extra-info'
-  ).title = `${formatDate4Title(new Date(summary.maxTimeInDateDate))}`;
+  ).title = `${formatDate4Title(summary.maxTimeInDateDate)}`;
   document.querySelector('#deviceCount .ns-number').textContent = formatNumber(
     summary.deviceCount
   );
@@ -566,7 +566,7 @@ function createDatatable(viewedItems) {
     columns: [
       { data: 'title' },
       { data: 'date' },
-      { data: 'dateFormatted' },
+      { data: 'date' }, // To pass the date in milliseconds to renderDateColumn function
       { data: 'duration' },
       { data: 'durationFormatted' },
       { data: 'type' },
@@ -654,8 +654,8 @@ function createDatatable(viewedItems) {
  * @param {*} row
  * @param {*} meta
  */
-function renderTitleColumn(data, type, row, meta) {
-  return `<div class="ns-title-column">${data}</div>`;
+function renderTitleColumn(title, type, row, meta) {
+  return `<div class="ns-title-column">${title}</div>`;
 }
 
 /**
@@ -665,8 +665,10 @@ function renderTitleColumn(data, type, row, meta) {
  * @param {*} row
  * @param {*} meta
  */
-function renderDateColumn(data, type, row, meta) {
-  return `<div class="ns-date-column">${data}</div>`;
+function renderDateColumn(date, type, row, meta) {
+  return `<div class="ns-date-column" title="${formatDate4Title(
+    date
+  )}">${formatFullDate(date)}</div>`;
 }
 
 /**
@@ -676,8 +678,8 @@ function renderDateColumn(data, type, row, meta) {
  * @param {*} row
  * @param {*} meta
  */
-function renderDurationColumn(data, type, row, meta) {
-  return `<div class="ns-duration-column">${data}</div>`;
+function renderDurationColumn(duration, type, row, meta) {
+  return `<div class="ns-duration-column">${duration}</div>`;
 }
 
 /**
@@ -687,8 +689,8 @@ function renderDurationColumn(data, type, row, meta) {
  * @param {*} row
  * @param {*} meta
  */
-function renderTypeColumn(data, type, row, meta) {
-  return `<div class="ns-type-column">${data}</div>`;
+function renderTypeColumn(titleType, type, row, meta) {
+  return `<div class="ns-type-column">${titleType}</div>`;
 }
 
 /**
@@ -868,9 +870,10 @@ function formatFullDate(dateMilliseconds) {
 /**
  * Format Netflix date
  * Format depends on locale
- * @param Date date
+ * @param number dateMilliseconds
  */
-function formatDate(date) {
+function formatDate(dateMilliseconds) {
+  const date = new Date(dateMilliseconds);
   if (chrome.i18n.getUILanguage() === 'es') {
     return `${date.getDate()}/${date.getMonth() + 1}/${date
       .getFullYear()
@@ -887,9 +890,10 @@ function formatDate(date) {
 /**
  * Format date to show it on titles
  * Format depends on locale
- * @param Date date
+ * @param number dateMilliseconds
  */
-function formatDate4Title(date) {
+function formatDate4Title(dateMilliseconds) {
+  const date = new Date(dateMilliseconds);
   const dayOfWeek = chrome.i18n.getMessage(WEEK_DAYS[date.getDay()]);
   const day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
   const month = chrome.i18n.getMessage(MONTHS[date.getMonth()]);
