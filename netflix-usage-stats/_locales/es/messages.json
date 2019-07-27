@@ -91,6 +91,42 @@
   "Sunday": {
     "message": "Domingo"
   },
+  "January": {
+    "message": "Enero"
+  },
+  "February": {
+    "message": "Febrero"
+  },
+  "March": {
+    "message": "Marzo"
+  },
+  "April": {
+    "message": "Abril"
+  },
+  "May": {
+    "message": "Mayo"
+  },
+  "June": {
+    "message": "Junio"
+  },
+  "July": {
+    "message": "Julio"
+  },
+  "August": {
+    "message": "Agosto"
+  },
+  "September": {
+    "message": "Septiembre"
+  },
+  "October": {
+    "message": "Octubre"
+  },
+  "November": {
+    "message": "Noviembre"
+  },
+  "December": {
+    "message": "Deciembre"
+  },
   "year": {
     "message": "año"
   },
