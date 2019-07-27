@@ -208,8 +208,7 @@ function calculateStats(viewedItems) {
   // Time by date
   const timeByDayGroup = _.groupBy(viewedItems, viewedItem => {
     const date = new Date(viewedItem.date);
-    // TODO Change format depending on language
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    return formatDate(date);
   });
 
   const timeByDay = _.reduce(
@@ -239,9 +238,8 @@ function calculateStats(viewedItems) {
   const timeByDayWeek = _.reduce(
     timeByDayWeekGroup,
     (result, value, key) => {
-      //const duration = _.sumBy(value, 'duration');
       const timeByDate = _.reduce(
-        _.groupBy(value, 'dateStr'),
+        _.groupBy(value, getDate),
         (result, value, key) => {
           result[key] = _.sumBy(value, 'duration');
           return result;
@@ -278,7 +276,9 @@ function calculateStats(viewedItems) {
   debug('Movies', movies);
 
   summary.viewedItemsCount = viewedItems.length;
-  summary.firstUse = viewedItems[viewedItems.length - 1]['dateStr'];
+  summary.firstUse = getFirstUseDate(
+    viewedItems[viewedItems.length - 1]['date']
+  );
   summary.totalTime = _.sumBy(viewedItems, 'duration');
   summary.maxTimeInDate = maxTimeInDate;
   summary.maxTimeInDateDate = maxTimeInDateDate;
@@ -398,7 +398,7 @@ function secondsToYdhms(seconds) {
 }
 
 /**
- * Format time from seconds to minutes
+ * Format duration from seconds to minutes
  * @param {*} seconds
  */
 function secondsToMinutes(seconds) {
@@ -533,7 +533,7 @@ function createDatatable(viewedItems) {
     viewedItem.title = viewedItem.series
       ? `${viewedItem.seriesTitle} - ${viewedItem.title}`
       : `${viewedItem.title}`;
-    viewedItem.dateFormatted = formatDate(viewedItem.date);
+    viewedItem.dateFormatted = formatFullDate(viewedItem.date);
     viewedItem.durationFormatted = secondsToMinutes(viewedItem.duration);
     viewedItem.type = viewedItem.series
       ? `${chrome.i18n.getMessage('show')}`
@@ -821,21 +821,69 @@ function formatNumber(number) {
 }
 
 /**
- * Format date in dd/MM/yyyy HH:mm:ss format
- * @param {*} dateString
+ * Format Netflix date with timestamp
+ * Format depends on locale
+ * @param number dateMilliseconds
  */
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
-  const month =
-    date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
-  const year = date.getFullYear();
+function formatFullDate(dateMilliseconds) {
+  const date = new Date(dateMilliseconds);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date
+    .getFullYear()
+    .toString()
+    .substr(-2);
   const hours = date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
   const minutes =
     date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
   const seconds =
     date.getSeconds() > 9 ? date.getSeconds() : `0${date.getSeconds()}`;
-  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+  if (chrome.i18n.getUILanguage() === 'es') {
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  } else {
+    return `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
+  }
+}
+
+/**
+ * Format Netflix date
+ * Format depends on locale
+ * @param Date date
+ */
+function formatDate(date) {
+  if (chrome.i18n.getUILanguage() === 'es') {
+    return `${date.getDate()}/${date.getMonth() + 1}/${date
+      .getFullYear()
+      .toString()
+      .substr(-2)}`;
+  } else {
+    return `${date.getMonth() + 1}/${date.getDate()}/${date
+      .getFullYear()
+      .toString()
+      .substr(-2)}`;
+  }
+}
+
+/**
+ * Return viewing date of the passed element
+ * @param {*} element
+ */
+function getDate(element) {
+  const date = new Date(element.date);
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+  return date;
+}
+
+/**
+ * Get first use date
+ * @param Date date
+ */
+function getFirstUseDate(date) {
+  return formatDate(new Date(date));
 }
 
 /**
