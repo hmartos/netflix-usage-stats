@@ -1,6 +1,6 @@
 'use strict';
 
-const DEBUG_MODE = false;
+const DEBUG_MODE = true;
 const PAGE_SIZE = 20;
 const summary = {
   viewedItemsCount: 0,
@@ -21,6 +21,20 @@ const WEEK_DAYS = {
   4: 'Thursday',
   5: 'Friday',
   6: 'Saturday',
+};
+const MONTHS = {
+  0: 'January',
+  1: 'February',
+  2: 'March',
+  3: 'April',
+  4: 'May',
+  5: 'June',
+  6: 'July',
+  7: 'August',
+  8: 'September',
+  9: 'October',
+  10: 'November',
+  11: 'December',
 };
 
 let BUILD_IDENTIFIER;
@@ -207,8 +221,7 @@ function getActivityPage(page) {
 function calculateStats(viewedItems) {
   // Time by date
   const timeByDayGroup = _.groupBy(viewedItems, viewedItem => {
-    const date = new Date(viewedItem.date);
-    return formatDate(date);
+    return getDate(viewedItem);
   });
 
   const timeByDay = _.reduce(
@@ -276,9 +289,7 @@ function calculateStats(viewedItems) {
   debug('Movies', movies);
 
   summary.viewedItemsCount = viewedItems.length;
-  summary.firstUse = getFirstUseDate(
-    viewedItems[viewedItems.length - 1]['date']
-  );
+  summary.firstUse = new Date(viewedItems[viewedItems.length - 1]['date']);
   summary.totalTime = _.sumBy(viewedItems, 'duration');
   summary.maxTimeInDate = maxTimeInDate;
   summary.maxTimeInDateDate = maxTimeInDateDate;
@@ -306,7 +317,12 @@ function showStats(viewedItems) {
   ).textContent = formatNumber(summary.viewedItemsCount);
   document.querySelector(
     '#viewedItemsCount .ns-extra-info'
-  ).textContent = `(${chrome.i18n.getMessage('since')} ${summary.firstUse})`;
+  ).textContent = `(${chrome.i18n.getMessage('since')} ${formatDate(
+    new Date(summary.firstUse)
+  )})`;
+  document.querySelector(
+    '#viewedItemsCount .ns-extra-info'
+  ).title = `${formatDate4Title(new Date(summary.firstUse))}`;
   document.querySelector('#totalTime .ns-time').textContent = secondsToYdhms(
     summary.totalTime
   );
@@ -315,7 +331,10 @@ function showStats(viewedItems) {
   ).textContent = secondsToYdhms(summary.maxTimeInDate);
   document.querySelector(
     '#maxTimeInDate .ns-extra-info'
-  ).textContent = `(${summary.maxTimeInDateDate})`;
+  ).textContent = `(${formatDate(new Date(summary.maxTimeInDateDate))})`;
+  document.querySelector(
+    '#maxTimeInDate .ns-extra-info'
+  ).title = `${formatDate4Title(new Date(summary.maxTimeInDateDate))}`;
   document.querySelector('#deviceCount .ns-number').textContent = formatNumber(
     summary.deviceCount
   );
@@ -866,6 +885,20 @@ function formatDate(date) {
 }
 
 /**
+ * Format date to show it on titles
+ * Format depends on locale
+ * @param Date date
+ */
+function formatDate4Title(date) {
+  const dayOfWeek = chrome.i18n.getMessage(WEEK_DAYS[date.getDay()]);
+  const day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
+  const month = chrome.i18n.getMessage(MONTHS[date.getMonth()]);
+  const year = date.getFullYear();
+
+  return `${dayOfWeek}, ${day} ${month} ${year}`;
+}
+
+/**
  * Return viewing date of the passed element
  * @param {*} element
  */
@@ -876,14 +909,6 @@ function getDate(element) {
   date.setSeconds(0);
   date.setMilliseconds(0);
   return date;
-}
-
-/**
- * Get first use date
- * @param Date date
- */
-function getFirstUseDate(date) {
-  return formatDate(new Date(date));
 }
 
 /**
