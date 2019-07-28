@@ -9,9 +9,9 @@ const summary = {
   deviceCount: 0,
   moviesCount: 0,
   moviesTime: 0,
-  showsCount: 0,
+  seriesCount: 0,
   episodesCount: 0,
-  showsTime: 0,
+  seriesTime: 0,
 };
 const WEEK_DAYS = {
   0: 'Sunday',
@@ -274,9 +274,9 @@ function calculateStats(viewedItems) {
   });
   debug('Episodes', episodes);
 
-  // Shows
-  const shows = _.groupBy(episodes, 'seriesTitle');
-  debug('Shows', shows);
+  // Series
+  const series = _.groupBy(episodes, 'seriesTitle');
+  debug('Series', series);
 
   // Device Types
   const deviceTypes = _.groupBy(viewedItems, 'deviceType');
@@ -297,13 +297,13 @@ function calculateStats(viewedItems) {
   summary.moviesCount = movies.length;
   summary.moviesTime = _.sumBy(movies, 'duration');
   summary.episodesCount = episodes.length;
-  summary.showsCount = Object.keys(shows).length;
-  summary.showsTime = _.sumBy(episodes, 'duration');
+  summary.seriesCount = Object.keys(series).length;
+  summary.seriesTime = _.sumBy(episodes, 'duration');
   summary.timeByDayWeek = timeByDayWeek;
 
   debug(`Time spent on Netflix: ${secondsToYdhms(summary.totalTime)}`);
   debug(`Time spent on Movies: ${secondsToYdhms(summary.moviesTime)}`);
-  debug(`Time spent on Shows: ${secondsToYdhms(summary.showsTime)}`);
+  debug(`Time spent on Series: ${secondsToYdhms(summary.seriesTime)}`);
   debug('Activity Summary', summary);
 }
 
@@ -347,21 +347,21 @@ function showStats(viewedItems) {
     summary.moviesTime
   );
 
-  // Shows
-  document.querySelector('#showsCount .ns-number').textContent = formatNumber(
-    summary.showsCount
+  // Series
+  document.querySelector('#seriesCount .ns-number').textContent = formatNumber(
+    summary.seriesCount
   );
   document.querySelector(
-    '#showsCount .ns-extra-info'
+    '#seriesCount .ns-extra-info'
   ).textContent = `(${formatNumber(
     summary.episodesCount
   )} ${chrome.i18n.getMessage('episodes')})`;
-  document.querySelector('#showsTime .ns-time').textContent = secondsToYdhms(
-    summary.showsTime
+  document.querySelector('#seriesTime .ns-time').textContent = secondsToYdhms(
+    summary.seriesTime
   );
 
   // Charts
-  createTvVsShowsTimeChart();
+  createTvVsseriesTimeChart();
   createMeanTimeByWeekDayChart();
 
   // DataTable
@@ -434,9 +434,9 @@ function secondsToMinutes(seconds) {
 }
 
 /**
- * Create time watching movies vs shows pie chart
+ * Create time watching movies vs series pie chart
  */
-function createTvVsShowsTimeChart() {
+function createTvVsseriesTimeChart() {
   // Generates chart
   var ctx = document.getElementById('moviesVsTvTimeChart');
   var myChart = new Chart(ctx, {
@@ -444,11 +444,11 @@ function createTvVsShowsTimeChart() {
     data: {
       labels: [
         `${chrome.i18n.getMessage('movies')}`,
-        `${chrome.i18n.getMessage('shows')}`,
+        `${chrome.i18n.getMessage('series')}`,
       ],
       datasets: [
         {
-          data: [summary.moviesTime, summary.showsTime],
+          data: [summary.moviesTime, summary.seriesTime],
           backgroundColor: ['rgb(178, 7, 16)', 'rgb(229, 9, 20)'],
         },
       ],
@@ -555,7 +555,7 @@ function createDatatable(viewedItems) {
     viewedItem.dateFormatted = formatFullDate(viewedItem.date);
     viewedItem.durationFormatted = secondsToMinutes(viewedItem.duration);
     viewedItem.type = viewedItem.series
-      ? `${chrome.i18n.getMessage('show')}`
+      ? `${chrome.i18n.getMessage('serie')}`
       : `${chrome.i18n.getMessage('movie')}`;
     return viewedItem;
   });
@@ -782,18 +782,18 @@ function translatePage() {
     .setAttribute('aria-label', chrome.i18n.getMessage('moviesTime'));
 
   document.querySelector(
-    '#showsCount .ns-title'
-  ).textContent = chrome.i18n.getMessage('showsCount');
+    '#seriesCount .ns-title'
+  ).textContent = chrome.i18n.getMessage('seriesCount');
   document
-    .querySelector('#showsCount .ns-title-container')
-    .setAttribute('aria-label', chrome.i18n.getMessage('showsCount'));
+    .querySelector('#seriesCount .ns-title-container')
+    .setAttribute('aria-label', chrome.i18n.getMessage('seriesCount'));
 
   document.querySelector(
-    '#showsTime .ns-title'
-  ).textContent = chrome.i18n.getMessage('showsTime');
+    '#seriesTime .ns-title'
+  ).textContent = chrome.i18n.getMessage('seriesTime');
   document
-    .querySelector('#showsTime .ns-title-container')
-    .setAttribute('aria-label', chrome.i18n.getMessage('showsTime'));
+    .querySelector('#seriesTime .ns-title-container')
+    .setAttribute('aria-label', chrome.i18n.getMessage('seriesTime'));
 
   document.querySelector(
     '#moviesVsTvTime .ns-title'

@@ -22,7 +22,7 @@
     "message": "Cargando tu actividad de visionado, esto puede tardar un poco..."
   },
   "viewedItemsCount": {
-    "message": "Elementos reproducidos"
+    "message": "Títulos reproducidos"
   },
   "totalTime": {
     "message": "Tiempo total en Netflix"
@@ -39,18 +39,18 @@
   "moviesTime": {
     "message": "Tiempo total viendo películas"
   },
-  "showsCount": {
+  "seriesCount": {
     "message": "Series vistas",
     "description": ""
   },
-  "showsTime": {
+  "seriesTime": {
     "message": "Tiempo total viendo series"
   },
   "moviesVsTvTime": {
     "message": "Tiempo viendo películas/series"
   },
   "meanTimeByWeekDay": {
-    "message": "Porcentaje de tiempo en Netflix por día de la semana"
+    "message": "Tiempo en Netflix por día"
   },
   "episodes": {
     "message": "Capítulos"
@@ -58,13 +58,13 @@
   "movie": {
     "message": "Película"
   },
-  "show": {
+  "serie": {
     "message": "Serie"
   },
   "movies": {
     "message": "Películas"
   },
-  "shows": {
+  "series": {
     "message": "Series"
   },
   "timeWatchingNetflix": {

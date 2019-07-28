@@ -29,7 +29,7 @@
     "description": "Message to show loading can take some time"
   },
   "viewedItemsCount": {
-    "message": "Elements watched",
+    "message": "Titles watched",
     "description": ""
   },
   "totalTime": {
@@ -41,7 +41,7 @@
     "description": ""
   },
   "deviceCount": {
-    "message": "Used devices",
+    "message": "Devices used",
     "description": ""
   },
   "moviesCount": {
@@ -52,20 +52,20 @@
     "message": "Total time watching movies",
     "description": ""
   },
-  "showsCount": {
-    "message": "Shows watched",
+  "seriesCount": {
+    "message": "Series watched",
     "description": ""
   },
-  "showsTime": {
-    "message": "Total time watching shows",
+  "seriesTime": {
+    "message": "Total time watching series",
     "description": ""
   },
   "moviesVsTvTime": {
-    "message": "Time watching movies/shows",
+    "message": "Time watching movies/series",
     "description": ""
   },
   "meanTimeByWeekDay": {
-    "message": "Percentage of time on Netflix by day of week",
+    "message": "Time per day on Netflix",
     "description": ""
   },
   "episodes": {
@@ -76,16 +76,16 @@
     "message": "Movie",
     "description": ""
   },
-  "show": {
-    "message": "Show",
+  "serie": {
+    "message": "Serie",
     "description": ""
   },
   "movies": {
     "message": "Movies",
     "description": ""
   },
-  "shows": {
-    "message": "Shows",
+  "series": {
+    "message": "Series",
     "description": ""
   },
   "timeWatchingNetflix": {
