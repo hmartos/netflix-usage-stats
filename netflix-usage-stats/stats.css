@@ -52,7 +52,7 @@
   font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.ns-card {
+.ns-card-stat {
   min-width: 256px;
   width: 25%;
   text-align: center;
@@ -61,6 +61,8 @@
 }
 
 .ns-card-chart {
+  min-width: 400px;
+  width: 50%;
   margin: 0 auto;
   text-align: center;
   margin-bottom: 50px;
@@ -75,12 +77,13 @@
   font-size: 14px;
 }
 
-.ns-card .ns-title-container {
+.ns-card-stat .ns-title-container {
   margin-top: 10px;
 }
 
 .ns-card-chart .ns-title-container {
   margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 .ns-card-table .ns-title-container {
@@ -117,17 +120,17 @@
 }
 
 .ns-chart {
+  position: relative;
+  margin: auto;
   width: 100%;
-  height: 100%;
-  margin-top: 15px;
 }
 
 .ns-pie-chart {
-  min-width: 450px;
+  min-height: 225px;
 }
 
 .ns-bar-chart {
-  min-width: 512px;
+  min-height: 250px;
 }
 
 .ns-title-column {

@@ -1,6 +1,6 @@
 'use strict';
 
-const DEBUG_MODE = true;
+const DEBUG_MODE = false;
 const PAGE_SIZE = 20;
 const summary = {
   viewedItemsCount: 0,
@@ -459,6 +459,8 @@ function createTvVsseriesTimeChart() {
       ],
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       tooltips: {
         callbacks: {
           label: function(tooltipItem, data) {
@@ -513,6 +515,8 @@ function createMeanTimeByWeekDayChart() {
       ],
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       legend: {
         display: true,
       },
