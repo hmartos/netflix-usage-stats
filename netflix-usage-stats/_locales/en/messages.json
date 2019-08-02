@@ -29,7 +29,7 @@
     "description": "Message to show loading can take some time"
   },
   "viewedItemsCount": {
-    "message": "Elements watched",
+    "message": "Titles watched",
     "description": ""
   },
   "totalTime": {
@@ -41,7 +41,7 @@
     "description": ""
   },
   "deviceCount": {
-    "message": "Used devices",
+    "message": "Devices used",
     "description": ""
   },
   "moviesCount": {
@@ -52,20 +52,20 @@
     "message": "Total time watching movies",
     "description": ""
   },
-  "showsCount": {
-    "message": "Shows watched",
+  "seriesCount": {
+    "message": "Series watched",
     "description": ""
   },
-  "showsTime": {
-    "message": "Total time watching shows",
+  "seriesTime": {
+    "message": "Total time watching series",
     "description": ""
   },
   "moviesVsTvTime": {
-    "message": "Time watching movies/shows",
+    "message": "Time watching movies/series",
     "description": ""
   },
   "meanTimeByWeekDay": {
-    "message": "Percentage of time on Netflix by day of week",
+    "message": "Average time per day on Netflix",
     "description": ""
   },
   "episodes": {
@@ -76,20 +76,24 @@
     "message": "Movie",
     "description": ""
   },
-  "show": {
-    "message": "Show",
+  "serie": {
+    "message": "Serie",
     "description": ""
   },
   "movies": {
     "message": "Movies",
     "description": ""
   },
-  "shows": {
-    "message": "Shows",
+  "series": {
+    "message": "Series",
     "description": ""
   },
-  "timeWatchingNetflix": {
-    "message": "Time watching Netflix",
+  "timeWatching": {
+    "message": "Time watching",
+    "description": ""
+  },
+  "avgTimeWatchingNetflixPerDayOfTheWeek": {
+    "message": "Average time watching Netflix per day of the week",
     "description": ""
   },
   "Monday": {
@@ -118,6 +122,54 @@
   },
   "Sunday": {
     "message": "Sunday",
+    "description": ""
+  },
+  "January": {
+    "message": "January",
+    "description": ""
+  },
+  "February": {
+    "message": "February",
+    "description": ""
+  },
+  "March": {
+    "message": "March",
+    "description": ""
+  },
+  "April": {
+    "message": "April",
+    "description": ""
+  },
+  "May": {
+    "message": "May",
+    "description": ""
+  },
+  "June": {
+    "message": "June",
+    "description": ""
+  },
+  "July": {
+    "message": "July",
+    "description": ""
+  },
+  "August": {
+    "message": "August",
+    "description": ""
+  },
+  "September": {
+    "message": "September",
+    "description": ""
+  },
+  "October": {
+    "message": "October",
+    "description": ""
+  },
+  "November": {
+    "message": "November",
+    "description": ""
+  },
+  "December": {
+    "message": "December",
     "description": ""
   },
   "year": {
@@ -190,6 +242,14 @@
   },
   "emptyTable": {
     "message": "No data available in table",
+    "description": ""
+  },
+  "errorMessage": {
+    "message": "Oh, an error ocurred, I'm so sorry.",
+    "description": ""
+  },
+  "createIssueMessage": {
+    "message": "You can create a new issue describing your problem",
     "description": ""
   }
 }

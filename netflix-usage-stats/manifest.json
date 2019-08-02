@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extensionTitle__",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "permissions": ["activeTab", "declarativeContent", "*://*.netflix.com/*", "https://www.netflix.com/*"],
@@ -21,7 +21,8 @@
         "vendor/js/dataTables.scroller.min.js", 
         "vendor/js/dataTables.responsive.min.js",
         "vendor/js/dataTables.fixedHeader.min.js",
-        "vendor/js/accent-neutralise.js", 
+        "vendor/js/accent-neutralise.min.js", 
+        "vendor/js/purify.min.js",
         "stats.js"],
       "css": [
         "vendor/css/material-icons.css", 
@@ -39,7 +40,10 @@
       "js": ["account.js"]
     }
   ],
-  "web_accessible_resources": ["stats.html"],
+  "web_accessible_resources": [
+    "stats.html", 
+    "error.html"
+  ],
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {

@@ -22,7 +22,7 @@
     "message": "Cargando tu actividad de visionado, esto puede tardar un poco..."
   },
   "viewedItemsCount": {
-    "message": "Elementos reproducidos"
+    "message": "Títulos reproducidos"
   },
   "totalTime": {
     "message": "Tiempo total en Netflix"
@@ -39,18 +39,18 @@
   "moviesTime": {
     "message": "Tiempo total viendo películas"
   },
-  "showsCount": {
+  "seriesCount": {
     "message": "Series vistas",
     "description": ""
   },
-  "showsTime": {
+  "seriesTime": {
     "message": "Tiempo total viendo series"
   },
   "moviesVsTvTime": {
     "message": "Tiempo viendo películas/series"
   },
   "meanTimeByWeekDay": {
-    "message": "Porcentaje de tiempo en Netflix por día de la semana"
+    "message": "Tiempo medio en Netflix por día"
   },
   "episodes": {
     "message": "Capítulos"
@@ -58,17 +58,20 @@
   "movie": {
     "message": "Película"
   },
-  "show": {
+  "serie": {
     "message": "Serie"
   },
   "movies": {
     "message": "Películas"
   },
-  "shows": {
+  "series": {
     "message": "Series"
   },
-  "timeWatchingNetflix": {
-    "message": "Tiempo viendo Netflix"
+  "timeWatching": {
+    "message": "Tiempo viendo"
+  },
+  "avgTimeWatchingNetflixPerDayOfTheWeek": {
+    "message": "Tiempo medio viendo Netflix por día de la semana"
   },
   "Monday": {
     "message": "Lunes"
@@ -90,6 +93,42 @@
   },
   "Sunday": {
     "message": "Domingo"
+  },
+  "January": {
+    "message": "Enero"
+  },
+  "February": {
+    "message": "Febrero"
+  },
+  "March": {
+    "message": "Marzo"
+  },
+  "April": {
+    "message": "Abril"
+  },
+  "May": {
+    "message": "Mayo"
+  },
+  "June": {
+    "message": "Junio"
+  },
+  "July": {
+    "message": "Julio"
+  },
+  "August": {
+    "message": "Agosto"
+  },
+  "September": {
+    "message": "Septiembre"
+  },
+  "October": {
+    "message": "Octubre"
+  },
+  "November": {
+    "message": "Noviembre"
+  },
+  "December": {
+    "message": "Deciembre"
   },
   "year": {
     "message": "año"
@@ -144,5 +183,11 @@
   },
   "emptyTable": {
     "message": "No hay datos para mostrar en la tabla"
+  },
+  "errorMessage": {
+    "message": "Vaya, ocurrió un error, lo siento mucho."
+  },
+  "createIssueMessage": {
+    "message": "Si quieres puedes crear una incidencia con la descripción de tu problema"
   }
 }
