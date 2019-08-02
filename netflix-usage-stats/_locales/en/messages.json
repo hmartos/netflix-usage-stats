@@ -65,7 +65,7 @@
     "description": ""
   },
   "meanTimeByWeekDay": {
-    "message": "Time per day on Netflix",
+    "message": "Average time per day on Netflix",
     "description": ""
   },
   "episodes": {
@@ -88,8 +88,12 @@
     "message": "Series",
     "description": ""
   },
-  "timeWatchingNetflix": {
-    "message": "Time watching Netflix",
+  "timeWatching": {
+    "message": "Time watching",
+    "description": ""
+  },
+  "avgTimeWatchingNetflixPerDayOfTheWeek": {
+    "message": "Average time watching Netflix per day of the week",
     "description": ""
   },
   "Monday": {
