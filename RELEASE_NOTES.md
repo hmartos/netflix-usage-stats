@@ -24,6 +24,33 @@ Improvements/enhancements to a workflow, performance, logging, error messaging, 
 Other Changes
 Other miscellaneous changes that don't fit into any of the above categories. Try to leave this empty - ideally, all changes fit into the categories above
 
+## 0.5.0
+
+### Upgrade Steps
+
+### Breaking Changes
+
+### New Features
+
+- Hours, minutes and seconds are now shown on date column of data table
+- Changed percentage of total time on Netflix chart by average time on Netflix per day of the week
+
+### Bug Fixes
+
+### Improvements
+
+- Improved error handling. Added an error page and log traces just in case something goes wrong
+- Added Prettier formatter and build script to generate zip file with extension code
+- Added protection against XSS atacks
+- Added separator between series title and season in data table
+- Added debug function to log to console only if DEBUG_MODE flag is enabled
+- Formatted dates depending on language. Added titles to avoid confussions
+- Changed some labels
+- Improved responsiveness of page
+- Added MIT license and improved README
+
+### Other Changes
+
 ## 0.4.0
 
 ### Upgrade Steps
