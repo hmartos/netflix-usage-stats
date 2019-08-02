@@ -244,12 +244,12 @@ function calculateStats(viewedItems) {
   debug('Date of max time in a day', maxTimeInDateDate);
 
   // Time by day week
-  const timeByDayWeekGroup = _.groupBy(viewedItems, viewedItem => {
+  const meanTimeByDayWeekGroup = _.groupBy(viewedItems, viewedItem => {
     return new Date(viewedItem.date).getDay();
   });
 
-  const timeByDayWeek = _.reduce(
-    timeByDayWeekGroup,
+  const meanTimeByDayWeek = _.reduce(
+    meanTimeByDayWeekGroup,
     (result, value, key) => {
       const timeByDate = _.reduce(
         _.groupBy(value, getDate),
@@ -260,13 +260,15 @@ function calculateStats(viewedItems) {
         {}
       );
 
-      result[WEEK_DAYS[key]] = _.sum(_.values(timeByDate));
+      result[WEEK_DAYS[key]] = (
+        _.sum(_.values(timeByDate)) / _.size(timeByDate)
+      ).toFixed();
       return result;
     },
     {}
   );
 
-  debug('Time by day week', timeByDayWeek);
+  debug('Mean time by day week', meanTimeByDayWeek);
 
   // Episodes
   const episodes = _.filter(viewedItems, function(item) {
@@ -299,7 +301,7 @@ function calculateStats(viewedItems) {
   summary.episodesCount = episodes.length;
   summary.seriesCount = Object.keys(series).length;
   summary.seriesTime = _.sumBy(episodes, 'duration');
-  summary.timeByDayWeek = timeByDayWeek;
+  summary.meanTimeByDayWeek = meanTimeByDayWeek;
 
   debug(`Time spent on Netflix: ${secondsToYdhms(summary.totalTime)}`);
   debug(`Time spent on Movies: ${secondsToYdhms(summary.moviesTime)}`);
@@ -420,11 +422,14 @@ function secondsToYdhms(seconds) {
  * Format duration from seconds to minutes
  * @param {*} seconds
  */
-function secondsToMinutes(seconds) {
+function secondsToHoursMinutesSeconds(seconds, showZero = false) {
   const durationFormatted = new Date(seconds * 1000)
     .toISOString()
     .substr(11, 8);
   if (durationFormatted === '00:00:00') {
+    if (showZero) {
+      return '0';
+    }
     return 'N/A';
   } else if (durationFormatted.startsWith('00')) {
     return durationFormatted.substr(3, 5);
@@ -457,9 +462,14 @@ function createTvVsseriesTimeChart() {
       tooltips: {
         callbacks: {
           label: function(tooltipItem, data) {
-            return `${data.labels[tooltipItem.index]}: ${secondsToYdhms(
-              data.datasets[0].data[tooltipItem.index]
-            )}`;
+            return ` ${chrome.i18n.getMessage('timeWatching')} ${data.labels[
+              tooltipItem.index
+            ].toLowerCase()}:`;
+          },
+          footer: function(tooltipItems, data) {
+            return [
+              `${secondsToYdhms(data.datasets[0].data[tooltipItems[0].index])}`,
+            ];
           },
         },
       },
@@ -486,59 +496,44 @@ function createMeanTimeByWeekDayChart() {
       ],
       datasets: [
         {
-          label: chrome.i18n.getMessage('timeWatchingNetflix'),
+          label: chrome.i18n.getMessage(
+            'avgTimeWatchingNetflixPerDayOfTheWeek'
+          ),
           data: [
-            (
-              (summary.timeByDayWeek['Monday'] / summary.totalTime) *
-              100
-            ).toFixed(2),
-            (
-              (summary.timeByDayWeek['Tuesday'] / summary.totalTime) *
-              100
-            ).toFixed(2),
-            (
-              (summary.timeByDayWeek['Wednesday'] / summary.totalTime) *
-              100
-            ).toFixed(2),
-            (
-              (summary.timeByDayWeek['Thursday'] / summary.totalTime) *
-              100
-            ).toFixed(2),
-            (
-              (summary.timeByDayWeek['Friday'] / summary.totalTime) *
-              100
-            ).toFixed(2),
-            (
-              (summary.timeByDayWeek['Saturday'] / summary.totalTime) *
-              100
-            ).toFixed(2),
-            (
-              (summary.timeByDayWeek['Sunday'] / summary.totalTime) *
-              100
-            ).toFixed(2),
+            summary.meanTimeByDayWeek['Monday'],
+            summary.meanTimeByDayWeek['Tuesday'],
+            summary.meanTimeByDayWeek['Wednesday'],
+            summary.meanTimeByDayWeek['Thursday'],
+            summary.meanTimeByDayWeek['Friday'],
+            summary.meanTimeByDayWeek['Saturday'],
+            summary.meanTimeByDayWeek['Sunday'],
           ],
-          backgroundColor: [
-            '#e50914',
-            '#e50914',
-            '#e50914',
-            '#e50914',
-            '#e50914',
-            '#e50914',
-            '#e50914',
-          ],
+          backgroundColor: '#e50914',
         },
       ],
     },
     options: {
       legend: {
-        display: false,
+        display: true,
       },
       tooltips: {
         callbacks: {
           label: function(tooltipItem, data) {
-            return `${tooltipItem.value}%`;
+            return ` ${secondsToYdhms(tooltipItem.value)}`;
           },
         },
+      },
+      scales: {
+        xAxes: [
+          {
+            ticks: {
+              stepSize: 1800,
+              callback: function(value) {
+                return `${secondsToHoursMinutesSeconds(value, true)}`;
+              },
+            },
+          },
+        ],
       },
     },
   });
@@ -553,7 +548,9 @@ function createDatatable(viewedItems) {
       ? `${viewedItem.seriesTitle} - ${viewedItem.title}`
       : `${viewedItem.title}`;
     viewedItem.dateFormatted = formatFullDate(viewedItem.date);
-    viewedItem.durationFormatted = secondsToMinutes(viewedItem.duration);
+    viewedItem.durationFormatted = secondsToHoursMinutesSeconds(
+      viewedItem.duration
+    );
     viewedItem.type = viewedItem.series
       ? `${chrome.i18n.getMessage('serie')}`
       : `${chrome.i18n.getMessage('movie')}`;

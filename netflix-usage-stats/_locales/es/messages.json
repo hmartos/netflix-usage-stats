@@ -50,7 +50,7 @@
     "message": "Tiempo viendo películas/series"
   },
   "meanTimeByWeekDay": {
-    "message": "Tiempo en Netflix por día"
+    "message": "Tiempo medio en Netflix por día"
   },
   "episodes": {
     "message": "Capítulos"
@@ -67,8 +67,11 @@
   "series": {
     "message": "Series"
   },
-  "timeWatchingNetflix": {
-    "message": "Tiempo viendo Netflix"
+  "timeWatching": {
+    "message": "Tiempo viendo"
+  },
+  "avgTimeWatchingNetflixPerDayOfTheWeek": {
+    "message": "Tiempo medio viendo Netflix por día de la semana"
   },
   "Monday": {
     "message": "Lunes"
