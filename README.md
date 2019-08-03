@@ -1,8 +1,8 @@
 # Netflix Usage Stats
 
-<div style="text-align:center">
+<p style="text-align:center" align="center">
   <img src="./netflix-usage-stats/images/logo48.png" alt="logo">
-</div>
+</p>
 
 This Chrome extension helps you to know more about your Netflix viewing statistics.
 This extension allows you to access to a viewing stats page fully integrated in Netflix site which loads viewing activity from Netflix Shakti API and calculate a set of statistics about how you use your Netflix account.
