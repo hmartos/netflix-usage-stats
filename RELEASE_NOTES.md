@@ -24,6 +24,23 @@ Improvements/enhancements to a workflow, performance, logging, error messaging, 
 Other Changes
 Other miscellaneous changes that don't fit into any of the above categories. Try to leave this empty - ideally, all changes fit into the categories above
 
+## 0.5.1
+
+### Upgrade Steps
+
+### Breaking Changes
+
+### New Features
+
+### Bug Fixes
+
+### Improvements
+
+### Other Changes
+
+- Improved logo icon size
+- Updated Spanish screenshots
+
 ## 0.5.0
 
 ### Upgrade Steps
