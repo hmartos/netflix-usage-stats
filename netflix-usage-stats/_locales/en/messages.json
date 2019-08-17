@@ -5,7 +5,7 @@
     "description": "The title of the extension, displayed in the web store"
   },
   "extensionDescription": {
-    "message": "Shows Netflix viewing stats to know about how you spend your time on Netflix.",
+    "message": "Shows Netflix viewing stats dashboard to know more about how you spend your time on Netflix.",
     "description": "The description of the extension, displayed in the web store"
   },
   "showStats": {

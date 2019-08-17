@@ -9,6 +9,7 @@ List out, as concretely as possible, any steps users have to take when they upgr
 Write pseudocode that highlights what code should change and how.
 Call out if users are recommended to upgrade because of known problems with older releases.
 Preferably, there's nothing here.
+
 Breaking Changes
 A complete list of breaking changes (preferably there are none, unless this is a major version).
 
@@ -24,17 +25,15 @@ Improvements/enhancements to a workflow, performance, logging, error messaging, 
 Other Changes
 Other miscellaneous changes that don't fit into any of the above categories. Try to leave this empty - ideally, all changes fit into the categories above
 
+## 1.0.0
+
+### Other Changes
+
+- First release available on [Chrome Web Store](https://chrome.google.com/webstore/devconsole/g09324318338317648806/bckfpnenhimfckndcceonmkhheinmkob)
+- Added screenshots
+- Changed some translations
+
 ## 0.5.1
-
-### Upgrade Steps
-
-### Breaking Changes
-
-### New Features
-
-### Bug Fixes
-
-### Improvements
 
 ### Other Changes
 
@@ -43,16 +42,10 @@ Other miscellaneous changes that don't fit into any of the above categories. Try
 
 ## 0.5.0
 
-### Upgrade Steps
-
-### Breaking Changes
-
 ### New Features
 
 - Hours, minutes and seconds are now shown on date column of data table
 - Changed percentage of total time on Netflix chart by average time on Netflix per day of the week
-
-### Bug Fixes
 
 ### Improvements
 
@@ -66,13 +59,7 @@ Other miscellaneous changes that don't fit into any of the above categories. Try
 - Improved responsiveness of page
 - Added MIT license and improved README
 
-### Other Changes
-
 ## 0.4.0
-
-### Upgrade Steps
-
-### Breaking Changes
 
 ### New Features
 
@@ -83,40 +70,22 @@ Other miscellaneous changes that don't fit into any of the above categories. Try
 - Fixed incorrect count of movies
 - Added label to time watching movies vs series chart
 
-### Improvements
-
 ### Other Changes
 
 - Reorganized vendor files in folders
 
 ## 0.3.1
 
-### Upgrade Steps
-
-### Breaking Changes
-
-### New Features
-
 ### Bug Fixes
 
 - Fixed incorrect first use date by sorting fetched activity data
 
-### Improvements
-
-### Other Changes
-
 ## 0.3.0
-
-### Upgrade Steps
-
-### Breaking Changes
 
 ### New Features
 
 - Added first Netflix use below total watched elements
 - Added loading message to warn it can take some time to load the hole activity data
-
-### Bug Fixes
 
 ### Improvements
 
@@ -133,14 +102,10 @@ Other miscellaneous changes that don't fit into any of the above categories. Try
 
 - Folder name has been renamed to 'netflix-usage-stats' so when upgrading from 0.1.0 version you should remove extension and load again the unpacked extension from this new folder
 
-### Breaking Changes
-
 ### New Features
 
 - Formatted numbers adding thousands separator
 - Added years to time calculations
-
-### Bug Fixes
 
 ### Improvements
 
@@ -153,10 +118,6 @@ Other miscellaneous changes that don't fit into any of the above categories. Try
 - Added new logo
 
 ## 0.1.0
-
-### Upgrade Steps
-
-### Breaking Changes
 
 ### New Features
 
@@ -171,9 +132,3 @@ Other miscellaneous changes that don't fit into any of the above categories. Try
   - Time watching series
   - Time watching movies vs time watching series (in a pie chart)
   - Percentage of time watching Netflix by day of the week (in a bar chart)
-
-### Bug Fixes
-
-### Improvements
-
-### Other Changes
