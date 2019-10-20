@@ -25,6 +25,13 @@ Improvements/enhancements to a workflow, performance, logging, error messaging, 
 Other Changes
 Other miscellaneous changes that don't fit into any of the above categories. Try to leave this empty - ideally, all changes fit into the categories above
 
+## 1.1.0
+
+### Bug Fixes
+
+- Fixed error when Netflix viewing activity was empty
+- Added redirection to a new screen when viewing activity is empty
+
 ## 1.0.0
 
 ### Other Changes

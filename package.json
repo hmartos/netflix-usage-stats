@@ -1,6 +1,6 @@
 {
   "name": "netflix-stats",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Shows Netflix viewing stats to know about how you spend your time on Netflix.",
   "main": "netfix-usage-stats/manifest.json",
   "scripts": {
