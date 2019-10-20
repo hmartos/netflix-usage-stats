@@ -251,5 +251,13 @@
   "createIssueMessage": {
     "message": "You can create a new issue describing your problem",
     "description": ""
+  },
+  "emptyViewingActivity": {
+    "message": "Your viewing activity is empty.",
+    "description": ""
+  },
+  "goWatchSomething": {
+    "message": "Go watch something and come back later!",
+    "description": ""
   }
 }

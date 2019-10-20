@@ -46,7 +46,7 @@ window.addEventListener('unhandledrejection', function(promiseRejectionEvent) {
     `Something went wrong, sorry... but here is a trace that could help to fix the problem`,
     promiseRejectionEvent
   );
-  showErrorPage();
+  showEmptyOrErrorSection(promiseRejectionEvent);
 });
 document.addEventListener('DOMContentLoaded', function() {
   document.documentElement.style.visibility = '';
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
       `Something went wrong, sorry... but here is a trace that could help to fix the problem`,
       error
     );
-    showErrorPage();
+    showEmptyOrErrorSection(error);
   }
 });
 
@@ -78,9 +78,13 @@ function main() {
 
           translatePage();
 
-          calculateStats(viewedItems);
+          if (_.isEmpty(viewedItems)) {
+            showEmptyOrErrorSection();
+          } else {
+            calculateStats(viewedItems);
 
-          showStats(viewedItems);
+            showStats(viewedItems);
+          }
         })
         .catch(error => {
           console.error(
@@ -927,32 +931,39 @@ function getDate(element) {
 }
 
 /**
- * Shows error page is something does not work as expected
+ * Shows error page is something does not work as expected or empty page if vieweing activity is empty
+ * @param {*} error
  */
-function showErrorPage() {
+function showEmptyOrErrorSection(error) {
+  const template = error ? '/error.html' : '/empty.html';
+  const sectionId = `${error ? 'error' : 'empty'}`;
+
   // Load HTML page
-  fetch(chrome.extension.getURL('/error.html'))
+  fetch(chrome.extension.getURL(template))
     .then(response => response.text())
-    .then(errorTemplate => {
-      let errorSection = document.createElement('div');
-      errorSection.id = 'error-section';
-      errorSection.classList.add('structural', 'stdHeight');
-      errorSection.innerHTML = DOMPurify.sanitize(errorTemplate);
-      errorSection.querySelector('h1').textContent = chrome.i18n.getMessage(
+    .then(template => {
+      let section = document.createElement('div');
+      section.id = `${sectionId}-section`;
+      section.classList.add('structural', 'stdHeight');
+      section.innerHTML = DOMPurify.sanitize(template);
+      section.querySelector('h1').textContent = chrome.i18n.getMessage(
         'myViewingStats'
       );
-      errorSection.querySelector('h2').textContent = chrome.i18n.getMessage(
-        'errorMessage'
+      section.querySelector('h2').textContent = chrome.i18n.getMessage(
+        `${error ? 'errorMessage' : 'emptyViewingActivity'}`
       );
-      errorSection.querySelector('h3').textContent = chrome.i18n.getMessage(
-        'createIssueMessage'
+      section.querySelector('h3').textContent = chrome.i18n.getMessage(
+        `${error ? 'createIssueMessage' : 'goWatchSomething'}`
       );
       document
         .querySelector('.responsive-account-container div')
-        .replaceWith(errorSection);
+        .replaceWith(section);
     })
     .catch(error => {
-      console.error('Error loading error page, this is embarrasing...', error);
+      console.error(
+        `Error loading ${sectionId} page, this is embarrasing...`,
+        error
+      );
     });
 }
 

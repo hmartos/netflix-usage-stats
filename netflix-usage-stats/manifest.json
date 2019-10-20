@@ -41,7 +41,8 @@
     }
   ],
   "web_accessible_resources": [
-    "stats.html", 
+    "stats.html",
+    "empty.html",
     "error.html"
   ],
   "page_action": {
