@@ -189,5 +189,11 @@
   },
   "createIssueMessage": {
     "message": "Si quieres puedes crear una incidencia con la descripción de tu problema"
+  },
+  "emptyViewingActivity": {
+    "message": "Aún no has visto nada en Netflix"
+  },
+  "goWatchSomething": {
+    "message": "¡Ve a ver algo y vuelve más tarde!"
   }
 }
