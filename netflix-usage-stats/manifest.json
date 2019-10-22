@@ -23,6 +23,7 @@
         "vendor/js/dataTables.fixedHeader.min.js",
         "vendor/js/accent-neutralise.min.js", 
         "vendor/js/purify.min.js",
+        "utils/debug.js",
         "stats.js"],
       "css": [
         "vendor/css/material-icons.css", 

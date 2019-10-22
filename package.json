@@ -8,7 +8,7 @@
     "zip": "bestzip netflix-usage-stats.zip netflix-usage-stats/*",
     "prettier-check": "prettier --check './netflix-usage-stats/**/*.html' './netflix-usage-stats/**/*.css' './netflix-usage-stats/**/*.html'",
     "prettier-format": "prettier --write './netflix-usage-stats/**/*.html' './netflix-usage-stats/**/*.css' './netflix-usage-stats/**/*.html'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage --testTimeout=10000"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/hmartos/netflix-usage-stats#readme",
   "devDependencies": {
-    "bestzip": "^2.1.4"
+    "bestzip": "^2.1.4",
+    "jest": "^24.9.0"
   }
 }

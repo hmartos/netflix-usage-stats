@@ -1,6 +1,6 @@
 'use strict';
 
-const DEBUG_MODE = false;
+const DEBUG_MODE = true;
 const PAGE_SIZE = 20;
 const summary = {
   viewedItemsCount: 0,
@@ -965,14 +965,4 @@ function showEmptyOrErrorSection(error) {
         error
       );
     });
-}
-
-function debug(message, data) {
-  if (DEBUG_MODE) {
-    if (data) {
-      console.log(message, data);
-    } else {
-      console.log(message);
-    }
-  }
 }
