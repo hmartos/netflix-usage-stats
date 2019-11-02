@@ -61,8 +61,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // FUNCTIONS
 function main() {
-  let BUILD_IDENTIFIER = getNetflixBuildId();
-  debug(`Netflix BUILD_IDENTIFIER: ${BUILD_IDENTIFIER}`);
+  const BUILD_IDENTIFIER = getNetflixBuildId();
+  // If BUILD_IDENTIFIER couldn't be retrieved, fallback to last working BUILD_IDENTIFIER
+  const buildId = BUILD_IDENTIFIER ? BUILD_IDENTIFIER : 'v04e0c12d';
+  debug(`Netflix BUILD_IDENTIFIER: ${buildId}`);
 
   setupDashboardTemplate();
 
@@ -73,7 +75,7 @@ function main() {
     .then(response => response.text())
     .then(statsTemplate => {
       // Get viewing activity
-      getActivity(BUILD_IDENTIFIER)
+      getActivity(buildId)
         .then(viewedItems => {
           hideLoader(statsTemplate);
 
