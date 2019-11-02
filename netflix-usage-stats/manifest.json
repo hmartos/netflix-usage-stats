@@ -23,20 +23,22 @@
         "vendor/js/dataTables.fixedHeader.min.js",
         "vendor/js/accent-neutralise.min.js", 
         "vendor/js/purify.min.js",
+        "utils/template.js",
         "utils/loader.js",
         "utils/activity.js",
+        "utils/stats.js",
         "utils/chart.js",
         "utils/table.js",
         "utils/format.js",
         "utils/debug.js",
-        "stats.js"],
+        "dashboard/dashboard.js"],
       "css": [
         "vendor/css/material-icons.css", 
         "vendor/css/dataTables.min.css", 
         "vendor/css/scroller.dataTables.min.css", 
         "vendor/css/responsive.dataTables.min.css", 
         "vendor/css/fixedHeader.dataTables.min.css", 
-        "stats.css"],
+        "dashboard/dashboard.css"],
       "run_at": "document_start"
     },
     {
@@ -47,7 +49,7 @@
     }
   ],
   "web_accessible_resources": [
-    "stats.html",
+    "dashboard/dashboard.html",
     "empty.html",
     "error.html"
   ],
