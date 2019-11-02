@@ -23,6 +23,11 @@
         "vendor/js/dataTables.fixedHeader.min.js",
         "vendor/js/accent-neutralise.min.js", 
         "vendor/js/purify.min.js",
+        "utils/loader.js",
+        "utils/activity.js",
+        "utils/chart.js",
+        "utils/table.js",
+        "utils/format.js",
         "utils/debug.js",
         "stats.js"],
       "css": [
