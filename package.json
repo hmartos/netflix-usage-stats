@@ -27,6 +27,7 @@
   "homepage": "https://github.com/hmartos/netflix-usage-stats#readme",
   "devDependencies": {
     "bestzip": "^2.1.4",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "rewire": "^4.0.1"
   }
 }
