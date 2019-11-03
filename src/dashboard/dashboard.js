@@ -1,6 +1,6 @@
 'use strict';
 
-const DEBUG_MODE = true;
+const DEBUG_MODE = false;
 const PAGE_SIZE = 20;
 const summary = {
   viewedItemsCount: 0,
