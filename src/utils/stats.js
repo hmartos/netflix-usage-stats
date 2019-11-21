@@ -91,6 +91,8 @@ function calculateStats(viewedItems) {
   debug(`Time spent on Movies: ${secondsToYdhms(summary.moviesTime)}`);
   debug(`Time spent on Series: ${secondsToYdhms(summary.seriesTime)}`);
   debug('Activity Summary', summary);
+  
+  return summary;
 }
 
 /**
