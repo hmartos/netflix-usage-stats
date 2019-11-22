@@ -12,13 +12,13 @@
   "useTabs": false,
   "overrides": [
     {
-      "files": "*.json",
+      "files": "*.html",
       "options": {
-        "printWidth": 80
+        "printWidth": 120
       }
     },
     {
-      "files": "*.html",
+      "files": "*.js",
       "options": {
         "printWidth": 120
       }

@@ -2,4 +2,5 @@ firebase/
 *.sketch
 .sonarlint/
 node_modules/
+coverage/
 *.zip
