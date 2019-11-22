@@ -1,0 +1,263 @@
+
+{
+  "extensionTitle": {
+    "message": "Netflix Viewing Stats",
+    "description": "The title of the extension, displayed in the web store"
+  },
+  "extensionDescription": {
+    "message": "Shows Netflix viewing stats dashboard to know more about how you spend your time on Netflix.",
+    "description": "The description of the extension, displayed in the web store"
+  },
+  "showStats": {
+    "message": "SHOW STATS",
+    "description": "Show stats text in popup button"
+  },
+  "viewingStats": {
+    "message": "Viewing stats",
+    "description": "Link text on my account page"
+  },
+  "myViewingStats": {
+    "message": "My viewing stats",
+    "description": ""
+  },
+  "viewingActivity": {
+    "message": "Viewing activity",
+    "description": ""
+  },
+  "loadingMessage": {
+    "message": "Loading your viewing activity, this may take some time...",
+    "description": "Message to show loading can take some time"
+  },
+  "viewedItemsCount": {
+    "message": "Titles watched",
+    "description": ""
+  },
+  "totalTime": {
+    "message": "Total time on Netflix",
+    "description": ""
+  },
+  "maxTimeInDate": {
+    "message": "Netflix marathon (in a day)",
+    "description": ""
+  },
+  "deviceCount": {
+    "message": "Devices used",
+    "description": ""
+  },
+  "moviesCount": {
+    "message": "Movies watched",
+    "description": ""
+  },
+  "moviesTime": {
+    "message": "Total time watching movies",
+    "description": ""
+  },
+  "seriesCount": {
+    "message": "Series watched",
+    "description": ""
+  },
+  "seriesTime": {
+    "message": "Total time watching series",
+    "description": ""
+  },
+  "moviesVsTvTime": {
+    "message": "Time watching movies/series",
+    "description": ""
+  },
+  "meanTimeByWeekDay": {
+    "message": "Average time per day on Netflix",
+    "description": ""
+  },
+  "episodes": {
+    "message": "Episodes",
+    "description": ""
+  },
+  "movie": {
+    "message": "Movie",
+    "description": ""
+  },
+  "serie": {
+    "message": "Serie",
+    "description": ""
+  },
+  "movies": {
+    "message": "Movies",
+    "description": ""
+  },
+  "series": {
+    "message": "Series",
+    "description": ""
+  },
+  "timeWatching": {
+    "message": "Time watching",
+    "description": ""
+  },
+  "avgTimeWatchingNetflixPerDayOfTheWeek": {
+    "message": "Average time watching Netflix per day of the week",
+    "description": ""
+  },
+  "Monday": {
+    "message": "Monday",
+    "description": ""
+  },
+  "Tuesday": {
+    "message": "Tuesday",
+    "description": ""
+  },
+  "Wednesday": {
+    "message": "Wednesday",
+    "description": ""
+  },
+  "Thursday": {
+    "message": "Thursday",
+    "description": ""
+  },
+  "Friday": {
+    "message": "Friday",
+    "description": ""
+  },
+  "Saturday": {
+    "message": "Saturday",
+    "description": ""
+  },
+  "Sunday": {
+    "message": "Sunday",
+    "description": ""
+  },
+  "January": {
+    "message": "January",
+    "description": ""
+  },
+  "February": {
+    "message": "February",
+    "description": ""
+  },
+  "March": {
+    "message": "March",
+    "description": ""
+  },
+  "April": {
+    "message": "April",
+    "description": ""
+  },
+  "May": {
+    "message": "May",
+    "description": ""
+  },
+  "June": {
+    "message": "June",
+    "description": ""
+  },
+  "July": {
+    "message": "July",
+    "description": ""
+  },
+  "August": {
+    "message": "August",
+    "description": ""
+  },
+  "September": {
+    "message": "September",
+    "description": ""
+  },
+  "October": {
+    "message": "October",
+    "description": ""
+  },
+  "November": {
+    "message": "November",
+    "description": ""
+  },
+  "December": {
+    "message": "December",
+    "description": ""
+  },
+  "year": {
+    "message": "year",
+    "description": ""
+  },
+  "day": {
+    "message": "day",
+    "description": ""
+  },
+  "hour": {
+    "message": "hour",
+    "description": ""
+  },
+  "minute": {
+    "message": "minute",
+    "description": ""
+  },
+  "second": {
+    "message": "second",
+    "description": ""
+  },
+  "since": {
+    "message": "since",
+    "description": ""
+  },
+  "title": {
+    "message": "Title",
+    "description": ""
+  },
+  "date": {
+    "message": "Date",
+    "description": ""
+  },
+  "duration": {
+    "message": "Duration",
+    "description": ""
+  },
+  "type": {
+    "message": "Type",
+    "description": ""
+  },
+  "processing": {
+    "message": "Processing...",
+    "description": ""
+  },
+  "search": {
+    "message": "Search",
+    "description": ""
+  },
+  "info": {
+    "message": "Showing _START_ to _END_ of _TOTAL_ entries",
+    "description": ""
+  },
+  "infoEmpty": {
+    "message": "Showing 0 to 0 of 0 entries",
+    "description": ""
+  },
+  "infoFiltered": {
+    "message": "(filtered from _MAX_ total entries)",
+    "description": ""
+  },
+  "loadingRecords": {
+    "message": "Loading...",
+    "description": ""
+  },
+  "zeroRecords": {
+    "message": "No matching records found",
+    "description": ""
+  },
+  "emptyTable": {
+    "message": "No data available in table",
+    "description": ""
+  },
+  "errorMessage": {
+    "message": "Oh, an error ocurred, I'm so sorry.",
+    "description": ""
+  },
+  "createIssueMessage": {
+    "message": "You can create a new issue describing your problem",
+    "description": ""
+  },
+  "emptyViewingActivity": {
+    "message": "Your viewing activity is empty.",
+    "description": ""
+  },
+  "goWatchSomething": {
+    "message": "Go watch something and come back later!",
+    "description": ""
+  }
+}
