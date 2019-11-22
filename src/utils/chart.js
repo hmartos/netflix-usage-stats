@@ -7,10 +7,7 @@ function createTvVsseriesTimeChart() {
   var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
-      labels: [
-        `${chrome.i18n.getMessage('movies')}`,
-        `${chrome.i18n.getMessage('series')}`,
-      ],
+      labels: [`${chrome.i18n.getMessage('movies')}`, `${chrome.i18n.getMessage('series')}`],
       datasets: [
         {
           data: [summary.moviesTime, summary.seriesTime],
@@ -24,14 +21,10 @@ function createTvVsseriesTimeChart() {
       tooltips: {
         callbacks: {
           label: function(tooltipItem, data) {
-            return ` ${chrome.i18n.getMessage('timeWatching')} ${data.labels[
-              tooltipItem.index
-            ].toLowerCase()}:`;
+            return ` ${chrome.i18n.getMessage('timeWatching')} ${data.labels[tooltipItem.index].toLowerCase()}:`;
           },
           footer: function(tooltipItems, data) {
-            return [
-              `${secondsToYdhms(data.datasets[0].data[tooltipItems[0].index])}`,
-            ];
+            return [`${secondsToYdhms(data.datasets[0].data[tooltipItems[0].index])}`];
           },
         },
       },
@@ -58,9 +51,7 @@ function createMeanTimeByWeekDayChart() {
       ],
       datasets: [
         {
-          label: chrome.i18n.getMessage(
-            'avgTimeWatchingNetflixPerDayOfTheWeek'
-          ),
+          label: chrome.i18n.getMessage('avgTimeWatchingNetflixPerDayOfTheWeek'),
           data: [
             summary.meanTimeByDayWeek['Monday'],
             summary.meanTimeByDayWeek['Tuesday'],

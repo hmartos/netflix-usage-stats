@@ -44,9 +44,7 @@ function calculateStats(viewedItems) {
         {}
       );
 
-      result[WEEK_DAYS[key]] = (
-        _.sum(_.values(timeByDate)) / _.size(timeByDate)
-      ).toFixed();
+      result[WEEK_DAYS[key]] = (_.sum(_.values(timeByDate)) / _.size(timeByDate)).toFixed();
       return result;
     },
     {}
@@ -91,7 +89,7 @@ function calculateStats(viewedItems) {
   debug(`Time spent on Movies: ${secondsToYdhms(summary.moviesTime)}`);
   debug(`Time spent on Series: ${secondsToYdhms(summary.seriesTime)}`);
   debug('Activity Summary', summary);
-  
+
   return summary;
 }
 
@@ -100,53 +98,27 @@ function calculateStats(viewedItems) {
  */
 function showStats(viewedItems) {
   // Summary
-  document.querySelector(
-    '#viewedItemsCount .ns-number'
-  ).textContent = formatNumber(summary.viewedItemsCount);
-  document.querySelector(
-    '#viewedItemsCount .ns-extra-info'
-  ).textContent = `(${chrome.i18n.getMessage('since')} ${formatDate(
-    summary.firstUse
-  )})`;
-  document.querySelector(
-    '#viewedItemsCount .ns-extra-info'
-  ).title = `${formatDate4Title(summary.firstUse)}`;
-  document.querySelector('#totalTime .ns-time').textContent = secondsToYdhms(
-    summary.totalTime
-  );
-  document.querySelector(
-    '#maxTimeInDate .ns-time'
-  ).textContent = secondsToYdhms(summary.maxTimeInDate);
-  document.querySelector(
-    '#maxTimeInDate .ns-extra-info'
-  ).textContent = `(${formatDate(summary.maxTimeInDateDate)})`;
-  document.querySelector(
-    '#maxTimeInDate .ns-extra-info'
-  ).title = `${formatDate4Title(summary.maxTimeInDateDate)}`;
-  document.querySelector('#deviceCount .ns-number').textContent = formatNumber(
-    summary.deviceCount
-  );
+  document.querySelector('#viewedItemsCount .ns-number').textContent = formatNumber(summary.viewedItemsCount);
+  document.querySelector('#viewedItemsCount .ns-extra-info').textContent = `(${chrome.i18n.getMessage(
+    'since'
+  )} ${formatDate(summary.firstUse)})`;
+  document.querySelector('#viewedItemsCount .ns-extra-info').title = `${formatDate4Title(summary.firstUse)}`;
+  document.querySelector('#totalTime .ns-time').textContent = secondsToYdhms(summary.totalTime);
+  document.querySelector('#maxTimeInDate .ns-time').textContent = secondsToYdhms(summary.maxTimeInDate);
+  document.querySelector('#maxTimeInDate .ns-extra-info').textContent = `(${formatDate(summary.maxTimeInDateDate)})`;
+  document.querySelector('#maxTimeInDate .ns-extra-info').title = `${formatDate4Title(summary.maxTimeInDateDate)}`;
+  document.querySelector('#deviceCount .ns-number').textContent = formatNumber(summary.deviceCount);
 
   // Movies
-  document.querySelector('#moviesCount .ns-number').textContent = formatNumber(
-    summary.moviesCount
-  );
-  document.querySelector('#moviesTime .ns-time').textContent = secondsToYdhms(
-    summary.moviesTime
-  );
+  document.querySelector('#moviesCount .ns-number').textContent = formatNumber(summary.moviesCount);
+  document.querySelector('#moviesTime .ns-time').textContent = secondsToYdhms(summary.moviesTime);
 
   // Series
-  document.querySelector('#seriesCount .ns-number').textContent = formatNumber(
-    summary.seriesCount
-  );
-  document.querySelector(
-    '#seriesCount .ns-extra-info'
-  ).textContent = `(${formatNumber(
+  document.querySelector('#seriesCount .ns-number').textContent = formatNumber(summary.seriesCount);
+  document.querySelector('#seriesCount .ns-extra-info').textContent = `(${formatNumber(
     summary.episodesCount
   )} ${chrome.i18n.getMessage('episodes')})`;
-  document.querySelector('#seriesTime .ns-time').textContent = secondsToYdhms(
-    summary.seriesTime
-  );
+  document.querySelector('#seriesTime .ns-time').textContent = secondsToYdhms(summary.seriesTime);
 
   // Charts
   createTvVsseriesTimeChart();

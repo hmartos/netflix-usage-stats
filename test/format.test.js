@@ -1,9 +1,7 @@
 const rewire = require('rewire');
 const formatModule = rewire('../src/utils/format');
 const secondsToYdhms = formatModule.__get__('secondsToYdhms');
-const secondsToHoursMinutesSeconds = formatModule.__get__(
-  'secondsToHoursMinutesSeconds'
-);
+const secondsToHoursMinutesSeconds = formatModule.__get__('secondsToHoursMinutesSeconds');
 const formatNumber = formatModule.__get__('formatNumber');
 const formatFullDate = formatModule.__get__('formatFullDate');
 const formatDate = formatModule.__get__('formatDate');
@@ -47,7 +45,7 @@ describe('Formatters', () => {
 
     time = secondsToYdhms(10);
     expect(time).toEqual('10 seconds');
-    
+
     time = secondsToYdhms(75);
     expect(time).toEqual('1 minute, 15 seconds');
 
@@ -62,7 +60,7 @@ describe('Formatters', () => {
 
     time = secondsToYdhms(3660);
     expect(time).toEqual('1 hour, 1 minute, 0 seconds');
-    
+
     time = secondsToYdhms(5726);
     expect(time).toEqual('1 hour, 35 minutes, 26 seconds');
 
@@ -84,7 +82,7 @@ describe('Formatters', () => {
 
     time = secondsToYdhms(10);
     expect(time).toEqual('10 segundos');
-    
+
     time = secondsToYdhms(75);
     expect(time).toEqual('1 minuto, 15 segundos');
 
@@ -99,7 +97,7 @@ describe('Formatters', () => {
 
     time = secondsToYdhms(3660);
     expect(time).toEqual('1 hora, 1 minuto, 0 segundos');
-    
+
     time = secondsToYdhms(5726);
     expect(time).toEqual('1 hora, 35 minutos, 26 segundos');
 
@@ -182,34 +180,33 @@ describe('Formatters', () => {
     expect(date).toEqual('Sábado, 07 Septiembre 2019 18:00:00');
   });
 
-
   // Private functions
   function setLanguage(language) {
     translations = {
-      "second": "segundo",
-      "minute": "minuto",
-      "hour": "hora",
-      "day": "día",
-      "year": "año",
-      "Monday": "Lunes",
-      "Tuesday": "Martes",
-      "Wednesday": "Miércoles",
-      "Thursday": "Jueves",
-      "Friday": "Viernes",
-      "Saturday": "Sábado",
-      "Sunday": "Domingo",
-      "January": "Enero",
-      "February": "Febrero",
-      "March": "Marzo",
-      "April": "Abril",
-      "May": "Mayo",
-      "June": "Junio",
-      "July": "Julio",
-      "August": "Agosto",
-      "September": "Septiembre",
-      "October": "Octubre",
-      "November": "Noviembre",
-      "December": "Deciembre"
+      second: 'segundo',
+      minute: 'minuto',
+      hour: 'hora',
+      day: 'día',
+      year: 'año',
+      Monday: 'Lunes',
+      Tuesday: 'Martes',
+      Wednesday: 'Miércoles',
+      Thursday: 'Jueves',
+      Friday: 'Viernes',
+      Saturday: 'Sábado',
+      Sunday: 'Domingo',
+      January: 'Enero',
+      February: 'Febrero',
+      March: 'Marzo',
+      April: 'Abril',
+      May: 'Mayo',
+      June: 'Junio',
+      July: 'Julio',
+      August: 'Agosto',
+      September: 'Septiembre',
+      October: 'Octubre',
+      November: 'Noviembre',
+      December: 'Deciembre',
     };
 
     formatModule.__set__('chrome', {
@@ -222,6 +219,5 @@ describe('Formatters', () => {
         },
       },
     });
-  };
-  
+  }
 });

@@ -3,16 +3,10 @@
  */
 function createDatatable(viewedItems) {
   const dataset = viewedItems.map(viewedItem => {
-    viewedItem.title = viewedItem.series
-      ? `${viewedItem.seriesTitle} - ${viewedItem.title}`
-      : `${viewedItem.title}`;
+    viewedItem.title = viewedItem.series ? `${viewedItem.seriesTitle} - ${viewedItem.title}` : `${viewedItem.title}`;
     viewedItem.dateFormatted = formatFullDate(viewedItem.date);
-    viewedItem.durationFormatted = secondsToHoursMinutesSeconds(
-      viewedItem.duration
-    );
-    viewedItem.type = viewedItem.series
-      ? `${chrome.i18n.getMessage('serie')}`
-      : `${chrome.i18n.getMessage('movie')}`;
+    viewedItem.durationFormatted = secondsToHoursMinutesSeconds(viewedItem.duration);
+    viewedItem.type = viewedItem.series ? `${chrome.i18n.getMessage('serie')}` : `${chrome.i18n.getMessage('movie')}`;
     return viewedItem;
   });
   debug(`Datatable data`, dataset);
@@ -96,9 +90,7 @@ function createDatatable(viewedItems) {
 
     // Remove accented character from search input as well
     $('#datatableSearchInput').keyup(function() {
-      datatable
-        .search(jQuery.fn.DataTable.ext.type.search.string(this.value))
-        .draw();
+      datatable.search(jQuery.fn.DataTable.ext.type.search.string(this.value)).draw();
     });
   });
 }
@@ -122,10 +114,7 @@ function renderTitleColumn(title, type, row, meta) {
  * @param {*} meta
  */
 function renderDateColumn(date, type, row, meta) {
-  return `<div class="ns-date-column" title="${formatDate4Title(
-    date,
-    true
-  )}">${formatFullDate(date)}</div>`;
+  return `<div class="ns-date-column" title="${formatDate4Title(date, true)}">${formatFullDate(date)}</div>`;
 }
 
 /**

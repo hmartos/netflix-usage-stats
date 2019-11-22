@@ -14,9 +14,7 @@ function getActivity(buildId) {
         debug(`Viewing history size is ${count}`);
         let pages = Math.ceil(count / PAGE_SIZE);
 
-        debug(
-          `Viewing history has ${pages} pages of ${PAGE_SIZE} elements per page`
-        );
+        debug(`Viewing history has ${pages} pages of ${PAGE_SIZE} elements per page`);
         viewedItems = viewedItems.concat(data.viewedItems);
 
         const pageList = [];
@@ -31,9 +29,7 @@ function getActivity(buildId) {
             .then(data => {
               viewedItems = viewedItems.concat(data.viewedItems);
             })
-            .catch(error =>
-              console.error(`Error loading activity page ${page}`, error)
-            );
+            .catch(error => console.error(`Error loading activity page ${page}`, error));
         });
 
         // Synchronizes when all requests are resolved
@@ -43,10 +39,7 @@ function getActivity(buildId) {
             resolve(_.sortBy(viewedItems, ['date']).reverse());
           })
           .catch(error => {
-            console.error(
-              `Unknown error loading viewing activity pages`,
-              error
-            );
+            console.error(`Unknown error loading viewing activity pages`, error);
             reject(error);
           });
       })
@@ -62,8 +55,7 @@ function getActivity(buildId) {
  * @param {*} page
  */
 function getActivityPage(page, buildId) {
-  return fetch(
-    `https://www.netflix.com/api/shakti/${buildId}/viewingactivity?pg=${page}&pgSize=${PAGE_SIZE}`,
-    { credentials: 'same-origin' }
-  );
+  return fetch(`https://www.netflix.com/api/shakti/${buildId}/viewingactivity?pg=${page}&pgSize=${PAGE_SIZE}`, {
+    credentials: 'same-origin',
+  });
 }

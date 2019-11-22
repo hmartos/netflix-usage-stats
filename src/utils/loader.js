@@ -11,9 +11,7 @@ function showLoader() {
 
   let paragraph = document.createElement('p');
   paragraph.className = 'nf-loading-message';
-  let message = document.createTextNode(
-    `${chrome.i18n.getMessage('loadingMessage')}`
-  );
+  let message = document.createTextNode(`${chrome.i18n.getMessage('loadingMessage')}`);
   paragraph.appendChild(message);
 
   container.appendChild(loader);

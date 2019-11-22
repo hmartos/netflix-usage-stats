@@ -55,139 +55,92 @@ describe('Stats', () => {
   it('should calculate stats based on viewed items', async () => {
     const viewedItems = [
       {
-        "duration": 1353,
-        "date": 1459541084838,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
+        duration: 1353,
+        date: 1459541084838,
+        deviceType: 0,
+        series: 70155610,
+        seriesTitle: "That '70s Show",
       },
       {
-        "duration": 1296,
-        "date": 1459538477147,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
+        duration: 1352,
+        date: 1459537113981,
+        deviceType: 1,
+        series: 70155610,
+        seriesTitle: "That '70s Show",
       },
       {
-        "duration": 1352,
-        "date": 1459537113981,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
+        duration: 1351,
+        date: 1459535886839,
+        deviceType: 2,
+        series: 70155610,
+        seriesTitle: "That '70s Show",
       },
       {
-        "duration": 1351,
-        "date": 1459535886839,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
+        duration: 1353,
+        date: 1459522597462,
+        deviceType: 0,
+        series: 70155610,
+        seriesTitle: "That '70s Show",
       },
       {
-        "duration": 1353,
-        "date": 1459522597462,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
+        duration: 1354,
+        date: 1459521236656,
+        deviceType: 0,
+        series: 70155610,
+        seriesTitle: "That '70s Show",
       },
       {
-        "duration": 1354,
-        "date": 1459521236656,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
+        duration: 1261,
+        date: 1459287790985,
+        deviceType: 0,
+        series: 70143830,
+        seriesTitle: 'The Big Bang Theory',
       },
       {
-        "duration": 1261,
-        "date": 1459287790985,
-        "deviceType": 0,
-        "series": 70143830,
-        "seriesTitle": "The Big Bang Theory"
+        duration: 1352,
+        date: 1459202685927,
+        deviceType: 0,
+        series: 70155610,
+        seriesTitle: "That '70s Show",
       },
       {
-        "duration": 1352,
-        "date": 1459202685927,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
+        duration: 6420,
+        date: 1459031560228,
+        deviceType: 0,
       },
       {
-        "duration": 1353,
-        "date": 1459190416450,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
+        duration: 6420,
+        date: 1459031560228,
+        deviceType: 0,
       },
       {
-        "duration": 1353,
-        "date": 1459189696467,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
+        duration: 6420,
+        date: 1459031560228,
+        deviceType: 0,
       },
-      {
-        "duration": 1353,
-        "date": 1459113561319,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
-      },
-      {
-        "duration": 1352,
-        "date": 1459112206306,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
-      },
-      {
-        "duration": 1352,
-        "date": 1459094788404,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
-      },
-      {
-        "duration": 1352,
-        "date": 1459093424992,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
-      },
-      {
-        "duration": 1352,
-        "date": 1459066169225,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
-      },
-      {
-        "duration": 1296,
-        "date": 1459064798251,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
-      },
-      {
-        "duration": 6420,
-        "date": 1459031560228,
-        "deviceType": 0
-      },
-      {
-        "duration": 1352,
-        "date": 1459029232619,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
-      },
-      {
-        "duration": 1351,
-        "date": 1459027877547,
-        "deviceType": 0,
-        "series": 70155610,
-        "seriesTitle": "That '70s Show"
-      }
     ];
     const stats = calculateStats(viewedItems);
 
-    expect(stats).toEqual([]);
+    // With Spanish timezone
+    const expected = {
+      viewedItemsCount: 10,
+      totalTime: 28636,
+      firstUse: new Date('2016-03-26T22:32:40.228Z'),
+      deviceCount: 3,
+      maxTimeInDate: 19260,
+      maxTimeInDateDate: 'Sat Mar 26 2016 00:00:00 GMT+0100 (Central European Standard Time)',
+      moviesCount: 3,
+      moviesTime: 19260,
+      seriesCount: 2,
+      episodesCount: 7,
+      seriesTime: 9376,
+      meanTimeByDayWeek: {
+        Tuesday: '2613',
+        Friday: '6763',
+        Saturday: '19260',
+      },
+    };
+
+    expect(stats).toEqual(expected);
   });
 });

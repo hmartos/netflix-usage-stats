@@ -51,10 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
   try {
     main();
   } catch (error) {
-    console.error(
-      `Something went wrong, sorry... but here is a trace that could help to fix the problem`,
-      error
-    );
+    console.error(`Something went wrong, sorry... but here is a trace that could help to fix the problem`, error);
     showEmptyOrErrorSection(error);
   }
 });
@@ -90,10 +87,7 @@ function main() {
           }
         })
         .catch(error => {
-          console.error(
-            'Error loading viewing activity and calculating stats',
-            error
-          );
+          console.error('Error loading viewing activity and calculating stats', error);
           throw error;
         });
     })
@@ -137,23 +131,16 @@ function showEmptyOrErrorSection(error) {
       section.id = `${sectionId}-section`;
       section.classList.add('structural', 'stdHeight');
       section.innerHTML = DOMPurify.sanitize(template);
-      section.querySelector('h1').textContent = chrome.i18n.getMessage(
-        'myViewingStats'
-      );
+      section.querySelector('h1').textContent = chrome.i18n.getMessage('myViewingStats');
       section.querySelector('h2').textContent = chrome.i18n.getMessage(
         `${error ? 'errorMessage' : 'emptyViewingActivity'}`
       );
       section.querySelector('h3').textContent = chrome.i18n.getMessage(
         `${error ? 'createIssueMessage' : 'goWatchSomething'}`
       );
-      document
-        .querySelector('.responsive-account-container div')
-        .replaceWith(section);
+      document.querySelector('.responsive-account-container div').replaceWith(section);
     })
     .catch(error => {
-      console.error(
-        `Error loading ${sectionId} page, this is embarrasing...`,
-        error
-      );
+      console.error(`Error loading ${sectionId} page, this is embarrasing...`, error);
     });
 }

@@ -4,15 +4,14 @@
 
 'use strict';
 
-document.querySelector('#goToStatsBtn span').textContent = chrome.i18n.getMessage("showStats");
+document.querySelector('#goToStatsBtn span').textContent = chrome.i18n.getMessage('showStats');
 let goToStatsBtn = document.getElementById('goToStatsBtn');
 
 goToStatsBtn.onclick = function(element) {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-        tabs[0].id,
-        {code: `location.replace('https://www.netflix.com/viewingactivity?stats=true')`}
-    );
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.executeScript(tabs[0].id, {
+      code: `location.replace('https://www.netflix.com/viewingactivity?stats=true')`,
+    });
     window.close();
   });
 };

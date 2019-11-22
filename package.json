@@ -6,8 +6,8 @@
   "scripts": {
     "build": "npm run prettier-check && npm run zip",
     "zip": "bestzip netflix-usage-stats.zip src/*",
-    "prettier-check": "prettier --check './src/**/*.html' './src/**/*.css' './src/**/*.html'",
-    "prettier-format": "prettier --write './src/**/*.html' './src/**/*.css' './src/**/*.html'",
+    "prettier-check": "prettier --check './src/**/*.html' './src/**/*.css' './src/**/*.js' './test/**/*.js'",
+    "prettier-format": "prettier --write './src/**/*.html' './src/**/*.css' './src/**/*.js' './test/**/*.js'",
     "test": "jest --coverage --testTimeout=10000"
   },
   "repository": {
@@ -28,6 +28,7 @@
   "devDependencies": {
     "bestzip": "^2.1.4",
     "jest": "^24.9.0",
+    "prettier": "^1.19.1",
     "rewire": "^4.0.1"
   }
 }

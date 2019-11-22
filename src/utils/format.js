@@ -11,38 +11,20 @@ function secondsToYdhms(seconds) {
   const s = Math.floor(seconds % 60);
 
   const yDisplay =
-    y > 0
-      ? y +
-        (y === 1
-          ? ` ${chrome.i18n.getMessage('year')}, `
-          : ` ${chrome.i18n.getMessage('year')}s, `)
-      : '';
+    y > 0 ? y + (y === 1 ? ` ${chrome.i18n.getMessage('year')}, ` : ` ${chrome.i18n.getMessage('year')}s, `) : '';
   const dDisplay =
     d > 0 || y > 0
-      ? d +
-        (d === 1
-          ? ` ${chrome.i18n.getMessage('day')}, `
-          : ` ${chrome.i18n.getMessage('day')}s, `)
+      ? d + (d === 1 ? ` ${chrome.i18n.getMessage('day')}, ` : ` ${chrome.i18n.getMessage('day')}s, `)
       : '';
   const hDisplay =
-    h > 0 || (y > 0 || d > 0)
-      ? h +
-        (h === 1
-          ? ` ${chrome.i18n.getMessage('hour')}, `
-          : ` ${chrome.i18n.getMessage('hour')}s, `)
+    h > 0 || y > 0 || d > 0
+      ? h + (h === 1 ? ` ${chrome.i18n.getMessage('hour')}, ` : ` ${chrome.i18n.getMessage('hour')}s, `)
       : '';
   const mDisplay =
-    m > 0 || (y > 0 || d > 0 || h > 0)
-      ? m +
-        (m === 1
-          ? ` ${chrome.i18n.getMessage('minute')}, `
-          : ` ${chrome.i18n.getMessage('minute')}s, `)
+    m > 0 || y > 0 || d > 0 || h > 0
+      ? m + (m === 1 ? ` ${chrome.i18n.getMessage('minute')}, ` : ` ${chrome.i18n.getMessage('minute')}s, `)
       : '';
-  const sDisplay =
-    s +
-    (s === 1
-      ? ` ${chrome.i18n.getMessage('second')}`
-      : ` ${chrome.i18n.getMessage('second')}s`);
+  const sDisplay = s + (s === 1 ? ` ${chrome.i18n.getMessage('second')}` : ` ${chrome.i18n.getMessage('second')}s`);
   return yDisplay + dDisplay + hDisplay + mDisplay + sDisplay;
 }
 
@@ -91,10 +73,8 @@ function formatFullDate(dateMilliseconds) {
     .toString()
     .substr(-2);
   const hours = date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
-  const minutes =
-    date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
-  const seconds =
-    date.getSeconds() > 9 ? date.getSeconds() : `0${date.getSeconds()}`;
+  const minutes = date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
+  const seconds = date.getSeconds() > 9 ? date.getSeconds() : `0${date.getSeconds()}`;
 
   if (chrome.i18n.getUILanguage() === 'es') {
     return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
@@ -140,19 +120,19 @@ function formatDate4Title(dateMilliseconds, showHours) {
   }
 
   const hours = date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
-  const minutes =
-    date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
-  const seconds =
-    date.getSeconds() > 9 ? date.getSeconds() : `0${date.getSeconds()}`;
+  const minutes = date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
+  const seconds = date.getSeconds() > 9 ? date.getSeconds() : `0${date.getSeconds()}`;
   return `${dayOfWeek}, ${day} ${month} ${year} ${hours}:${minutes}:${seconds}`;
 }
 
 /**
  * Converts time in seconds to hh:mm:ss
- * @param {*} timeInSeconds 
+ * @param {*} timeInSeconds
  */
 function sec2time(timeInSeconds) {
-  const pad = function(num, size) { return ('000' + num).slice(size * -1); };
+  const pad = function(num, size) {
+    return ('000' + num).slice(size * -1);
+  };
 
   const time = parseFloat(timeInSeconds).toFixed(3);
   const hours = Math.floor(time / 60 / 60);
