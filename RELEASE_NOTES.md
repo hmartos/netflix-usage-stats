@@ -25,6 +25,25 @@ Improvements/enhancements to a workflow, performance, logging, error messaging, 
 Other Changes
 Other miscellaneous changes that don't fit into any of the above categories. Try to leave this empty - ideally, all changes fit into the categories above
 
+## 1.2.0
+
+### Upgrade Steps
+
+- When upgrading from 1.1.0 or previous version you should remove extension from [Chrome Extensions](chrome://extensions/) and load again the unpacked extension from the new `src` folder
+
+### Breaking changes
+
+- Reorganised code in folders. Now manifest.json is located at `src` folder. See Upgrade Steps to reload Chrome extension
+
+### Bug Fixes
+
+- Fixed bug in function that calculates watching times
+- Fixed bug in function that calculates title's duration
+
+### Other Changes
+
+- Added unit tests
+
 ## 1.1.0
 
 ### Bug Fixes
