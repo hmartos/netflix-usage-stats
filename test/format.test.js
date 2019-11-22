@@ -42,17 +42,35 @@ describe('Formatters', () => {
   });
 
   it('should format a number of seconds into years, days, hours, minutes and seconds', async () => {
-    let time = secondsToYdhms(10);
+    let time = secondsToYdhms(0);
+    expect(time).toEqual('0 seconds');
+
+    time = secondsToYdhms(10);
     expect(time).toEqual('10 seconds');
     
     time = secondsToYdhms(75);
     expect(time).toEqual('1 minute, 15 seconds');
+
+    time = secondsToYdhms(120);
+    expect(time).toEqual('2 minutes, 0 seconds');
+
+    time = secondsToYdhms(3600);
+    expect(time).toEqual('1 hour, 0 minutes, 0 seconds');
+
+    time = secondsToYdhms(3601);
+    expect(time).toEqual('1 hour, 0 minutes, 1 second');
+
+    time = secondsToYdhms(3660);
+    expect(time).toEqual('1 hour, 1 minute, 0 seconds');
     
     time = secondsToYdhms(5726);
     expect(time).toEqual('1 hour, 35 minutes, 26 seconds');
 
     time = secondsToYdhms(86401);
     expect(time).toEqual('1 day, 0 hours, 0 minutes, 1 second');
+
+    time = secondsToYdhms(31536000);
+    expect(time).toEqual('1 year, 0 days, 0 hours, 0 minutes, 0 seconds');
 
     time = secondsToYdhms('31719845');
     expect(time).toEqual('1 year, 2 days, 3 hours, 4 minutes, 5 seconds');
@@ -61,17 +79,35 @@ describe('Formatters', () => {
     expect(time).toEqual('2 years, 4 days, 6 hours, 8 minutes, 10 seconds');
 
     setLanguage('es');
+    time = secondsToYdhms(0);
+    expect(time).toEqual('0 segundos');
+
     time = secondsToYdhms(10);
     expect(time).toEqual('10 segundos');
     
     time = secondsToYdhms(75);
     expect(time).toEqual('1 minuto, 15 segundos');
+
+    time = secondsToYdhms(120);
+    expect(time).toEqual('2 minutos, 0 segundos');
+
+    time = secondsToYdhms(3600);
+    expect(time).toEqual('1 hora, 0 minutos, 0 segundos');
+
+    time = secondsToYdhms(3601);
+    expect(time).toEqual('1 hora, 0 minutos, 1 segundo');
+
+    time = secondsToYdhms(3660);
+    expect(time).toEqual('1 hora, 1 minuto, 0 segundos');
     
     time = secondsToYdhms(5726);
     expect(time).toEqual('1 hora, 35 minutos, 26 segundos');
 
     time = secondsToYdhms(86401);
     expect(time).toEqual('1 día, 0 horas, 0 minutos, 1 segundo');
+
+    time = secondsToYdhms(31536000);
+    expect(time).toEqual('1 año, 0 días, 0 horas, 0 minutos, 0 segundos');
 
     time = secondsToYdhms('31719845');
     expect(time).toEqual('1 año, 2 días, 3 horas, 4 minutos, 5 segundos');
@@ -86,6 +122,18 @@ describe('Formatters', () => {
 
     time = secondsToHoursMinutesSeconds('5025');
     expect(time).toEqual('01:23:45');
+
+    time = secondsToHoursMinutesSeconds('1930');
+    expect(time).toEqual('32:10');
+
+    time = secondsToHoursMinutesSeconds('56');
+    expect(time).toEqual('00:56');
+
+    time = secondsToHoursMinutesSeconds(0);
+    expect(time).toEqual('N/A');
+
+    time = secondsToHoursMinutesSeconds(0, true);
+    expect(time).toEqual('0');
   });
 
   it('should format a number with thousands separator', async () => {
@@ -137,10 +185,37 @@ describe('Formatters', () => {
 
   // Private functions
   function setLanguage(language) {
+    translations = {
+      "second": "segundo",
+      "minute": "minuto",
+      "hour": "hora",
+      "day": "día",
+      "year": "año",
+      "Monday": "Lunes",
+      "Tuesday": "Martes",
+      "Wednesday": "Miércoles",
+      "Thursday": "Jueves",
+      "Friday": "Viernes",
+      "Saturday": "Sábado",
+      "Sunday": "Domingo",
+      "January": "Enero",
+      "February": "Febrero",
+      "March": "Marzo",
+      "April": "Abril",
+      "May": "Mayo",
+      "June": "Junio",
+      "July": "Julio",
+      "August": "Agosto",
+      "September": "Septiembre",
+      "October": "Octubre",
+      "November": "Noviembre",
+      "December": "Deciembre"
+    };
+
     formatModule.__set__('chrome', {
       i18n: {
         getMessage: label => {
-          return label;
+          return language === 'en' ? label : translations[label];
         },
         getUILanguage: () => {
           return language;
