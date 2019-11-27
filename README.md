@@ -1,8 +1,8 @@
-![GitHub Actions status | hmartos/netflix-usage-stats](https://github.com/hmartos/netflix-usage-stats/workflows/Tests/badge.svg)
+![GitHub Actions status | hmartos/netflix-usage-stats](https://github.com/hmartos/netflix-usage-stats/workflows/Node%20CI/badge.svg)
 
 
 <p style="text-align:center" align="center">
-  <img src="./src/images/logo128.png" alt="logo">
+  <img src="./src/images/logo48.png" alt="logo">
 
   <h1 align="center">Netflix Viewing Activity</h1>
 
