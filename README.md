@@ -1,12 +1,13 @@
-# Netflix Usage Stats
+![GitHub Actions status | hmartos/netflix-usage-stats](https://github.com/hmartos/netflix-usage-stats/workflows/Tests/badge.svg)
+
 
 <p style="text-align:center" align="center">
-  <img src="./src/images/logo48.png" alt="logo">
+  <img src="./src/images/logo128.png" alt="logo">
 
-  <h3 align="center">Netflix Viewing Activity</h3>
+  <h1 align="center">Netflix Viewing Activity</h1>
 
   <p align="center">
-    Shows Netflix viewing stats dashboard to know more about how you spend your time on Netflix.
+    Shows Netflix viewing stats dashboard to know more about how you spend your time on Netflix
     <br>
     <a href="https://chrome.google.com/webstore/detail/bckfpnenhimfckndcceonmkhheinmkob?utm_source=github"><strong>Install for Google Chrome &raquo;</strong></a>
   </p>
@@ -37,6 +38,11 @@ Included statistics are:
 
 It also includes a table with the whole user's viewing activity with ability to sort and filter data.
 
+## Requirements
+
+- [Git](https://git-scm.com/)
+- [NodeJS](https://nodejs.org/)
+
 ## Getting Started
 
 1. Clone the repository `git clone https://github.com/hmartos/netflix-usage-stats.git`.
@@ -44,6 +50,10 @@ It also includes a table with the whole user's viewing activity with ability to 
    The Extension Management page can also be opened by clicking on the Chrome menu, hovering over `More Tools` then selecting `Extensions`.
 3. Enable `Developer Mode` by clicking the toggle switch next to Developer mode in the top right corner.
 4. Click the `Load Unpacked` button and select the folder `src` inside the cloned repository.
+
+## Running Tests
+
+Execute `npm test` to run unit tests. A GitHub Action will execute tests for
 
 ## Build
 
