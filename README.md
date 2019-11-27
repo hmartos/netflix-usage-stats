@@ -3,7 +3,7 @@
 
   <h1 align="center">Netflix Viewing Stats</h1>
 
-  <h3 align="center">Shows Netflix viewing stats dashboard to know more about how you spend your time on Netflix</h3>
+  <h4 align="center">Shows Netflix viewing stats dashboard to know more about how you spend your time on Netflix</h4>
 
   <p align="center">
     <a href="https://chrome.google.com/webstore/detail/bckfpnenhimfckndcceonmkhheinmkob?utm_source=github"><strong>Install for Google Chrome &raquo;</strong></a>
