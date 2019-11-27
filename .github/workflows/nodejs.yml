@@ -4,6 +4,11 @@ on:
   push:
     branches:
     - develop
+    - feature/*
+    - bugfix/*
+    - hotfix/*
+    - release/*
+
 
 jobs:
   test:
@@ -25,4 +30,4 @@ jobs:
         npm install
         npm test
       env:
-        CI: true
+        TZ: Europe/Madrid
