@@ -1,23 +1,21 @@
-![GitHub Actions status | hmartos/netflix-usage-stats](https://github.com/hmartos/netflix-usage-stats/workflows/Node%20CI/badge.svg)
-
-
 <p style="text-align:center" align="center">
   <img src="./src/images/logo48.png" alt="logo">
 
-  <h1 align="center">Netflix Viewing Activity</h1>
+  <h1 align="center">Netflix Viewing Stats</h1>
+
+  <h3 align="center">Shows Netflix viewing stats dashboard to know more about how you spend your time on Netflix</h3>
 
   <p align="center">
-    Shows Netflix viewing stats dashboard to know more about how you spend your time on Netflix
-    <br>
     <a href="https://chrome.google.com/webstore/detail/bckfpnenhimfckndcceonmkhheinmkob?utm_source=github"><strong>Install for Google Chrome &raquo;</strong></a>
   </p>
 </p>
 
 <p align="center">
+  <a href="https://github.com/hmartos/netflix-usage-stats/actions"><img alt="GitHub Actions status" src="https://github.com/hmartos/netflix-usage-stats/workflows/Node%20CI/badge.svg"></a>
   <a href="https://chrome.google.com/webstore/detail/bckfpnenhimfckndcceonmkhheinmkob?utm_source=github_badge"><img alt="Chrome Web Store" src="https://img.shields.io/chrome-web-store/v/bckfpnenhimfckndcceonmkhheinmkob"></a>
   <a href="https://github.com/hmartos/netflix-usage-stats/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/hmartos/netflix-usage-stats"></a>
-  
 </p>
+
 
 This Chrome extension allows you to access to a viewing stats page fully integrated on Netflix site which loads viewing activity from Netflix Shakti API and calculate a set of statistics about how you use your Netflix account.
 
