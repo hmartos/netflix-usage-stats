@@ -28,6 +28,10 @@
     "message": "Loading your viewing activity, this may take some time...",
     "description": "Message to show loading can take some time"
   },
+  "viewingSummary": {
+    "message": "Viewing summary",
+    "description": ""
+  },
   "viewedItemsCount": {
     "message": "Titles watched",
     "description": ""
@@ -212,36 +216,12 @@
     "message": "Type",
     "description": ""
   },
-  "processing": {
-    "message": "Processing...",
-    "description": ""
-  },
   "search": {
     "message": "Search",
     "description": ""
   },
-  "info": {
-    "message": "Showing _START_ to _END_ of _TOTAL_ entries",
-    "description": ""
-  },
-  "infoEmpty": {
-    "message": "Showing 0 to 0 of 0 entries",
-    "description": ""
-  },
-  "infoFiltered": {
-    "message": "(filtered from _MAX_ total entries)",
-    "description": ""
-  },
-  "loadingRecords": {
-    "message": "Loading...",
-    "description": ""
-  },
-  "zeroRecords": {
-    "message": "No matching records found",
-    "description": ""
-  },
-  "emptyTable": {
-    "message": "No data available in table",
+  "showMore": {
+    "message": "Show More",
     "description": ""
   },
   "errorMessage": {

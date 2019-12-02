@@ -1,11 +1,32 @@
+<!-- Charts -->
+<div id="charts" class="ns-section">
+  <div id="moviesVsTvTime" class="ns-card-chart">
+    <h2 class="ns-section-title"></h2>
+
+    <div class="ns-chart ns-pie-chart">
+      <canvas id="moviesVsTvTimeChart"></canvas>
+    </div>
+  </div>
+
+  <div id="meanTimeByWeekDay" class="ns-card-chart">
+    <h2 class="ns-section-title"></h2>
+
+    <div class="ns-chart ns-bar-chart">
+      <canvas id="meanTimeByWeekDayChart"></canvas>
+    </div>
+  </div>
+</div>
+
 <!-- Stats-->
-<div class="ns-section">
+<h2 id="statsTitle" class="ns-section-title"></h2>
+
+<div id="stats" class="ns-stats-section">
   <div id="viewedItemsCount" class="ns-card-stat">
     <i class="material-icons ns-icon">live_tv</i>
     <div class="ns-title-container">
       <span class="ns-title"></span>
     </div>
-    <div class="ns-number"></div>
+    <span class="ns-number"></span>
     <span class="ns-extra-info"></span>
   </div>
 
@@ -14,7 +35,7 @@
     <div class="ns-title-container">
       <span class="ns-title"></span>
     </div>
-    <div class="ns-time"></div>
+    <span class="ns-time"></span>
   </div>
 
   <div id="maxTimeInDate" class="ns-card-stat">
@@ -23,7 +44,7 @@
       <span class="ns-title"></span>
     </div>
     <div>
-      <div class="ns-time"></div>
+      <span class="ns-time"></span>
       <span class="ns-extra-info"></span>
     </div>
   </div>
@@ -33,7 +54,7 @@
     <div class="ns-title-container">
       <span class="ns-title"></span>
     </div>
-    <div class="ns-number"></div>
+    <span class="ns-number"></span>
   </div>
 
   <div id="moviesCount" class="ns-card-stat">
@@ -41,7 +62,7 @@
     <div class="ns-title-container">
       <span class="ns-title"></span>
     </div>
-    <div class="ns-number"></div>
+    <span class="ns-number"></span>
   </div>
 
   <div id="moviesTime" class="ns-card-stat">
@@ -49,7 +70,7 @@
     <div class="ns-title-container">
       <span class="ns-title"></span>
     </div>
-    <div class="ns-time"></div>
+    <span class="ns-time"></span>
   </div>
 
   <div id="seriesCount" class="ns-card-stat">
@@ -58,7 +79,7 @@
       <span class="ns-title"></span>
     </div>
     <div>
-      <div class="ns-number"></div>
+      <span class="ns-number"></span>
       <span class="ns-extra-info"></span>
     </div>
   </div>
@@ -68,50 +89,28 @@
     <div class="ns-title-container">
       <span class="ns-title"></span>
     </div>
-    <div class="ns-time"></div>
+    <span class="ns-time"></span>
   </div>
 </div>
 
-<!-- Charts -->
-<div class="ns-section">
-  <div id="moviesVsTvTime" class="ns-card-chart">
-    <i class="material-icons ns-icon">pie_chart</i>
-    <div class="ns-title-container">
-      <span class="ns-title"></span>
-    </div>
-    <div class="ns-chart ns-pie-chart">
-      <canvas id="moviesVsTvTimeChart"></canvas>
-    </div>
+<!-- Viewing Activity -->
+<h2 id="viewingActivityTitle" class="ns-section-title"></h2>
+
+<input id="search" type="text" />
+
+<div id="viewingActivity">
+  <div id="viewingActivityHeader" class="viewing-activity-header">
+    <div id="viewingActivityDateHeader"></div>
+    <div id="viewingActivityTitleHeader"></div>
+    <div id="viewingActivityDurationHeader"></div>
+    <div id="viewingActivityTypeHeader"></div>
   </div>
 
-  <div id="meanTimeByWeekDay" class="ns-card-chart">
-    <i class="material-icons ns-icon">bar_chart</i>
-    <div class="ns-title-container">
-      <span class="ns-title"></span>
-    </div>
-    <div class="ns-chart ns-bar-chart">
-      <canvas id="meanTimeByWeekDayChart"></canvas>
-    </div>
-  </div>
-</div>
+  <ul id="viewingActivityList" class="structural retable stdHeight"></ul>
 
-<div class="ns-section">
-  <div id="activity" class="ns-card-table">
-    <i class="material-icons ns-icon">table_chart</i>
-    <div class="ns-title-container">
-      <span class="ns-title"></span>
+  <div class="viewing-activity-footer">
+    <div class="btn-bar top-padding btn-bar-left">
+      <button id="showMoreBtn" class="btn btn-blue btn-small" type="button" autocomplete="off" tabindex="0"></button>
     </div>
-    <table id="activityDataTable" class="display" style="width:100%">
-      <thead>
-        <tr>
-          <th id="dataTableTitle"></th>
-          <th id="dataTableDate"></th>
-          <th id="dataTableDateFormatted"></th>
-          <th id="dataTableDuration"></th>
-          <th id="dataTableDurationFormatted"></th>
-          <th id="dataTableType"></th>
-        </tr>
-      </thead>
-    </table>
   </div>
 </div>

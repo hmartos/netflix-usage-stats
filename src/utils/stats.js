@@ -124,8 +124,8 @@ function showStats(viewedItems) {
   createTvVsseriesTimeChart();
   createMeanTimeByWeekDayChart();
 
-  // DataTable
-  createDatatable(viewedItems);
+  // Viewing Activity
+  createViewingActivityList(viewedItems);
 }
 
 /**
