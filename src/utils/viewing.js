@@ -22,7 +22,7 @@ function createViewingActivityList(viewedItems) {
   viewingActivityCopy = viewingActivity;
   _viewingActivity = _.cloneDeep(viewingActivity);
 
-  renderViewingActivityList(_.slice(_viewingActivity, 0, PAGE_SIZE));
+  showViewingActivityPage(0);
   bindShowMoreBtn(_viewingActivity);
   const columns = ['date', 'title', 'duration', 'type'];
   columns.forEach(column => {
@@ -35,6 +35,30 @@ function createViewingActivityList(viewedItems) {
 
 /**
  * Shows viewing activity list page
+ * @param {*} page - number of the page to show (starting in 0)
+ */
+function showViewingActivityPage(page) {
+  const viewingActivityPage = _.slice(_viewingActivity, page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+  debug(
+    `Showing results ${page * PAGE_SIZE} - ${page * PAGE_SIZE + PAGE_SIZE} of ${_viewingActivity.length} results`,
+    _viewingActivity
+  );
+  renderViewingActivityList(viewingActivityPage);
+
+  // Hide 'Show more' button if it's the last chunk or show it again if not
+  const showMoreBtn = $('#showMoreBtn');
+  if (
+    viewingActivityPage.length < PAGE_SIZE ||
+    (viewingActivityPage.length === PAGE_SIZE && page * PAGE_SIZE + PAGE_SIZE === _viewingActivity.length)
+  ) {
+    showMoreBtn.hide();
+  } else {
+    showMoreBtn.show();
+  }
+}
+
+/**
+ * Render a list of viewed items
  * @param {*} viewedItems - page of viewing activity already filtered and sorted
  */
 function renderViewingActivityList(viewedItems) {
@@ -83,8 +107,7 @@ function bindShowMoreBtn() {
   showMoreBtn.html(chrome.i18n.getMessage('showMore'));
   showMoreBtn.on('click', function() {
     page++;
-    renderViewingActivityList(_.slice(_viewingActivity, page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE));
-    // TODO Hide button if it is the last chunk
+    showViewingActivityPage(page);
   });
 }
 
@@ -100,7 +123,7 @@ function bindSortingHeaders(column) {
     setSorting(column);
     sortViewingActivity(column, sortBy[column]);
     clearViewingActivityList();
-    renderViewingActivityList(_.slice(_viewingActivity, page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE));
+    showViewingActivityPage(page);
   });
 }
 
@@ -128,7 +151,7 @@ function bindSearch() {
       }
 
       clearViewingActivityList();
-      renderViewingActivityList(_.slice(_viewingActivity, page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE));
+      showViewingActivityPage(0);
     }, 150)
   );
 }
