@@ -128,6 +128,23 @@ function bindSortingHeaders(column) {
 }
 
 /**
+ * Filter viewing activity by title
+ * @param {*} search - search input value
+ */
+function filterViewingActivity(search) {
+  debug('Search value', search);
+
+  if (_.isEmpty(search)) {
+    _viewingActivity = _.cloneDeep(viewingActivityCopy);
+  } else {
+    _viewingActivity = _.filter(viewingActivityCopy, item => {
+      return _.includes(_.toLower(item.title), _.toLower(_.deburr(search)));
+    });
+    debug('Filtered viewing actitvity', _viewingActivity);
+  }
+}
+
+/**
  * Bind on key up event on the search input
  */
 function bindSearch() {
@@ -139,17 +156,8 @@ function bindSearch() {
     'keyup',
     _.debounce(function() {
       const search = searchInput.prop('value');
-      debug('Search value', search);
 
-      if (_.isEmpty(search)) {
-        _viewingActivity = _.cloneDeep(viewingActivityCopy);
-      } else {
-        _viewingActivity = _.filter(viewingActivityCopy, item => {
-          return _.includes(_.toLower(item.title), _.toLower(_.deburr(search)));
-        });
-        debug('Filtered viewing actitvity', _viewingActivity);
-      }
-
+      filterViewingActivity(search);
       clearViewingActivityList();
       showViewingActivityPage(0);
     }, 150)
