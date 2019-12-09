@@ -99,13 +99,15 @@ function calculateStats(viewedItems) {
 function showStats(viewedItems) {
   // Summary
   document.querySelector('#viewedItemsCount .ns-number').textContent = formatNumber(summary.viewedItemsCount);
-  document.querySelector('#viewedItemsCount .ns-extra-info').textContent = `(${chrome.i18n.getMessage(
+  document.querySelector('#viewedItemsCount .ns-extra-info').textContent = `${chrome.i18n.getMessage(
     'since'
-  )} ${formatDate(summary.firstUse)})`;
+  )} ${formatDate(summary.firstUse)}`;
   document.querySelector('#viewedItemsCount .ns-extra-info').title = `${formatDate4Title(summary.firstUse)}`;
   document.querySelector('#totalTime .ns-time').textContent = secondsToYdhms(summary.totalTime);
   document.querySelector('#maxTimeInDate .ns-time').textContent = secondsToYdhms(summary.maxTimeInDate);
-  document.querySelector('#maxTimeInDate .ns-extra-info').textContent = `(${formatDate(summary.maxTimeInDateDate)})`;
+  document.querySelector('#maxTimeInDate .ns-extra-info').textContent = `${chrome.i18n.getMessage(
+    'onDate'
+  )} ${formatDate(summary.maxTimeInDateDate)}`;
   document.querySelector('#maxTimeInDate .ns-extra-info').title = `${formatDate4Title(summary.maxTimeInDateDate)}`;
   document.querySelector('#deviceCount .ns-number').textContent = formatNumber(summary.deviceCount);
 
@@ -115,9 +117,9 @@ function showStats(viewedItems) {
 
   // Series
   document.querySelector('#seriesCount .ns-number').textContent = formatNumber(summary.seriesCount);
-  document.querySelector('#seriesCount .ns-extra-info').textContent = `(${formatNumber(
+  document.querySelector('#seriesCount .ns-extra-info').textContent = `${formatNumber(
     summary.episodesCount
-  )} ${chrome.i18n.getMessage('episodes')})`;
+  )} ${chrome.i18n.getMessage('episodes')}`;
   document.querySelector('#seriesTime .ns-time').textContent = secondsToYdhms(summary.seriesTime);
 
   // Charts

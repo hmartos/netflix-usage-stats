@@ -149,7 +149,10 @@
     "message": "segundo"
   },
   "since": {
-    "message": "desde el"
+    "message": "Desde el"
+  },
+  "onDate": {
+    "message": "El día"
   },
   "title": {
     "message": "Título"
