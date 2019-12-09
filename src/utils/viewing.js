@@ -3,8 +3,6 @@ let sortBy = { date: false }; // Default sorting
 let _viewingActivity;
 let viewingActivityCopy;
 
-// TODO JS Doc on functions headers
-
 /**
  * Create the viewing activity list on dashboard
  * @param {*} viewedItems
@@ -39,11 +37,8 @@ function createViewingActivityList(viewedItems) {
  */
 function showViewingActivityPage(page) {
   const viewingActivityPage = _.slice(_viewingActivity, page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
-  debug(
-    `Showing results ${page * PAGE_SIZE} - ${page * PAGE_SIZE + PAGE_SIZE} of ${_viewingActivity.length} results`,
-    _viewingActivity
-  );
   renderViewingActivityList(viewingActivityPage);
+  showResultsCountSummary(page);
 
   // Hide 'Show more' button if it's the last chunk or show it again if not
   const showMoreBtn = $('#showMoreBtn');
@@ -97,6 +92,26 @@ function renderViewingActivityList(viewedItems) {
 
     list.appendChild(listItem);
   }
+}
+
+/**
+ * Show results count summary for filtered (or not) viewing activity
+ * @param {*} page - number of the page to show (starting in 0)
+ */
+function showResultsCountSummary(page) {
+  const resultsCountContainer = document.querySelector('#resultsCount span');
+  const resultsCount = document.createElement('span');
+  resultsCount.textContent = `${chrome.i18n.getMessage('showing')} ${page * PAGE_SIZE} - ${
+    page * PAGE_SIZE + PAGE_SIZE < _viewingActivity.length ? page * PAGE_SIZE + PAGE_SIZE : _viewingActivity.length
+  } of ${_viewingActivity.length} ${chrome.i18n.getMessage('results')}`;
+
+  resultsCountContainer.replaceWith(resultsCount);
+
+  debug(
+    `Showing results ${page * PAGE_SIZE} - ${
+      page * PAGE_SIZE + PAGE_SIZE < _viewingActivity.length ? page * PAGE_SIZE + PAGE_SIZE : _viewingActivity.length
+    } of ${_viewingActivity.length} results`
+  );
 }
 
 /**

@@ -224,6 +224,14 @@
     "message": "Show More",
     "description": ""
   },
+  "showing": {
+    "message": "Showing",
+    "description": ""
+  },
+  "results": {
+    "message": "results",
+    "description": ""
+  },
   "errorMessage": {
     "message": "Oh, an error ocurred, I'm so sorry.",
     "description": ""

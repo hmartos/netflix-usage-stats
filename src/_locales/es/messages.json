@@ -169,6 +169,12 @@
   "showMore": {
     "message": "Mostrar más"
   },
+  "showing": {
+    "message": "Mostrando"  
+  },
+  "results": {
+    "message": "resultados"  
+  },
   "errorMessage": {
     "message": "Vaya, ocurrió un error, lo siento mucho."
   },
