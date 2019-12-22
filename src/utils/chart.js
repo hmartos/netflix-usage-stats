@@ -72,8 +72,8 @@ function createMeanTimeByWeekDayChart() {
           ],
           backgroundColor: '#0080FF',
           borderWidth: 0
-        },
-      ],
+        }
+      ]
     },
     options: {
       responsive: true,
