@@ -53,11 +53,21 @@
 }
 
 .ns-card-chart {
-  min-width: 400px;
   width: 50%;
   margin: 0 auto;
-  text-align: center;
   margin-bottom: 50px;
+}
+
+/* Add media query for improve charts layout */
+@media (max-width: 768px) {
+  .ns-card-chart {
+    width: 100%;
+  }
+}
+
+/* Add properties to this style for improve layout */
+.ns-section-title {
+  margin-bottom: 20px;
 }
 
 .ns-title-container {
