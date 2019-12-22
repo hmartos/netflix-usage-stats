@@ -11,7 +11,8 @@ function createTvVsseriesTimeChart() {
       datasets: [
         {
           data: [summary.moviesTime, summary.seriesTime],
-          backgroundColor: ['#0080FF', '#99ccff']
+          backgroundColor: ['#0080FF', '#99ccff'],
+          borderWidth: 0
         }
       ]
     },
@@ -69,7 +70,8 @@ function createMeanTimeByWeekDayChart() {
             summary.meanTimeByDayWeek['Saturday'],
             summary.meanTimeByDayWeek['Sunday']
           ],
-          backgroundColor: '#0080FF'
+          backgroundColor: '#0080FF',
+          borderWidth: 0
         },
       ],
     },
