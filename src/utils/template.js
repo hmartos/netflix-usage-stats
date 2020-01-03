@@ -45,41 +45,41 @@ function fillDashboardTemplate() {
   // Stats
   document.querySelector('#viewedItemsCount .ns-title').textContent = chrome.i18n.getMessage('viewedItemsCount');
   document
-    .querySelector('#viewedItemsCount .ns-title-container')
+    .querySelector('#viewedItemsCount .ns-title')
     .setAttribute('aria-label', chrome.i18n.getMessage('viewedItemsCount'));
 
   document.querySelector('#totalTime .ns-title').textContent = chrome.i18n.getMessage('totalTime');
   document
-    .querySelector('#totalTime .ns-title-container')
+    .querySelector('#totalTime .ns-title')
     .setAttribute('aria-label', chrome.i18n.getMessage('totalTime'));
 
   document.querySelector('#maxTimeInDate .ns-title').textContent = chrome.i18n.getMessage('maxTimeInDate');
   document
-    .querySelector('#maxTimeInDate .ns-title-container')
+    .querySelector('#maxTimeInDate .ns-title')
     .setAttribute('aria-label', chrome.i18n.getMessage('maxTimeInDate'));
 
   document.querySelector('#deviceCount .ns-title').textContent = chrome.i18n.getMessage('deviceCount');
   document
-    .querySelector('#deviceCount .ns-title-container')
+    .querySelector('#deviceCount .ns-title')
     .setAttribute('aria-label', chrome.i18n.getMessage('deviceCount'));
 
   document.querySelector('#moviesCount .ns-title').textContent = chrome.i18n.getMessage('moviesCount');
   document
-    .querySelector('#moviesCount .ns-title-container')
+    .querySelector('#moviesCount .ns-title')
     .setAttribute('aria-label', chrome.i18n.getMessage('moviesCount'));
 
   document.querySelector('#moviesTime .ns-title').textContent = chrome.i18n.getMessage('moviesTime');
   document
-    .querySelector('#moviesTime .ns-title-container')
+    .querySelector('#moviesTime .ns-title')
     .setAttribute('aria-label', chrome.i18n.getMessage('moviesTime'));
 
   document.querySelector('#seriesCount .ns-title').textContent = chrome.i18n.getMessage('seriesCount');
   document
-    .querySelector('#seriesCount .ns-title-container')
+    .querySelector('#seriesCount .ns-title')
     .setAttribute('aria-label', chrome.i18n.getMessage('seriesCount'));
 
   document.querySelector('#seriesTime .ns-title').textContent = chrome.i18n.getMessage('seriesTime');
   document
-    .querySelector('#seriesTime .ns-title-container')
+    .querySelector('#seriesTime .ns-title')
     .setAttribute('aria-label', chrome.i18n.getMessage('seriesTime'));
 }
