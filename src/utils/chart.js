@@ -11,13 +11,22 @@ function createTvVsseriesTimeChart() {
       datasets: [
         {
           data: [summary.moviesTime, summary.seriesTime],
-          backgroundColor: ['rgb(178, 7, 16)', 'rgb(229, 9, 20)'],
-        },
-      ],
+          backgroundColor: ['#0080FF', '#99ccff'],
+          borderWidth: 0
+        }
+      ]
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
+      legend: {
+        display: true,
+        labels: {
+          boxWidth: 15,
+          fontSize: 16,
+          fontColor: '#333'
+        }
+      },
       tooltips: {
         callbacks: {
           label: function(tooltipItem, data) {
@@ -25,10 +34,10 @@ function createTvVsseriesTimeChart() {
           },
           footer: function(tooltipItems, data) {
             return [`${secondsToYdhms(data.datasets[0].data[tooltipItems[0].index])}`];
-          },
-        },
-      },
-    },
+          }
+        }
+      }
+    }
   });
 }
 
@@ -47,7 +56,7 @@ function createMeanTimeByWeekDayChart() {
         chrome.i18n.getMessage('Thursday'),
         chrome.i18n.getMessage('Friday'),
         chrome.i18n.getMessage('Saturday'),
-        chrome.i18n.getMessage('Sunday'),
+        chrome.i18n.getMessage('Sunday')
       ],
       datasets: [
         {
@@ -59,24 +68,30 @@ function createMeanTimeByWeekDayChart() {
             summary.meanTimeByDayWeek['Thursday'],
             summary.meanTimeByDayWeek['Friday'],
             summary.meanTimeByDayWeek['Saturday'],
-            summary.meanTimeByDayWeek['Sunday'],
+            summary.meanTimeByDayWeek['Sunday']
           ],
-          backgroundColor: '#e50914',
-        },
-      ],
+          backgroundColor: '#0080FF',
+          borderWidth: 0
+        }
+      ]
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
       legend: {
         display: true,
+        labels: {
+          boxWidth: 15,
+          fontSize: 16,
+          fontColor: '#333'
+        }
       },
       tooltips: {
         callbacks: {
           label: function(tooltipItem, data) {
             return ` ${secondsToYdhms(tooltipItem.value)}`;
-          },
-        },
+          }
+        }
       },
       scales: {
         xAxes: [
@@ -85,11 +100,11 @@ function createMeanTimeByWeekDayChart() {
               stepSize: 1800,
               callback: function(value) {
                 return `${secondsToHoursMinutesSeconds(value, true)}`;
-              },
-            },
-          },
-        ],
-      },
-    },
+              }
+            }
+          }
+        ]
+      }
+    }
   });
 }

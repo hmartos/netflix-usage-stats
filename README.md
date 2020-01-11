@@ -51,7 +51,7 @@ It also includes a table with the whole user's viewing activity with ability to 
 
 ## Running Tests
 
-Execute `npm test` to run unit tests. A GitHub Action will execute tests for
+Execute `npm test` to run unit tests.
 
 ## Build
 
