@@ -77,7 +77,7 @@ function renderViewingActivityList(viewedItems) {
 
     const type = document.createElement('i');
     type.classList = ['material-icons ns-icon-list'];
-    type.innerText = viewedItem.type === 'Película' ? 'local_movies' : 'tv';
+    type.innerText = viewedItem.type === `${chrome.i18n.getMessage('movie')}` ? 'local_movies' : 'tv';
 
     const typeContainer = document.createElement('div');
     typeContainer.classList = ['col delete'];
