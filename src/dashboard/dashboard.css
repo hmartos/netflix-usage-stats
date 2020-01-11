@@ -44,7 +44,12 @@
   transform: translateX(-50%) translateY(-50%);
 }
 
-/* Cards */
+/* Add properties to this style for improve layout */
+.ns-section-title {
+  margin-bottom: 20px;
+}
+
+/* Chart Section */
 .ns-section {
   width: 100%;
   display: flex;
@@ -53,53 +58,16 @@
 }
 
 .ns-card-chart {
-  min-width: 400px;
   width: 50%;
   margin: 0 auto;
-  text-align: center;
   margin-bottom: 50px;
 }
 
-.ns-title-container {
-  font-size: 14px;
-}
-
-.ns-card-stat .ns-title-container {
-  margin-top: 10px;
-}
-
-.ns-card-chart .ns-title-container {
-  margin-top: 10px;
-  margin-bottom: 15px;
-}
-
-.ns-title {
-  text-transform: uppercase;
-  border: solid 1px #333;
-  padding: 0 0.4em;
-  unicode-bidi: normal;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.ns-number {
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-.ns-time {
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-.ns-extra-info {
-  font-size: 14px;
-}
-
-.ns-icon {
-  font-size: 36px;
+/* Add media query for improve charts layout */
+@media (max-width: 900px) {
+  .ns-card-chart {
+    width: 100%;
+  }
 }
 
 .ns-chart {
@@ -116,6 +84,146 @@
   min-height: 250px;
 }
 
+/* Stats section */
+.ns-stats-section {
+  border-top: 1px solid #999;
+  margin-bottom: 70px;
+}
+
+.ns-card-stat {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #999;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.ns-title-container {
+  min-width: 375px;
+  display: flex;
+  align-items: center;
+}
+
+.ns-title {
+  text-transform: uppercase;
+  color: #999;
+  font-weight: normal;
+  font-size: 1.14em;
+  margin-right: 5px;
+}
+
+.ns-number, .ns-time {
+  min-width: 350px;
+  margin-right: 5px;
+}
+
+.ns-extra-info {
+  min-width: 140px;
+  font-size: 0.813em;
+  text-align: right;
+}
+
+/* Add media queries for improve stats layout */
+@media (max-width: 975px) {
+  .ns-extra-info {
+    text-align: left;
+    margin-left: 34px;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 828px) {
+  .ns-extra-info {
+    text-align: right;
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  .ns-number, .ns-time {
+    margin-left: 34px;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 647px) {
+  .ns-extra-info {
+    text-align: left;
+    margin-left: 34px;
+    margin-top: 5px;
+  }
+}
+
+.ns-icon {
+  margin-right: 10px;
+}
+
+/* Section Activity */
+.ns-header-activity {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.ns-search-title {
+  display: unset;
+}
+
+.ns-search-icon {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  padding: 10px;
+  pointer-events: none;
+  color: #999;
+}
+
+.ns-search-input {
+  position: absolute;
+  right: 0;
+  padding-right: 36px !important;
+}
+
+/* Add media queries for improve activity layout */
+@media screen and (min-width: 740px) {
+  .col.date {
+    width: 5% !important;
+  }
+
+  .retableRow .col:last-child {
+    width: 2% !important;
+  }
+
+  .retableRow .col.title {
+    width: 13%;
+  }
+
+  .retableHeading .col:last-child {
+    text-align: center !important;
+    padding-bottom: 0 !important;
+    width: 1% !important;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .ns-search-icon {
+    display: none;
+  }
+
+  .ns-search-input {
+    display: none;
+  }
+
+  .ns-icon-list {
+    margin-top: 20px;
+  }
+}
+
+.ns-sort-icon {
+  position: absolute;
+}
+
+/* Section Error */
 .ns-error-section {
   text-align: center;
 }

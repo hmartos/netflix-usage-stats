@@ -21,9 +21,10 @@
 <h2 id="statsTitle" class="ns-section-title"></h2>
 
 <div id="stats" class="ns-stats-section">
+
   <div id="viewedItemsCount" class="ns-card-stat">
-    <i class="material-icons ns-icon">live_tv</i>
     <div class="ns-title-container">
+      <i class="material-icons ns-icon">live_tv</i>
       <span class="ns-title"></span>
     </div>
     <span class="ns-number"></span>
@@ -31,89 +32,94 @@
   </div>
 
   <div id="totalTime" class="ns-card-stat">
-    <i class="material-icons ns-icon">access_time</i>
     <div class="ns-title-container">
+      <i class="material-icons ns-icon">access_time</i>
       <span class="ns-title"></span>
     </div>
     <span class="ns-time"></span>
+    <span class="ns-extra-info"></span>
   </div>
 
   <div id="maxTimeInDate" class="ns-card-stat">
-    <i class="material-icons ns-icon">timelapse</i>
     <div class="ns-title-container">
+      <i class="material-icons ns-icon">timelapse</i>
       <span class="ns-title"></span>
     </div>
-    <div>
-      <span class="ns-time"></span>
-      <span class="ns-extra-info"></span>
-    </div>
+    <span class="ns-time"></span>
+    <span class="ns-extra-info"></span>
   </div>
 
   <div id="deviceCount" class="ns-card-stat">
-    <i class="material-icons ns-icon">devices_other</i>
     <div class="ns-title-container">
+      <i class="material-icons ns-icon">devices_other</i>
       <span class="ns-title"></span>
     </div>
     <span class="ns-number"></span>
+    <span class="ns-extra-info"></span>
   </div>
 
   <div id="moviesCount" class="ns-card-stat">
-    <i class="material-icons ns-icon">local_movies</i>
     <div class="ns-title-container">
+      <i class="material-icons ns-icon">local_movies</i>
       <span class="ns-title"></span>
     </div>
     <span class="ns-number"></span>
+    <span class="ns-extra-info"></span>
   </div>
 
   <div id="moviesTime" class="ns-card-stat">
-    <i class="material-icons ns-icon">access_time</i>
     <div class="ns-title-container">
+      <i class="material-icons ns-icon">access_time</i>
       <span class="ns-title"></span>
     </div>
     <span class="ns-time"></span>
+    <span class="ns-extra-info"></span>
   </div>
 
   <div id="seriesCount" class="ns-card-stat">
-    <i class="material-icons ns-icon">tv</i>
     <div class="ns-title-container">
+      <i class="material-icons ns-icon">tv</i>
       <span class="ns-title"></span>
     </div>
-    <div>
-      <span class="ns-number"></span>
-      <span class="ns-extra-info"></span>
-    </div>
+    <span class="ns-number"></span>
+    <span class="ns-extra-info"></span>
   </div>
 
   <div id="seriesTime" class="ns-card-stat">
-    <i class="material-icons ns-icon">access_time</i>
     <div class="ns-title-container">
+      <i class="material-icons ns-icon">access_time</i>
       <span class="ns-title"></span>
     </div>
     <span class="ns-time"></span>
+    <span class="ns-extra-info"></span>
   </div>
 </div>
 
 <!-- Viewing Activity -->
-<h2 id="viewingActivityTitle" class="ns-section-title"></h2>
-
-<input id="search" type="text" />
+<div class="ns-header-activity">
+  <h2 id="viewingActivityTitle" class="ns-section-title ns-search-title"></h2>
+  <i class="material-icons ns-search-icon">search</i>
+  <input id="search" type="text" class="ui-text-input ns-search-input" />
+</div>
 
 <div id="viewingActivity">
-  <div id="viewingActivityHeader" class="viewing-activity-header">
-    <div id="viewingActivityDateHeader"></div>
-    <div id="viewingActivityTitleHeader"></div>
-    <div id="viewingActivityDurationHeader"></div>
-    <div id="viewingActivityTypeHeader"></div>
-  </div>
+  <ul class="structural retable stdHeight">
+    <li id="viewingActivityHeader" class="retableHeading">
+      <div id="viewingActivityDateHeader" class="col date"></div>
+      <div id="viewingActivityTitleHeader" class="col tittle"></div>
+      <div id="viewingActivityDurationHeader" class="col report"></div>
+      <div id="viewingActivityTypeHeader" class="col delete"></div>
+    </li>
+  </ul>
 
   <ul id="viewingActivityList" class="structural retable stdHeight"></ul>
 
   <div class="viewing-activity-footer">
     <div class="btn-bar top-padding btn-bar-left">
       <button id="showMoreBtn" class="btn btn-blue btn-small" type="button" autocomplete="off" tabindex="0"></button>
-      <div id="resultsCount">
-        <span></span>
-      </div>
+    </div>
+    <div id="resultsCount">
+      <span></span>
     </div>
   </div>
 </div>

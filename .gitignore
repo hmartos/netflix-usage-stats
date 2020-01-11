@@ -3,3 +3,4 @@ firebase/
 node_modules/
 coverage/
 *.zip
+.DS_Store

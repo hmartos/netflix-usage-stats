@@ -11,7 +11,7 @@ const summary = {
   moviesTime: 0,
   seriesCount: 0,
   episodesCount: 0,
-  seriesTime: 0,
+  seriesTime: 0
 };
 const WEEK_DAYS = {
   0: 'Sunday',
@@ -20,7 +20,7 @@ const WEEK_DAYS = {
   3: 'Wednesday',
   4: 'Thursday',
   5: 'Friday',
-  6: 'Saturday',
+  6: 'Saturday'
 };
 const MONTHS = {
   0: 'January',
@@ -34,7 +34,7 @@ const MONTHS = {
   8: 'September',
   9: 'October',
   10: 'November',
-  11: 'December',
+  11: 'December'
 };
 
 // MAIN
