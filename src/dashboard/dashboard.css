@@ -87,7 +87,7 @@
 /* Stats section */
 .ns-stats-section {
   border-top: 1px solid #999;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
 }
 
 .ns-card-stat {
@@ -96,8 +96,8 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #999;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .ns-title-container {
@@ -122,10 +122,10 @@
 .ns-extra-info {
   min-width: 140px;
   color: #999;
-  font-size: 0.84em;
   text-align: right;
 }
 
+/* Add media queries for improve stats layout */
 @media (max-width: 975px) {
   .ns-extra-info {
     text-align: left;
@@ -157,6 +157,47 @@
 
 .ns-icon {
   margin-right: 10px;
+}
+
+/* Section Activity */
+.ns-header-activity {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.ns-search-title {
+  display: unset;
+}
+
+.ns-search-icon {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  padding: 10px;
+  pointer-events: none;
+  color: #999;
+}
+
+.ns-search-input {
+  position: absolute;
+  right: 0;
+  padding-right: 36px !important;
+}
+
+/* Add media queries for improve activity layout */
+@media screen and (min-width: 740px) {
+  .col.date {
+    width: 5% !important;
+  }
+
+  .retableHeading .col:last-child {
+    padding: 0 !important;
+    width: 1% !important;
+  }
+}
+
+.ns-sort-icon {
+  position: absolute;
 }
 
 /* Section Error */

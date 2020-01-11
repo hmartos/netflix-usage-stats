@@ -60,7 +60,7 @@ function renderViewingActivityList(viewedItems) {
   const list = document.getElementById('viewingActivityList');
   for (const viewedItem of viewedItems) {
     const date = document.createElement('div');
-    date.classList = ['col ns-date-col'];
+    date.classList = ['col date nowrap'];
     date.innerText = viewedItem.dateFormatted;
 
     const title = document.createElement('a');
@@ -68,19 +68,19 @@ function renderViewingActivityList(viewedItems) {
     title.innerText = viewedItem.title;
 
     const titleContainer = document.createElement('div');
-    titleContainer.classList = ['col ns-title-col'];
+    titleContainer.classList = ['col title'];
     titleContainer.appendChild(title);
 
     const duration = document.createElement('div');
-    duration.classList = ['col ns-duration-col'];
+    duration.classList = ['col report'];
     duration.innerText = viewedItem.durationFormatted;
 
     const type = document.createElement('i');
     type.classList = ['material-icons ns-icon'];
-    type.innerText = viewedItem.type === 'Movie' ? 'local_movies' : 'tv';
+    type.innerText = viewedItem.type === 'Película' ? 'local_movies' : 'tv';
 
     const typeContainer = document.createElement('div');
-    typeContainer.classList = ['col ns-type-col'];
+    typeContainer.classList = ['col delete'];
     typeContainer.appendChild(type);
 
     const listItem = document.createElement('li');
