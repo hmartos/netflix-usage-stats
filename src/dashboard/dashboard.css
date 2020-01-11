@@ -121,7 +121,7 @@
 
 .ns-extra-info {
   min-width: 140px;
-  color: #999;
+  font-size: 0.813em;
   text-align: right;
 }
 
@@ -190,8 +190,17 @@
     width: 5% !important;
   }
 
+  .retableRow .col:last-child {
+    width: 2% !important;
+  }
+
+  .retableRow .col.title {
+    width: 13%;
+  }
+
   .retableHeading .col:last-child {
-    padding: 0 !important;
+    text-align: center !important;
+    padding-bottom: 0 !important;
     width: 1% !important;
   }
 }
@@ -203,6 +212,10 @@
 
   .ns-search-input {
     display: none;
+  }
+
+  .ns-icon-list {
+    margin-top: 20px;
   }
 }
 

@@ -76,7 +76,7 @@ function renderViewingActivityList(viewedItems) {
     duration.innerText = viewedItem.durationFormatted;
 
     const type = document.createElement('i');
-    type.classList = ['material-icons ns-icon'];
+    type.classList = ['material-icons ns-icon-list'];
     type.innerText = viewedItem.type === 'Película' ? 'local_movies' : 'tv';
 
     const typeContainer = document.createElement('div');
