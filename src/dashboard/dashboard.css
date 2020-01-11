@@ -196,6 +196,16 @@
   }
 }
 
+@media screen and (max-width: 740px) {
+  .ns-search-icon {
+    display: none;
+  }
+
+  .ns-search-input {
+    display: none;
+  }
+}
+
 .ns-sort-icon {
   position: absolute;
 }
