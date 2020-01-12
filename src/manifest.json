@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
-  "permissions": ["activeTab", "declarativeContent", "*://*.netflix.com/*", "https://www.netflix.com/*"],
+  "permissions": ["activeTab", "declarativeContent", "https://*.netflix.com/*", "https://www.netflix.com/*"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
