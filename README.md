@@ -1,22 +1,21 @@
-# Netflix Usage Stats
-
 <p style="text-align:center" align="center">
   <img src="./src/images/logo48.png" alt="logo">
 
-  <h3 align="center">Netflix Viewing Activity</h3>
+  <h1 align="center">Netflix Viewing Stats</h1>
+
+  <h4 align="center">Shows Netflix viewing stats dashboard to know more about how you spend your time on Netflix</h4>
 
   <p align="center">
-    Shows Netflix viewing stats dashboard to know more about how you spend your time on Netflix.
-    <br>
     <a href="https://chrome.google.com/webstore/detail/bckfpnenhimfckndcceonmkhheinmkob?utm_source=github"><strong>Install for Google Chrome &raquo;</strong></a>
   </p>
 </p>
 
 <p align="center">
+  <a href="https://github.com/hmartos/netflix-usage-stats/actions"><img alt="GitHub Actions status" src="https://github.com/hmartos/netflix-usage-stats/workflows/Node%20CI/badge.svg"></a>
   <a href="https://chrome.google.com/webstore/detail/bckfpnenhimfckndcceonmkhheinmkob?utm_source=github_badge"><img alt="Chrome Web Store" src="https://img.shields.io/chrome-web-store/v/bckfpnenhimfckndcceonmkhheinmkob"></a>
   <a href="https://github.com/hmartos/netflix-usage-stats/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/hmartos/netflix-usage-stats"></a>
-  
 </p>
+
 
 This Chrome extension allows you to access to a viewing stats page fully integrated on Netflix site which loads viewing activity from Netflix Shakti API and calculate a set of statistics about how you use your Netflix account.
 
@@ -37,6 +36,11 @@ Included statistics are:
 
 It also includes a table with the whole user's viewing activity with ability to sort and filter data.
 
+## Requirements
+
+- [Git](https://git-scm.com/)
+- [NodeJS](https://nodejs.org/)
+
 ## Getting Started
 
 1. Clone the repository `git clone https://github.com/hmartos/netflix-usage-stats.git`.
@@ -44,6 +48,10 @@ It also includes a table with the whole user's viewing activity with ability to 
    The Extension Management page can also be opened by clicking on the Chrome menu, hovering over `More Tools` then selecting `Extensions`.
 3. Enable `Developer Mode` by clicking the toggle switch next to Developer mode in the top right corner.
 4. Click the `Load Unpacked` button and select the folder `src` inside the cloned repository.
+
+## Running Tests
+
+Execute `npm test` to run unit tests.
 
 ## Build
 

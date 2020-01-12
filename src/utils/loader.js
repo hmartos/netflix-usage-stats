@@ -4,13 +4,13 @@
 function showLoader() {
   // Loader
   let container = document.createElement('div');
-  container.id = 'nf-loader-container';
+  container.id = 'ns-loader-container';
 
   let loader = document.createElement('div');
-  loader.className = 'nf-loader';
+  loader.className = 'ns-loader';
 
   let paragraph = document.createElement('p');
-  paragraph.className = 'nf-loading-message';
+  paragraph.className = 'ns-loading-message';
   let message = document.createTextNode(`${chrome.i18n.getMessage('loadingMessage')}`);
   paragraph.appendChild(message);
 
@@ -34,5 +34,5 @@ function hideLoader(statsTemplate) {
   statsSection.id = 'stats-section';
   statsSection.classList.add('structural', 'stdHeight');
   statsSection.innerHTML = DOMPurify.sanitize(statsTemplate);
-  document.querySelector('#nf-loader-container').replaceWith(statsSection);
+  document.querySelector('#ns-loader-container').replaceWith(statsSection);
 }

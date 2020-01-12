@@ -21,6 +21,9 @@
   "loadingMessage": {
     "message": "Cargando tu actividad de visionado, esto puede tardar un poco..."
   },
+  "viewingSummary": {
+    "message": "Resumen de visionado"
+  },
   "viewedItemsCount": {
     "message": "Títulos reproducidos"
   },
@@ -146,7 +149,10 @@
     "message": "segundo"
   },
   "since": {
-    "message": "desde el"
+    "message": "Desde el"
+  },
+  "onDate": {
+    "message": "El día"
   },
   "title": {
     "message": "Título"
@@ -160,29 +166,17 @@
   "type": {
     "message": "Tipo"
   },
-  "processing": {
-    "message": "Procesando..."
-  },
   "search": {
     "message": "Buscar"
   },
-  "info": {
-    "message": "Mostrando _START_ a _END_ de _TOTAL_ registros"
+  "showMore": {
+    "message": "Mostrar más"
   },
-  "infoEmpty": {
-    "message": "Mostrando 0 a 0 de 0 registros"
+  "showing": {
+    "message": "Mostrando"  
   },
-  "infoFiltered": {
-    "message": "(filtrado de _MAX_ registros en total)"
-  },
-  "loadingRecords": {
-    "message": "Cargando..."
-  },
-  "zeroRecords": {
-    "message": "No hay registros coincidentes con la búsqueda"
-  },
-  "emptyTable": {
-    "message": "No hay datos para mostrar en la tabla"
+  "results": {
+    "message": "resultados"  
   },
   "errorMessage": {
     "message": "Vaya, ocurrió un error, lo siento mucho."
