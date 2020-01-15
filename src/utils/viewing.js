@@ -101,17 +101,18 @@ function renderViewingActivityList(viewedItems) {
 function showResultsCountSummary(page) {
   const resultsCountContainer = document.querySelector('#resultsCount span');
   const resultsCount = document.createElement('span');
-  resultsCount.textContent = `${chrome.i18n.getMessage('showing')} ${page * PAGE_SIZE} - ${
-    page * PAGE_SIZE + PAGE_SIZE < _viewingActivity.length ? page * PAGE_SIZE + PAGE_SIZE : _viewingActivity.length
-  } of ${_viewingActivity.length} ${chrome.i18n.getMessage('results')}`;
+
+  const startRange = _viewingActivity.length ? page * PAGE_SIZE + 1 : 0;
+  const endRange =
+    page * PAGE_SIZE + PAGE_SIZE < _viewingActivity.length ? page * PAGE_SIZE + PAGE_SIZE : _viewingActivity.length;
+
+  resultsCount.textContent = `${chrome.i18n.getMessage('showing')} ${startRange} - ${endRange} of ${
+    _viewingActivity.length
+  } ${chrome.i18n.getMessage('results')}`;
 
   resultsCountContainer.replaceWith(resultsCount);
 
-  debug(
-    `Showing results ${page * PAGE_SIZE} - ${
-      page * PAGE_SIZE + PAGE_SIZE < _viewingActivity.length ? page * PAGE_SIZE + PAGE_SIZE : _viewingActivity.length
-    } of ${_viewingActivity.length} results`
-  );
+  debug(`Showing results ${startRange} - ${endRange} of ${_viewingActivity.length} results`);
 }
 
 /**
