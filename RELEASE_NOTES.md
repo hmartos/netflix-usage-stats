@@ -1,33 +1,24 @@
 # Release Notes
 
-This file contains changes
+This file contains changes based on [this template](https://github.com/palantir/plottable/wiki/Release-Notes-Template)
 
-based on [this template](https://github.com/palantir/plottable/wiki/Release-Notes-Template)
+## 2.0.1
 
-Upgrade Steps
-List out, as concretely as possible, any steps users have to take when they upgrade beyond just dumping the dependency.
-Write pseudocode that highlights what code should change and how.
-Call out if users are recommended to upgrade because of known problems with older releases.
-Preferably, there's nothing here.
+### Bug Fixes
 
-Breaking Changes
-A complete list of breaking changes (preferably there are none, unless this is a major version).
+- Fixed bug in pagination start range starting at 0
 
-New Features
-Describe the new feature and when/why to use it. Add some pictures! Call out any caveats/warnings? Is it a beta feature?
+### Improvements
 
-Bug Fixes
-Call out any existing feature/functionality that now works as intended or expected.
+- Removed broad host for Netflix host match
 
-Improvements
-Improvements/enhancements to a workflow, performance, logging, error messaging, or user experience
+### Other Changes
 
-Other Changes
-Other miscellaneous changes that don't fit into any of the above categories. Try to leave this empty - ideally, all changes fit into the categories above
+- Reorganized screenshots and sketch files
 
 ## 2.0.0
 
-### Other Changes
+### Improvements
 
 - Amazing UI redesign by [@josemendezlara](https://github.com/josemendezlara) and [@babelarr](https://github.com/babelarr)
 
@@ -59,15 +50,18 @@ Other miscellaneous changes that don't fit into any of the above categories. Try
 
 ## 1.0.0
 
+### Improvements
+
+- Changed some translations
+
 ### Other Changes
 
 - First release available on [Chrome Web Store](https://chrome.google.com/webstore/devconsole/g09324318338317648806/bckfpnenhimfckndcceonmkhheinmkob)
 - Added screenshots
-- Changed some translations
 
 ## 0.5.1
 
-### Other Changes
+### Improvements
 
 - Improved logo icon size
 - Updated Spanish screenshots
