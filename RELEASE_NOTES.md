@@ -2,6 +2,13 @@
 
 This file contains changes based on [this template](https://github.com/palantir/plottable/wiki/Release-Notes-Template)
 
+## 2.0.2
+
+### Other Changes
+
+- Fixed broken link to screenshot in README
+- Added automatic formatting tool on pre-commit hook
+
 ## 2.0.1
 
 ### Bug Fixes
