@@ -49,9 +49,7 @@ function fillDashboardTemplate() {
     .setAttribute('aria-label', chrome.i18n.getMessage('viewedItemsCount'));
 
   document.querySelector('#totalTime .ns-title').textContent = chrome.i18n.getMessage('totalTime');
-  document
-    .querySelector('#totalTime .ns-title')
-    .setAttribute('aria-label', chrome.i18n.getMessage('totalTime'));
+  document.querySelector('#totalTime .ns-title').setAttribute('aria-label', chrome.i18n.getMessage('totalTime'));
 
   document.querySelector('#maxTimeInDate .ns-title').textContent = chrome.i18n.getMessage('maxTimeInDate');
   document
@@ -59,27 +57,17 @@ function fillDashboardTemplate() {
     .setAttribute('aria-label', chrome.i18n.getMessage('maxTimeInDate'));
 
   document.querySelector('#deviceCount .ns-title').textContent = chrome.i18n.getMessage('deviceCount');
-  document
-    .querySelector('#deviceCount .ns-title')
-    .setAttribute('aria-label', chrome.i18n.getMessage('deviceCount'));
+  document.querySelector('#deviceCount .ns-title').setAttribute('aria-label', chrome.i18n.getMessage('deviceCount'));
 
   document.querySelector('#moviesCount .ns-title').textContent = chrome.i18n.getMessage('moviesCount');
-  document
-    .querySelector('#moviesCount .ns-title')
-    .setAttribute('aria-label', chrome.i18n.getMessage('moviesCount'));
+  document.querySelector('#moviesCount .ns-title').setAttribute('aria-label', chrome.i18n.getMessage('moviesCount'));
 
   document.querySelector('#moviesTime .ns-title').textContent = chrome.i18n.getMessage('moviesTime');
-  document
-    .querySelector('#moviesTime .ns-title')
-    .setAttribute('aria-label', chrome.i18n.getMessage('moviesTime'));
+  document.querySelector('#moviesTime .ns-title').setAttribute('aria-label', chrome.i18n.getMessage('moviesTime'));
 
   document.querySelector('#seriesCount .ns-title').textContent = chrome.i18n.getMessage('seriesCount');
-  document
-    .querySelector('#seriesCount .ns-title')
-    .setAttribute('aria-label', chrome.i18n.getMessage('seriesCount'));
+  document.querySelector('#seriesCount .ns-title').setAttribute('aria-label', chrome.i18n.getMessage('seriesCount'));
 
   document.querySelector('#seriesTime .ns-title').textContent = chrome.i18n.getMessage('seriesTime');
-  document
-    .querySelector('#seriesTime .ns-title')
-    .setAttribute('aria-label', chrome.i18n.getMessage('seriesTime'));
+  document.querySelector('#seriesTime .ns-title').setAttribute('aria-label', chrome.i18n.getMessage('seriesTime'));
 }

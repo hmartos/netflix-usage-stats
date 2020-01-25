@@ -114,7 +114,8 @@
   margin-right: 5px;
 }
 
-.ns-number, .ns-time {
+.ns-number,
+.ns-time {
   min-width: 350px;
   margin-right: 5px;
 }
@@ -141,7 +142,8 @@
     margin-top: 0;
   }
 
-  .ns-number, .ns-time {
+  .ns-number,
+  .ns-time {
     margin-left: 34px;
     margin-top: 5px;
   }
