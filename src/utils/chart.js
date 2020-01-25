@@ -12,9 +12,9 @@ function createTvVsseriesTimeChart() {
         {
           data: [summary.moviesTime, summary.seriesTime],
           backgroundColor: ['#0080FF', '#99ccff'],
-          borderWidth: 0
-        }
-      ]
+          borderWidth: 0,
+        },
+      ],
     },
     options: {
       responsive: true,
@@ -24,8 +24,8 @@ function createTvVsseriesTimeChart() {
         labels: {
           boxWidth: 15,
           fontSize: 16,
-          fontColor: '#333'
-        }
+          fontColor: '#333',
+        },
       },
       tooltips: {
         callbacks: {
@@ -34,10 +34,10 @@ function createTvVsseriesTimeChart() {
           },
           footer: function(tooltipItems, data) {
             return [`${secondsToYdhms(data.datasets[0].data[tooltipItems[0].index])}`];
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
   });
 }
 
@@ -56,7 +56,7 @@ function createMeanTimeByWeekDayChart() {
         chrome.i18n.getMessage('Thursday'),
         chrome.i18n.getMessage('Friday'),
         chrome.i18n.getMessage('Saturday'),
-        chrome.i18n.getMessage('Sunday')
+        chrome.i18n.getMessage('Sunday'),
       ],
       datasets: [
         {
@@ -68,12 +68,12 @@ function createMeanTimeByWeekDayChart() {
             summary.meanTimeByDayWeek['Thursday'],
             summary.meanTimeByDayWeek['Friday'],
             summary.meanTimeByDayWeek['Saturday'],
-            summary.meanTimeByDayWeek['Sunday']
+            summary.meanTimeByDayWeek['Sunday'],
           ],
           backgroundColor: '#0080FF',
-          borderWidth: 0
-        }
-      ]
+          borderWidth: 0,
+        },
+      ],
     },
     options: {
       responsive: true,
@@ -83,15 +83,15 @@ function createMeanTimeByWeekDayChart() {
         labels: {
           boxWidth: 15,
           fontSize: 16,
-          fontColor: '#333'
-        }
+          fontColor: '#333',
+        },
       },
       tooltips: {
         callbacks: {
           label: function(tooltipItem, data) {
             return ` ${secondsToYdhms(tooltipItem.value)}`;
-          }
-        }
+          },
+        },
       },
       scales: {
         xAxes: [
@@ -100,11 +100,11 @@ function createMeanTimeByWeekDayChart() {
               stepSize: 1800,
               callback: function(value) {
                 return `${secondsToHoursMinutesSeconds(value, true)}`;
-              }
-            }
-          }
-        ]
-      }
-    }
+              },
+            },
+          },
+        ],
+      },
+    },
   });
 }
