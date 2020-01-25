@@ -25,9 +25,22 @@
     "url": "https://github.com/hmartos/netflix-usage-stats/issues"
   },
   "homepage": "https://github.com/hmartos/netflix-usage-stats#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "(src|test)/**/*.{js,html,css}": [
+      "npm run prettier-format", 
+      "git add"
+    ]
+  },
   "devDependencies": {
     "bestzip": "^2.1.4",
+    "husky": "^4.2.1",
     "jest": "^24.9.0",
+    "lint-staged": "^10.0.2",
     "prettier": "^1.19.1",
     "rewire": "^4.0.1"
   }
