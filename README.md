@@ -16,10 +16,9 @@
   <a href="https://github.com/hmartos/netflix-usage-stats/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/hmartos/netflix-usage-stats"></a>
 </p>
 
-
 This Chrome extension allows you to access to a viewing stats page fully integrated on Netflix site which loads viewing activity from Netflix Shakti API and calculate a set of statistics about how you use your Netflix account.
 
-![Screenshot](./screenshot-full-en.png)
+![Screenshot](./screenshots/screenshot-full-en.png)
 
 Included statistics are:
 
