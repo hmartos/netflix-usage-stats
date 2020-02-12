@@ -22,6 +22,7 @@
         "utils/loader.js",
         "utils/activity.js",
         "utils/stats.js",
+        "utils/achievements.js",
         "utils/chart.js",
         "utils/viewing.js",
         "utils/format.js",

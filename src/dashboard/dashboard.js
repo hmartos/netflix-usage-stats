@@ -76,14 +76,20 @@ function main() {
         .then(viewedItems => {
           hideLoader(statsTemplate);
 
-          fillDashboardTemplate();
+          fillDashboardTemplate(viewedItems);
 
           if (_.isEmpty(viewedItems)) {
             showEmptyOrErrorSection();
           } else {
             calculateStats(viewedItems);
+            calculateAchievements(viewedItems);
 
-            showStats(viewedItems);
+            createTvVsSeriesTimeChart();
+            createMeanTimeByWeekDayChart();
+
+            showStats();
+
+            createViewingActivityList(viewedItems);
           }
         })
         .catch(error => {

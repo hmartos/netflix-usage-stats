@@ -21,6 +21,12 @@
   "loadingMessage": {
     "message": "Cargando tu actividad de visionado, esto puede tardar un poco..."
   },
+  "summary": {
+    "message": "Resumen"
+  },
+  "achievements": {
+    "message": "Logros"
+  },
   "viewingSummary": {
     "message": "Resumen de visionado"
   },
@@ -177,6 +183,24 @@
   },
   "results": {
     "message": "resultados"  
+  },
+  "achievement1": {
+    "message": "Logro 1"
+  },
+  "achievement1Description": {
+    "message": "Descripción del logro 1"
+  },
+  "achievement2": {
+    "message": "Logro 2"
+  },
+  "achievement2Description": {
+    "message": "Descripción del logro 2"
+  },
+  "achievement3": {
+    "message": "Logro 3"
+  },
+  "achievement3Description": {
+    "message": "Descripción del logro 3"
   },
   "errorMessage": {
     "message": "Vaya, ocurrió un error, lo siento mucho."

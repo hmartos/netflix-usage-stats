@@ -96,7 +96,7 @@ function calculateStats(viewedItems) {
 /**
  * Show stats in stats template
  */
-function showStats(viewedItems) {
+function showStats() {
   // Summary
   document.querySelector('#viewedItemsCount .ns-number').textContent = formatNumber(summary.viewedItemsCount);
   document.querySelector('#viewedItemsCount .ns-extra-info').textContent = `${chrome.i18n.getMessage(
@@ -121,13 +121,6 @@ function showStats(viewedItems) {
     summary.episodesCount
   )} ${chrome.i18n.getMessage('episodes')}`;
   document.querySelector('#seriesTime .ns-time').textContent = secondsToYdhms(summary.seriesTime);
-
-  // Charts
-  createTvVsseriesTimeChart();
-  createMeanTimeByWeekDayChart();
-
-  // Viewing Activity
-  createViewingActivityList(viewedItems);
 }
 
 /**

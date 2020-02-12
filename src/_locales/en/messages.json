@@ -28,6 +28,14 @@
     "message": "Loading your viewing activity, this may take some time...",
     "description": "Message to show loading can take some time"
   },
+  "summary": {
+    "message": "Summary",
+    "description": ""
+  },
+  "achievements": {
+    "message": "Achievements",
+    "description": ""
+  },
   "viewingSummary": {
     "message": "Viewing summary",
     "description": ""
@@ -234,6 +242,30 @@
   },
   "results": {
     "message": "results",
+    "description": ""
+  },
+  "achievement1": {
+    "message": "Achievement 1",
+    "description": ""
+  },
+  "achievement1Description": {
+    "message": "Description of the achievement 1",
+    "description": ""
+  },
+  "achievement2": {
+    "message": "Achievement 2",
+    "description": ""
+  },
+  "achievement2Description": {
+    "message": "Description of the achievement 2",
+    "description": ""
+  },
+  "achievement3": {
+    "message": "Achievement 2",
+    "description": ""
+  },
+  "achievement3Description": {
+    "message": "Description of the achievement 2",
     "description": ""
   },
   "errorMessage": {

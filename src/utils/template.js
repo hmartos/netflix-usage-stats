@@ -23,8 +23,9 @@ function setupDashboardTemplate() {
 
 /**
  * Fill dashboard template with translated texts
+ * @param {*} viewedItems
  */
-function fillDashboardTemplate() {
+function fillDashboardTemplate(viewedItems) {
   // Titles
   const moviesVsTvTimeTitle = document.querySelector('#moviesVsTvTime .ns-section-title');
   moviesVsTvTimeTitle.textContent = chrome.i18n.getMessage('moviesVsTvTime');
@@ -34,15 +35,32 @@ function fillDashboardTemplate() {
   meanTimeByWeekDayTitle.textContent = chrome.i18n.getMessage('meanTimeByWeekDay');
   meanTimeByWeekDayTitle.setAttribute('aria-label', chrome.i18n.getMessage('meanTimeByWeekDay'));
 
-  const viewingSummaryTitle = document.querySelector('#statsTitle');
-  viewingSummaryTitle.textContent = chrome.i18n.getMessage('viewingSummary');
-  viewingSummaryTitle.setAttribute('aria-label', chrome.i18n.getMessage('viewingSummary'));
+  // Init toggle section with stats title
+  const tabSectionTitle = document.querySelector('#tabSectionTitle');
+  tabSectionTitle.textContent = chrome.i18n.getMessage('viewingSummary');
+  tabSectionTitle.setAttribute('aria-label', chrome.i18n.getMessage('viewingSummary'));
 
   const viewingActivityTitle = document.querySelector('#viewingActivityTitle');
   viewingActivityTitle.textContent = chrome.i18n.getMessage('viewingActivity');
   viewingActivityTitle.setAttribute('aria-label', chrome.i18n.getMessage('viewingActivity'));
 
-  // Stats
+  // Toggle between stats and achievements
+  const summaryPageToggleSelector = '.pageToggle .choice.icon.summary';
+  const achievementsPageToggleSelector = '.pageToggle .choice.icon.achievements';
+  document.querySelector(summaryPageToggleSelector).textContent = chrome.i18n.getMessage('summary');
+  bindPageToggleBtn(summaryPageToggleSelector, viewedItems);
+  document.querySelector(achievementsPageToggleSelector).textContent = chrome.i18n.getMessage('achievements');
+  bindPageToggleBtn(achievementsPageToggleSelector, viewedItems);
+  // TODO Add icons in pageToggle
+
+  // Init toggle section with stats
+  showStatsSection();
+}
+
+/**
+ * Show stats section
+ */
+function showStatsSection() {
   document.querySelector('#viewedItemsCount .ns-title').textContent = chrome.i18n.getMessage('viewedItemsCount');
   document
     .querySelector('#viewedItemsCount .ns-title')
@@ -70,4 +88,42 @@ function fillDashboardTemplate() {
 
   document.querySelector('#seriesTime .ns-title').textContent = chrome.i18n.getMessage('seriesTime');
   document.querySelector('#seriesTime .ns-title').setAttribute('aria-label', chrome.i18n.getMessage('seriesTime'));
+}
+
+/**
+ * Bind on click event on 'pageToggle' buttons
+ * @param {*} selector
+ * @param {*} viewedItems
+ */
+function bindPageToggleBtn(selector, viewedItems) {
+  const pageToggleBtn = $(selector);
+  pageToggleBtn.on('click', function() {
+    changeTab(selector, viewedItems);
+  });
+}
+
+/**
+ * Change selected tab between summary and achievements
+ * @param {*} selector
+ * @param {*} viewedItems
+ */
+function changeTab(selector, viewedItems) {
+  console.log('Switching to tab', selector);
+  const tabSectionTitle = document.querySelector('#tabSectionTitle');
+  $(selector).addClass('selected');
+
+  if (selector === '.pageToggle .choice.icon.summary') {
+    tabSectionTitle.textContent = chrome.i18n.getMessage('viewingSummary');
+    $('.pageToggle .choice.icon.achievements').removeClass('selected');
+    $('#achievements').hide();
+    $('#stats').show();
+    showStatsSection();
+    showStats();
+  } else if (selector === '.pageToggle .choice.icon.achievements') {
+    tabSectionTitle.textContent = chrome.i18n.getMessage('achievements');
+    $('.pageToggle .choice.icon.summary').removeClass('selected');
+    $('#achievements').show();
+    $('#stats').hide();
+    showAchievements(viewedItems);
+  }
 }
