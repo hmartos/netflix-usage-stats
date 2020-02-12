@@ -47,14 +47,34 @@ function fillDashboardTemplate(viewedItems) {
   // Toggle between stats and achievements
   const summaryPageToggleSelector = '.pageToggle .choice.icon.summary';
   const achievementsPageToggleSelector = '.pageToggle .choice.icon.achievements';
-  document.querySelector(summaryPageToggleSelector).textContent = chrome.i18n.getMessage('summary');
+
+  // Summary toggle
+  let summaryPageToggle = document.querySelector(summaryPageToggleSelector);
+  summaryPageToggle.textContent = chrome.i18n.getMessage('summary');
+  let summaryPageToggleIcon = createIconNode('list');
+  summaryPageToggle.prepend(summaryPageToggleIcon);
   bindPageToggleBtn(summaryPageToggleSelector, viewedItems);
-  document.querySelector(achievementsPageToggleSelector).textContent = chrome.i18n.getMessage('achievements');
+
+  // Achievements toggle
+  let achievementsPageToggle = document.querySelector(achievementsPageToggleSelector);
+  achievementsPageToggle.textContent = chrome.i18n.getMessage('achievements');
+  let achievementsPageToggleIcon = createIconNode('emoji_events');
+  achievementsPageToggle.prepend(achievementsPageToggleIcon);
   bindPageToggleBtn(achievementsPageToggleSelector, viewedItems);
-  // TODO Add icons in pageToggle
 
   // Init toggle section with stats
   showStatsSection();
+}
+
+/**
+ * Create icon DOM node
+ * @param {*} iconText - material icons text
+ */
+function createIconNode(iconText) {
+  let icon = document.createElement('i');
+  icon.classList = ['material-icons'];
+  icon.innerText = `${iconText}`;
+  return icon;
 }
 
 /**
