@@ -46,8 +46,7 @@
     "error.html",
     "images/tv.svg",
     "images/movie.svg",
-    "images/ani_netflix_stats.gif",
-    "dashboard/tv.png"
+    "images/ani_netflix_stats.gif"
   ],
   "page_action": {
     "default_popup": "popup/popup.html",

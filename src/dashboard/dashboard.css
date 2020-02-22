@@ -114,6 +114,11 @@
   margin-right: 5px;
 }
 
+.ns-image {
+  width: 20px;
+  margin-right: 10px;
+}
+
 .ns-number,
 .ns-time {
   min-width: 350px;

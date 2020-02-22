@@ -1,5 +1,4 @@
 'use strict';
-
 const DEBUG_MODE = false;
 const PAGE_SIZE = 20;
 const summary = {

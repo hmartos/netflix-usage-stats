@@ -99,12 +99,14 @@ function showStatsSection() {
 
   document.querySelector('#moviesCount .ns-title').textContent = chrome.i18n.getMessage('moviesCount');
   document.querySelector('#moviesCount .ns-title').setAttribute('aria-label', chrome.i18n.getMessage('moviesCount'));
+  document.querySelector('#moviesCount .ns-image').setAttribute('src', chrome.runtime.getURL("../images/movie.svg"));
 
   document.querySelector('#moviesTime .ns-title').textContent = chrome.i18n.getMessage('moviesTime');
   document.querySelector('#moviesTime .ns-title').setAttribute('aria-label', chrome.i18n.getMessage('moviesTime'));
 
   document.querySelector('#seriesCount .ns-title').textContent = chrome.i18n.getMessage('seriesCount');
   document.querySelector('#seriesCount .ns-title').setAttribute('aria-label', chrome.i18n.getMessage('seriesCount'));
+  document.querySelector('#seriesCount .ns-image').setAttribute('src', chrome.runtime.getURL("../images/tv.svg"));
 
   document.querySelector('#seriesTime .ns-title').textContent = chrome.i18n.getMessage('seriesTime');
   document.querySelector('#seriesTime .ns-title').setAttribute('aria-label', chrome.i18n.getMessage('seriesTime'));
