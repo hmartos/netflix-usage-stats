@@ -41,7 +41,10 @@
     }
   ],
   "web_accessible_resources": [
+    "images/tv.svg",
+    "images/movie.svg",
     "dashboard/dashboard.html",
+    "dashboard/tv.png",
     "empty.html",
     "error.html"
   ],
