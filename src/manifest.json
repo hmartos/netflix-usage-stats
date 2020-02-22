@@ -41,12 +41,13 @@
     }
   ],
   "web_accessible_resources": [
+    "dashboard/dashboard.html",
+    "empty.html",
+    "error.html",
     "images/tv.svg",
     "images/movie.svg",
-    "dashboard/dashboard.html",
-    "dashboard/tv.png",
-    "empty.html",
-    "error.html"
+    "images/ani_netflix_stats.gif",
+    "dashboard/tv.png"
   ],
   "page_action": {
     "default_popup": "popup/popup.html",
