@@ -49,6 +49,11 @@
   margin-bottom: 20px;
 }
 
+.ns-section-tab-title {
+  margin-bottom: 20px;
+  width: 275px;
+}
+
 /* Chart Section */
 .ns-section {
   width: 100%;
@@ -251,12 +256,16 @@
   padding-right: 36px !important;
 }
 
-.ns-too¡gle-content {
+.ns-toogle-content {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  
+}
+@media screen and (max-width: 603px) {
+  .pageToggle {
+    margin-bottom: 1em !important;
+  }
 }
 
 .pageToggle .choice.icon.summary:before {
@@ -307,6 +316,12 @@
 
   .ns-icon-list {
     margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 499px) {
+  .pageToggle .choice.icon {
+    text-indent: 0 !important;
   }
 }
 
