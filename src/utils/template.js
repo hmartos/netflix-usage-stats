@@ -51,15 +51,15 @@ function fillDashboardTemplate(viewedItems) {
   // Summary toggle
   let summaryPageToggle = document.querySelector(summaryPageToggleSelector);
   summaryPageToggle.textContent = chrome.i18n.getMessage('summary');
-  let summaryPageToggleIcon = createIconNode('list');
-  summaryPageToggle.prepend(summaryPageToggleIcon);
+  //let summaryPageToggleIcon = createIconNode('list');
+  //summaryPageToggle.prepend(summaryPageToggleIcon);
   bindPageToggleBtn(summaryPageToggleSelector, viewedItems);
 
   // Achievements toggle
   let achievementsPageToggle = document.querySelector(achievementsPageToggleSelector);
   achievementsPageToggle.textContent = chrome.i18n.getMessage('achievements');
-  let achievementsPageToggleIcon = createIconNode('emoji_events');
-  achievementsPageToggle.prepend(achievementsPageToggleIcon);
+  //let achievementsPageToggleIcon = createIconNode('emoji_events');
+  //achievementsPageToggle.prepend(achievementsPageToggleIcon);
   bindPageToggleBtn(achievementsPageToggleSelector, viewedItems);
 
   // Init toggle section with stats

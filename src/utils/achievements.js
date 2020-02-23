@@ -31,8 +31,10 @@ function showAchievements(viewedItems) {
       summary.achievements[achievement].description;
     if (summary.achievements[achievement].won) {
       document.querySelector(`#${achievement} i`).textContent = 'emoji_events';
+      document.querySelector(`#${achievement} i`).classList.add('ns-icon-achievement-complete');
     } else {
-      document.querySelector(`#${achievement} i`).textContent = 'event_busy';
+      document.querySelector(`#${achievement} i`).textContent = 'lock';
+      document.querySelector(`#${achievement} i`).classList.add('ns-icon-achievement-incomplete');
     }
   }
 }

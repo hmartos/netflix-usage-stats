@@ -119,6 +119,10 @@
   margin-right: 10px;
 }
 
+.ns-image-type {
+  width: 20px;
+}
+
 .ns-number,
 .ns-time {
   min-width: 350px;
@@ -166,6 +170,62 @@
   margin-right: 10px;
 }
 
+/* Achievements section */
+.ns-achievements-section {
+  border-top: 1px solid #999;
+  margin-bottom: 70px;
+}
+
+.ns-card-achievement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #999;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.ns-achievement {
+  margin-left: 10px;
+}
+
+.ns-icon-achievement {
+  font-size: 48px;
+}
+
+.ns-icon-achievement-incomplete {
+  color: #ccc;
+}
+
+.ns-icon-achievement-complete {
+  color: #0088ff;
+}
+
+.ns-icon-color {
+  color: #0088ff;
+  margin-right: 10px;
+}
+
+.ns-title-container-achievement {
+  display: flex;
+  align-items: center;
+}
+
+.ns-achievement-info {
+  display: flex;
+  align-items: center;
+}
+
+.ns-achievement-date {
+  text-align: right;
+  width: 75px;
+}
+
+.ns-achievement-incomplete {
+  color: #999;
+}
+
+
 /* Section Activity */
 .ns-header-activity {
   position: relative;
@@ -189,6 +249,30 @@
   position: absolute;
   right: 0;
   padding-right: 36px !important;
+}
+
+.ns-too¡gle-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.pageToggle .choice.icon.summary:before {
+  font-family: "Material Icons";
+  content: "list";
+  position: absolute;
+  top: .5em;
+  left: .75em;
+}
+
+.pageToggle .choice.icon.achievements:before {
+  font-family: "Material Icons";
+  content: "emoji_events";
+  position: absolute;
+  top: .5em;
+  left: .75em;
 }
 
 /* Add media queries for improve activity layout */
