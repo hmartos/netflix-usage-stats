@@ -67,7 +67,7 @@ function main() {
   showLoader();
 
   // Load dashboard HTML template
-  fetch(chrome.extension.getURL('/dashboard/dashboard.html'))
+  fetch(chrome.runtime.getURL('/dashboard/dashboard.html'))
     .then(response => response.text())
     .then(statsTemplate => {
       // Get viewing activity
@@ -129,7 +129,7 @@ function showEmptyOrErrorSection(error) {
   const sectionId = `${error ? 'error' : 'empty'}`;
 
   // Load HTML page
-  fetch(chrome.extension.getURL(template))
+  fetch(chrome.runtime.getURL(template))
     .then(response => response.text())
     .then(template => {
       let section = document.createElement('div');
