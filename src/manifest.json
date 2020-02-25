@@ -43,7 +43,10 @@
   "web_accessible_resources": [
     "dashboard/dashboard.html",
     "empty.html",
-    "error.html"
+    "error.html",
+    "images/tv.svg",
+    "images/movie.svg",
+    "images/ani_netflix_stats.gif"
   ],
   "page_action": {
     "default_popup": "popup/popup.html",
