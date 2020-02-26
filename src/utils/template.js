@@ -26,7 +26,7 @@ function setupDashboardTemplate() {
  * @param {*} viewedItems
  */
 function fillDashboardTemplate(viewedItems) {
-  // Titles
+  // Chart titles
   const moviesVsTvTimeTitle = document.querySelector('#moviesVsTvTime .ns-section-title');
   moviesVsTvTimeTitle.textContent = chrome.i18n.getMessage('moviesVsTvTime');
   moviesVsTvTimeTitle.setAttribute('aria-label', chrome.i18n.getMessage('moviesVsTvTime'));
@@ -57,8 +57,10 @@ function fillDashboardTemplate(viewedItems) {
   let achievementsPageToggle = document.querySelector(achievementsPageToggleSelector);
   achievementsPageToggle.textContent = chrome.i18n.getMessage('achievements');
   bindPageToggleBtn(achievementsPageToggleSelector, viewedItems);
+  
+  // Hide achievements tab
+  $('#achievements').hide();
 
-  // Init toggle section with stats
   showStatsSection();
 }
 
