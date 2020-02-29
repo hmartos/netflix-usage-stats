@@ -230,7 +230,6 @@
   color: #999;
 }
 
-
 /* Section Activity */
 .ns-header-activity {
   position: relative;
@@ -269,19 +268,19 @@
 }
 
 .pageToggle .choice.icon.summary:before {
-  font-family: "Material Icons";
-  content: "list";
+  font-family: 'Material Icons';
+  content: 'list';
   position: absolute;
-  top: .5em;
-  left: .75em;
+  top: 0.5em;
+  left: 0.75em;
 }
 
 .pageToggle .choice.icon.achievements:before {
-  font-family: "Material Icons";
-  content: "emoji_events";
+  font-family: 'Material Icons';
+  content: 'emoji_events';
   position: absolute;
-  top: .5em;
-  left: .75em;
+  top: 0.5em;
+  left: 0.75em;
 }
 
 /* Add media queries for improve activity layout */

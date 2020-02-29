@@ -1,5 +1,5 @@
 body {
-  background-color:black;
+  background-color: black;
   width: 250px;
   height: 150px;
   font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -91,7 +91,7 @@ a:hover {
 }
 
 .button:after {
-  background: #B1060F;
+  background: #b1060f;
   transform: translateX(-101%);
   transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
@@ -108,7 +108,7 @@ a:hover {
 }
 
 .button:hover {
-  color:white;
+  color: white;
 }
 
 .button:hover:after {
