@@ -184,6 +184,9 @@
   "results": {
     "message": "resultados"  
   },
+  "incomplete": {
+    "message": "Incompleto"
+  },
   "achievement1": {
     "message": "Logro 1"
   },
@@ -197,10 +200,16 @@
     "message": "Descripción del logro 2"
   },
   "achievement3": {
-    "message": "Logro 3"
+    "message": "Maratoniano"
   },
   "achievement3Description": {
-    "message": "Descripción del logro 3"
+    "message": "Ver Netflix 6 horas o más en un solo día"
+  },
+  "achievement4": {
+    "message": "Iron Man"
+  },
+  "achievement4Description": {
+    "message": "Ver Netflix 12 horas o más en un solo día"
   },
   "errorMessage": {
     "message": "Vaya, ocurrió un error, lo siento mucho."

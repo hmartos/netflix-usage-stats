@@ -244,6 +244,10 @@
     "message": "results",
     "description": ""
   },
+  "incomplete": {
+    "message": "Incomplete",
+    "description": ""
+  },
   "achievement1": {
     "message": "Achievement 1",
     "description": ""
@@ -261,12 +265,18 @@
     "description": ""
   },
   "achievement3": {
-    "message": "Achievement 2",
+    "message": "Marathoner",
     "description": ""
   },
   "achievement3Description": {
-    "message": "Description of the achievement 2",
+    "message": "Watch Netflix 6 hours or more in a day",
     "description": ""
+  },
+  "achievement4": {
+    "message": "Iron Man"
+  },
+  "achievement4Description": {
+    "message": "Watch Netflix 12 hours or more in a day"
   },
   "errorMessage": {
     "message": "Oh, an error ocurred, I'm so sorry.",

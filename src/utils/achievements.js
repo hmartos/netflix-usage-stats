@@ -13,7 +13,10 @@ function calculateAchievements(viewedItems) {
   summary.achievements.achievement2.won = summary.moviesCount > 10000;
 
   // Achievement 3
-  summary.achievements.achievement3.won = summary.episodesCount > 1;
+  summary.achievements.achievement3.won = summary.maxTimeInDate > 21600; // 6 hours
+
+  // Achievement 4
+  summary.achievements.achievement4.won = summary.maxTimeInDate > 43200; //12 hours
 
   console.log('Calculated achievements', summary.achievements);
 }
@@ -32,9 +35,14 @@ function showAchievements(viewedItems) {
     if (summary.achievements[achievement].won) {
       document.querySelector(`#${achievement} i`).textContent = 'emoji_events';
       document.querySelector(`#${achievement} i`).classList.add('ns-icon-achievement-complete');
+      $(`#${achievement} .ns-achievement-incomplete`).hide();
     } else {
       document.querySelector(`#${achievement} i`).textContent = 'lock';
       document.querySelector(`#${achievement} i`).classList.add('ns-icon-achievement-incomplete');
+      document.querySelector(`#${achievement} .ns-achievement-incomplete`).textContent = chrome.i18n.getMessage(
+        `incomplete`
+      );
+      $(`#${achievement} .ns-achievement-info`).hide();
     }
   }
 }
@@ -49,6 +57,7 @@ function initializeAchievementsModel() {
     achievement1: {},
     achievement2: {},
     achievement3: {},
+    achievement4: {},
   };
   // TODO Add actual achievements
 
