@@ -7,10 +7,10 @@ function calculateAchievements(viewedItems) {
   console.log('Calculating achievements...');
   // TODO Calculate actual achievements
   // Achievement 1
-  summary.achievements.achievement1.won = summary.seriesCount > 1;
+  summary.achievements.achievement1.won = summary.moviesCount > 1000;
 
   // Achievement 2
-  summary.achievements.achievement2.won = summary.moviesCount > 10000;
+  summary.achievements.achievement2.won = summary.seriesCount > 100;
 
   // Achievement 3
   summary.achievements.achievement3.won = summary.maxTimeInDate > 21600; // 6 hours

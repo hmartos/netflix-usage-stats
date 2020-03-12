@@ -249,19 +249,19 @@
     "description": ""
   },
   "achievement1": {
-    "message": "Achievement 1",
+    "message": "Cinephile",
     "description": ""
   },
   "achievement1Description": {
-    "message": "Description of the achievement 1",
+    "message": "Watch 1000 movies or more on Netflix",
     "description": ""
   },
   "achievement2": {
-    "message": "Achievement 2",
+    "message": "Series Killer",
     "description": ""
   },
   "achievement2Description": {
-    "message": "Description of the achievement 2",
+    "message": "Watch 100 series or more on Netflix",
     "description": ""
   },
   "achievement3": {

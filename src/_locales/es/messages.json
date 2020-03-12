@@ -188,16 +188,16 @@
     "message": "Incompleto"
   },
   "achievement1": {
-    "message": "Logro 1"
+    "message": "Cinéfilo"
   },
   "achievement1Description": {
-    "message": "Descripción del logro 1"
+    "message": "Ver 1000 películas o más en Netflix"
   },
   "achievement2": {
-    "message": "Logro 2"
+    "message": "Asesino en serie"
   },
   "achievement2Description": {
-    "message": "Descripción del logro 2"
+    "message": "Ver 100 series o más en Netflix"
   },
   "achievement3": {
     "message": "Maratoniano"
