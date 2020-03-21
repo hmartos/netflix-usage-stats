@@ -134,16 +134,38 @@ function changeTab(selector, viewedItems) {
 
   if (selector === '.pageToggle .choice.icon.summary') {
     tabSectionTitle.textContent = chrome.i18n.getMessage('viewingSummary');
-    $('.pageToggle .choice.icon.achievements').removeClass('selected');
+    changeSelectedTab('summary', selector, viewedItems);
     $('#achievements').hide();
     $('#stats').show();
     showStatsSection();
     showStats();
   } else if (selector === '.pageToggle .choice.icon.achievements') {
     tabSectionTitle.textContent = chrome.i18n.getMessage('achievements');
-    $('.pageToggle .choice.icon.summary').removeClass('selected');
+    changeSelectedTab('achievements', selector, viewedItems);
     $('#achievements').show();
     $('#stats').hide();
     showAchievements(viewedItems);
+  }
+}
+
+/**
+ * Change selected tab creating a <span> for selected tab and a <a> for not selected tab
+ * @param {*} selected
+ * @param {*} selector
+ * @param {*} viewedItems
+ */
+function changeSelectedTab(selected, selector, viewedItems) {
+  if (selected === 'summary') {
+    $(selector).replaceWith(`<span class="first choice icon summary">${chrome.i18n.getMessage('summary')}</span>`);
+    $('.pageToggle .choice.icon.achievements').replaceWith(
+      `<a class="choice icon achievements">${chrome.i18n.getMessage('achievements')}</a>`
+    );
+    bindPageToggleBtn('.pageToggle .choice.icon.achievements', viewedItems);
+  } else {
+    $(selector).replaceWith(`<span class="choice icon achievements">${chrome.i18n.getMessage('achievements')}</span>`);
+    $('.pageToggle .choice.icon.summary').replaceWith(
+      `<a class="first choice icon summary">${chrome.i18n.getMessage('summary')}</a>`
+    );
+    bindPageToggleBtn('.pageToggle .choice.icon.summary', viewedItems);
   }
 }

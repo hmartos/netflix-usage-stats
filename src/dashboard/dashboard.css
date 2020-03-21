@@ -267,22 +267,6 @@
   }
 }
 
-.pageToggle .choice.icon.summary:before {
-  font-family: 'Material Icons';
-  content: 'list';
-  position: absolute;
-  top: 0.5em;
-  left: 0.75em;
-}
-
-.pageToggle .choice.icon.achievements:before {
-  font-family: 'Material Icons';
-  content: 'emoji_events';
-  position: absolute;
-  top: 0.5em;
-  left: 0.75em;
-}
-
 /* Add media queries for improve activity layout */
 @media screen and (min-width: 740px) {
   .col.date {
