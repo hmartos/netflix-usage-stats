@@ -5,7 +5,7 @@
 function calculateAchievements(viewedItems) {
   initializeAchievementsModel();
   console.log('Calculating achievements...');
-  // TODO Calculate time when it's won
+  // TODO Calculate time when each achievement won
   // Achievement 1
   summary.achievements.achievement1.won = summary.moviesCount >= 1;
 
@@ -69,7 +69,7 @@ function allAchievementsWon(allAchievementsIndex) {
 function showAchievements(viewedItems) {
   console.log('Mostrando logros!', viewedItems);
 
-  // TODO Show time when it's won
+  // TODO Show time when each achievement won
   for (const achievement of _.keys(summary.achievements)) {
     document.querySelector(`#${achievement} .ns-title`).textContent = summary.achievements[achievement].title;
     document.querySelector(`#${achievement} .ns-description`).textContent =
