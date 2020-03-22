@@ -5,18 +5,36 @@
 function calculateAchievements(viewedItems) {
   initializeAchievementsModel();
   console.log('Calculating achievements...');
-  // TODO Calculate actual achievements
+  // TODO Calculate time when it's won
   // Achievement 1
-  summary.achievements.achievement1.won = summary.moviesCount > 1000;
+  summary.achievements.achievement1.won = summary.moviesCount >= 1;
 
   // Achievement 2
-  summary.achievements.achievement2.won = summary.seriesCount > 100;
+  summary.achievements.achievement2.won = summary.episodesCount >= 1;
 
   // Achievement 3
-  summary.achievements.achievement3.won = summary.maxTimeInDate > 21600; // 6 hours
+  summary.achievements.achievement3.won = summary.moviesCount >= 1000;
 
   // Achievement 4
-  summary.achievements.achievement4.won = summary.maxTimeInDate > 43200; //12 hours
+  summary.achievements.achievement4.won = summary.seriesCount >= 100;
+
+  // Achievement 5
+  summary.achievements.achievement5.won = summary.maxTimeInDate >= 21600; // 6 hours
+
+  // Achievement 6
+  summary.achievements.achievement6.won = summary.maxTimeInDate >= 43200; //12 hours
+
+  // Achievement 7
+  summary.achievements.achievement7.won = summary.deviceCount >= 5;
+
+  // Achievement 8
+  summary.achievements.achievement8.won = summary.totalTime >= 100; // TODO Set
+
+  // Achievement 9
+  summary.achievements.achievement9.won = summary.viewedItemsCount >= 5000;
+
+  // Achievement 10
+  summary.achievements.achievement10.won = summary.totalTime >= 100; // TODO Set
 
   console.log('Calculated achievements', summary.achievements);
 }
@@ -28,6 +46,7 @@ function calculateAchievements(viewedItems) {
 function showAchievements(viewedItems) {
   console.log('Mostrando logros!', viewedItems);
 
+  // TODO Show time when it's won
   for (const achievement of _.keys(summary.achievements)) {
     document.querySelector(`#${achievement} .ns-title`).textContent = summary.achievements[achievement].title;
     document.querySelector(`#${achievement} .ns-description`).textContent =
@@ -58,8 +77,13 @@ function initializeAchievementsModel() {
     achievement2: {},
     achievement3: {},
     achievement4: {},
+    achievement5: {},
+    achievement6: {},
+    achievement7: {},
+    achievement8: {},
+    achievement9: {},
+    achievement10: {},
   };
-  // TODO Add actual achievements
 
   for (const achievement of _.keys(summary.achievements)) {
     console.log('Achievement:', achievement);
