@@ -28,15 +28,38 @@ function calculateAchievements(viewedItems) {
   summary.achievements.achievement7.won = summary.deviceCount >= 5;
 
   // Achievement 8
-  summary.achievements.achievement8.won = summary.totalTime >= 100; // TODO Set
+  summary.achievements.achievement8.won = monthDiff(summary.firstUse, new Date()) >= 24;
 
   // Achievement 9
   summary.achievements.achievement9.won = summary.viewedItemsCount >= 5000;
 
   // Achievement 10
-  summary.achievements.achievement10.won = summary.totalTime >= 100; // TODO Set
+  summary.achievements.achievement10.won = allAchievementsWon(10);
 
   console.log('Calculated achievements', summary.achievements);
+}
+
+/**
+ * Calculate difference in moths between two dates
+ * @param {*} dateFrom
+ * @param {*} dateTo
+ */
+function monthDiff(dateFrom, dateTo) {
+  return dateTo.getMonth() - dateFrom.getMonth() + 12 * (dateTo.getFullYear() - dateFrom.getFullYear());
+}
+
+/**
+ * Check if all achievements are won
+ * @param {*} allAchievementsIndex - index of 'all achievements' achievement
+ */
+function allAchievementsWon(allAchievementsIndex) {
+  for (var i = 1; i < allAchievementsIndex; i++) {
+    if (!summary.achievements[`achievement${i}`].won) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**
