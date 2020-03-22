@@ -1,7 +1,7 @@
 body {
-  background-color: #fff;
+  background-color: black;
   width: 250px;
-  height: 200px;
+  height: 150px;
   font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin: 0;
   font-size: 16px;
@@ -14,15 +14,20 @@ body {
   display: inline-block;
 }
 
+.logo {
+  width: 200px;
+}
+
 .container {
   width: 100%;
   height: 100%;
   margin-top: 25px;
+  text-align: center;
 }
 
 .statsBtn {
   margin: 0 auto;
-  max-width: 75%;
+  padding: 20px;
 }
 
 *,
@@ -60,28 +65,22 @@ a:hover {
   text-align: center;
   line-height: 18px;
   color: #221f1f;
-  background: #fff;
   outline: none;
   border: none;
-  background-color: #fff;
+  background-color: #e50914;
   -webkit-appearance: none;
   -moz-appearance: none;
   cursor: pointer;
 }
 
-.button-default:hover {
-  box-shadow: 0 5px 16px rgba(229, 9, 20, 0.3);
-}
-
 .button {
   overflow: hidden;
-  color: #e50914;
+  color: white;
   transition: color 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
   margin: 0 auto;
 }
 
 .button:before {
-  border: 2px solid rgba(34, 31, 31, 0.15);
   content: '';
   display: block;
   position: absolute;
@@ -92,7 +91,7 @@ a:hover {
 }
 
 .button:after {
-  background: #e50914;
+  background: #b1060f;
   transform: translateX(-101%);
   transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
@@ -109,16 +108,11 @@ a:hover {
 }
 
 .button:hover {
-  color: #fff;
+  color: white;
 }
 
 .button:hover:after {
   transform: translateX(0);
-}
-
-.button.red:before,
-.button:after {
-  border: 2px solid #e50914;
 }
 
 .button span {

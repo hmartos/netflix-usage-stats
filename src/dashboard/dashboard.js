@@ -1,5 +1,4 @@
 'use strict';
-
 const DEBUG_MODE = false;
 const PAGE_SIZE = 20;
 const summary = {
@@ -68,7 +67,7 @@ function main() {
   showLoader();
 
   // Load dashboard HTML template
-  fetch(chrome.extension.getURL('/dashboard/dashboard.html'))
+  fetch(chrome.runtime.getURL('/dashboard/dashboard.html'))
     .then(response => response.text())
     .then(statsTemplate => {
       // Get viewing activity
@@ -76,14 +75,20 @@ function main() {
         .then(viewedItems => {
           hideLoader(statsTemplate);
 
-          fillDashboardTemplate();
+          fillDashboardTemplate(viewedItems);
 
           if (_.isEmpty(viewedItems)) {
             showEmptyOrErrorSection();
           } else {
             calculateStats(viewedItems);
+            calculateAchievements(viewedItems);
 
-            showStats(viewedItems);
+            createTvVsSeriesTimeChart();
+            createMeanTimeByWeekDayChart();
+
+            showStats();
+
+            createViewingActivityList(viewedItems);
           }
         })
         .catch(error => {
@@ -124,7 +129,7 @@ function showEmptyOrErrorSection(error) {
   const sectionId = `${error ? 'error' : 'empty'}`;
 
   // Load HTML page
-  fetch(chrome.extension.getURL(template))
+  fetch(chrome.runtime.getURL(template))
     .then(response => response.text())
     .then(template => {
       let section = document.createElement('div');
