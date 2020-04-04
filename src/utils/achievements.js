@@ -5,36 +5,65 @@
 function calculateAchievements(viewedItems) {
   initializeAchievementsModel();
   console.log('Calculating achievements...');
-  // TODO Calculate time when each achievement won
   // Achievement 1
   summary.achievements.achievement1.won = summary.moviesCount >= 1;
+  if (!summary.achievements.achievement1.won) {
+    summary.achievements.achievement1.remaining = `${summary.moviesCount}/1`;
+  }
 
   // Achievement 2
   summary.achievements.achievement2.won = summary.episodesCount >= 1;
+  if (!summary.achievements.achievement2.won) {
+    summary.achievements.achievement2.remaining = `${summary.episodesCount}/1`;
+  }
 
   // Achievement 3
   summary.achievements.achievement3.won = summary.moviesCount >= 1000;
+  if (!summary.achievements.achievement3.won) {
+    summary.achievements.achievement3.remaining = `${summary.moviesCount}/1000`;
+  }
 
   // Achievement 4
   summary.achievements.achievement4.won = summary.seriesCount >= 100;
+  if (!summary.achievements.achievement4.won) {
+    summary.achievements.achievement4.remaining = `${summary.seriesCount}/100`;
+  }
 
   // Achievement 5
   summary.achievements.achievement5.won = summary.maxTimeInDate >= 21600; // 6 hours
+  if (!summary.achievements.achievement5.won) {
+    summary.achievements.achievement5.remaining = `${summary.maxTimeInDate}/21600`; //TODO transform to hours
+  }
 
   // Achievement 6
   summary.achievements.achievement6.won = summary.maxTimeInDate >= 43200; //12 hours
+  if (!summary.achievements.achievement6.won) {
+    summary.achievements.achievement6.remaining = `${summary.maxTimeInDate}/43200`; //TODO transform to hours
+  }
 
   // Achievement 7
   summary.achievements.achievement7.won = summary.deviceCount >= 5;
+  if (!summary.achievements.achievement7.won) {
+    summary.achievements.achievement7.remaining = `${summary.deviceCount}/5`;
+  }
 
   // Achievement 8
   summary.achievements.achievement8.won = monthDiff(summary.firstUse, new Date()) >= 24;
+  if (!summary.achievements.achievement8.won) {
+    summary.achievements.achievement8.remaining = `${monthDiff(summary.firstUse, new Date())}/24`;
+  }
 
   // Achievement 9
   summary.achievements.achievement9.won = summary.viewedItemsCount >= 5000;
+  if (!summary.achievements.achievement9.won) {
+    summary.achievements.achievement9.remaining = `${summary.viewedItemsCount}/5000`;
+  }
 
   // Achievement 10
   summary.achievements.achievement10.won = allAchievementsWon(10);
+  if (!summary.achievements.achievement10.won) {
+    summary.achievements.achievement10.remaining = `${summary.moviesCount}/10`; //TODO Calculate achievements won
+  }
 
   console.log('Calculated achievements', summary.achievements);
 }
@@ -81,9 +110,8 @@ function showAchievements(viewedItems) {
     } else {
       document.querySelector(`#${achievement} i`).textContent = 'lock';
       document.querySelector(`#${achievement} i`).classList.add('ns-icon-achievement-incomplete');
-      document.querySelector(`#${achievement} .ns-achievement-incomplete`).textContent = chrome.i18n.getMessage(
-        `incomplete`
-      );
+      document.querySelector(`#${achievement} .ns-achievement-incomplete`).textContent =
+        summary.achievements[achievement].remaining;
       $(`#${achievement} .ns-achievement-info`).hide();
     }
   }
