@@ -128,7 +128,7 @@ function bindPageToggleBtn(selector, viewedItems) {
  * @param {*} viewedItems
  */
 function changeTab(selector, viewedItems) {
-  console.log('Switching to tab', selector);
+  debug('Switching to tab', selector);
   const tabSectionTitle = document.querySelector('#tabSectionTitle');
   $(selector).addClass('selected');
 

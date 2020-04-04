@@ -4,7 +4,7 @@
  */
 function calculateAchievements(viewedItems) {
   initializeAchievementsModel();
-  console.log('Calculating achievements...');
+  debug('Calculating achievements...');
   // Achievement 1
   summary.achievements.achievement1.won = summary.moviesCount >= 1;
   if (!summary.achievements.achievement1.won) {
@@ -65,7 +65,7 @@ function calculateAchievements(viewedItems) {
     summary.achievements.achievement10.remaining = `${summary.moviesCount}/10`; //TODO Calculate achievements won
   }
 
-  console.log('Calculated achievements', summary.achievements);
+  debug('Calculated achievements', summary.achievements);
 }
 
 /**
@@ -96,9 +96,6 @@ function allAchievementsWon(allAchievementsIndex) {
  * @param {*} viewedItems
  */
 function showAchievements(viewedItems) {
-  console.log('Mostrando logros!', viewedItems);
-
-  // TODO Show time when each achievement won
   for (const achievement of _.keys(summary.achievements)) {
     document.querySelector(`#${achievement} .ns-title`).textContent = summary.achievements[achievement].title;
     document.querySelector(`#${achievement} .ns-description`).textContent =
@@ -121,7 +118,7 @@ function showAchievements(viewedItems) {
  * Initializes the list of achievements and the title and description for each achievement
  */
 function initializeAchievementsModel() {
-  console.log('Initializing achievements...');
+  debug('Initializing achievements...');
 
   summary.achievements = {
     achievement1: {},
@@ -137,11 +134,9 @@ function initializeAchievementsModel() {
   };
 
   for (const achievement of _.keys(summary.achievements)) {
-    console.log('Achievement:', achievement);
     summary.achievements[achievement].title = chrome.i18n.getMessage(`${achievement}`);
     summary.achievements[achievement].description = chrome.i18n.getMessage(`${achievement}Description`);
-    console.log('Summary achievement', summary.achievements);
   }
 
-  console.log('Initialized achievements', summary.achievements);
+  debug('Initialized achievements', summary.achievements);
 }
