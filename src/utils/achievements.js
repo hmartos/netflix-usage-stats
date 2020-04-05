@@ -32,13 +32,17 @@ function calculateAchievements(viewedItems) {
   // Achievement 5
   summary.achievements.achievement5.won = summary.maxTimeInDate >= 21600; // 6 hours
   if (!summary.achievements.achievement5.won) {
-    summary.achievements.achievement5.remaining = `${summary.maxTimeInDate}/21600`; //TODO transform to hours
+    summary.achievements.achievement5.remaining = `${sec2time(summary.maxTimeInDate).substring(0, 5)}/${sec2time(
+      21600
+    ).substring(0, 5)}`;
   }
 
   // Achievement 6
   summary.achievements.achievement6.won = summary.maxTimeInDate >= 43200; //12 hours
   if (!summary.achievements.achievement6.won) {
-    summary.achievements.achievement6.remaining = `${summary.maxTimeInDate}/43200`; //TODO transform to hours
+    summary.achievements.achievement6.remaining = `${sec2time(summary.maxTimeInDate).substring(0, 5)}/${sec2time(
+      43200
+    ).substring(0, 5)}`;
   }
 
   // Achievement 7
@@ -60,9 +64,10 @@ function calculateAchievements(viewedItems) {
   }
 
   // Achievement 10
-  summary.achievements.achievement10.won = allAchievementsWon(10);
+  const lastAchievementIndex = 10;
+  summary.achievements.achievement10.won = allAchievementsWon(lastAchievementIndex);
   if (!summary.achievements.achievement10.won) {
-    summary.achievements.achievement10.remaining = `${summary.moviesCount}/10`; //TODO Calculate achievements won
+    summary.achievements.achievement10.remaining = `${achievementsWon()}/${lastAchievementIndex}`;
   }
 
   debug('Calculated achievements', summary.achievements);
@@ -78,11 +83,25 @@ function monthDiff(dateFrom, dateTo) {
 }
 
 /**
+ * Return the number of achievements  won
+ */
+function achievementsWon() {
+  let achievementsWon = 0;
+  for (let i = 1; i <= _.keys(summary.achievements).length; i++) {
+    if (summary.achievements[`achievement${i}`].won) {
+      achievementsWon++;
+    }
+  }
+
+  return achievementsWon;
+}
+
+/**
  * Check if all achievements are won
  * @param {*} allAchievementsIndex - index of 'all achievements' achievement
  */
 function allAchievementsWon(allAchievementsIndex) {
-  for (var i = 1; i < allAchievementsIndex; i++) {
+  for (let i = 1; i < allAchievementsIndex; i++) {
     if (!summary.achievements[`achievement${i}`].won) {
       return false;
     }
