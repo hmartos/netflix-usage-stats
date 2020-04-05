@@ -4,12 +4,16 @@ const achievementsModule = rewire('../src/utils/achievements');
 const monthDiff = achievementsModule.__get__('monthDiff');
 const initializeAchievementsModel = achievementsModule.__get__('initializeAchievementsModel');
 const calculateAchievements = achievementsModule.__get__('calculateAchievements');
+const achievementsWon = achievementsModule.__get__('achievementsWon');
 const allAchievementsWon = achievementsModule.__get__('allAchievementsWon');
+const formatModule = rewire('../src/utils/format');
+const sec2time = formatModule.__get__('sec2time');
 
 describe('Achievements', () => {
   beforeAll(() => {
     achievementsModule.__set__('summary', {});
     achievementsModule.__set__('_', _);
+    achievementsModule.__set__('sec2time', sec2time);
     achievementsModule.__set__('debug', (msg, data) => {
       console.log(msg, data);
     });
@@ -62,7 +66,7 @@ describe('Achievements', () => {
       seriesCount: 0,
       episodesCount: 0,
       maxTimeInDate: 0,
-      deviceCount: 1,
+      deviceCount: 0,
       firstUse: new Date(),
       viewedItemsCount: 0,
     });
@@ -70,6 +74,7 @@ describe('Achievements', () => {
     let summary = achievementsModule.__get__('summary');
     _.keys(summary.achievements).forEach(achievement => {
       expect(summary.achievements[achievement].won).toEqual(false);
+      expect(summary.achievements[achievement].remaining).toBeDefined();
     });
 
     // Achievement 1
@@ -221,7 +226,58 @@ describe('Achievements', () => {
     summary = achievementsModule.__get__('summary');
     _.keys(summary.achievements).forEach(achievement => {
       expect(summary.achievements[achievement].won).toEqual(true);
+      expect(summary.achievements[achievement].remaining).not.toBeDefined();
     });
+  });
+
+  it('should calculate the number of achievements won', async () => {
+    achievementsModule.__set__('summary', {
+      achievements: {
+        achievement1: { won: false },
+        achievement2: { won: false },
+        achievement3: { won: false },
+        achievement4: { won: false },
+        achievement5: { won: false },
+        achievement6: { won: false },
+        achievement7: { won: false },
+        achievement8: { won: false },
+        achievement9: { won: false },
+        achievement10: { won: false },
+      },
+    });
+    expect(achievementsWon()).toEqual(0);
+
+    achievementsModule.__set__('summary', {
+      achievements: {
+        achievement1: { won: true },
+        achievement2: { won: false },
+        achievement3: { won: true },
+        achievement4: { won: false },
+        achievement5: { won: true },
+        achievement6: { won: false },
+        achievement7: { won: true },
+        achievement8: { won: false },
+        achievement9: { won: true },
+        achievement10: { won: false },
+      },
+    });
+    expect(achievementsWon()).toEqual(5);
+
+    achievementsModule.__set__('summary', {
+      achievements: {
+        achievement1: { won: true },
+        achievement2: { won: true },
+        achievement3: { won: true },
+        achievement4: { won: true },
+        achievement5: { won: true },
+        achievement6: { won: true },
+        achievement7: { won: true },
+        achievement8: { won: true },
+        achievement9: { won: true },
+        achievement10: { won: true },
+      },
+    });
+    expect(achievementsWon()).toEqual(10);
   });
 
   it('should calculate if all achievements are won', async () => {
@@ -262,8 +318,10 @@ describe('Achievements', () => {
     _.keys(summary.achievements).forEach(achievement => {
       if (_.indexOf(expectedAchievementsWon, achievement) !== -1) {
         expect(summary.achievements[achievement].won).toEqual(true);
+        expect(summary.achievements[achievement].remaining).not.toBeDefined();
       } else {
         expect(summary.achievements[achievement].won).toEqual(false);
+        expect(summary.achievements[achievement].remaining).toBeDefined();
       }
     });
   }
