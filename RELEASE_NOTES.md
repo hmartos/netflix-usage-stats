@@ -2,6 +2,18 @@
 
 This file contains changes based on [this template](https://github.com/palantir/plottable/wiki/Release-Notes-Template)
 
+## 2.1.0
+
+### New Features
+
+- Added an achievements section where you can earn some badges based on goals over your viewing activity
+
+### Improvements
+
+- New icons for movies and series in the viewing activity section
+- New logo
+- New popup design
+
 ## 2.0.2
 
 ### Other Changes

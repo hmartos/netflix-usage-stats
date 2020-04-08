@@ -16,11 +16,12 @@
   <a href="https://github.com/hmartos/netflix-usage-stats/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/hmartos/netflix-usage-stats"></a>
 </p>
 
-This Chrome extension allows you to access to a viewing stats page fully integrated on Netflix site which loads viewing activity from Netflix Shakti API and calculate a set of statistics about how you use your Netflix account.
+This Chrome extension allows you to access to a viewing stats dashboard fully integrated on Netflix site which loads viewing activity from Netflix Shakti API and calculate a set of statistics about how you use your Netflix account.
 
-![Screenshot](./screenshots/screenshot-full-en.png)
+![Screenshot](./screenshots/screenshot-full-summary.png)
+![Screenshot](./screenshots/screenshot-full-achievements.png)
 
-Included statistics are:
+In the **Summary** section you can see the following statistics:
 
 - Total watched titles (movies, series, documentaries) and first use date
 - Total time watching Netflix
@@ -33,7 +34,20 @@ Included statistics are:
 - Comparison between time watching movies vs time watching series
 - Average time watching Netflix per day of the week
 
-It also includes a table with the whole user's viewing activity with ability to sort and filter data.
+In the **Achievements** sections you can earn badges based on some goals:
+
+- **Once Upon a Time in... Hollywood**: Watch your first movie on Netflix
+- **Series and Other Drugs**: Watch your first episode of a series on Netflix
+- **Cinephile**: Watch 1000 movies or more on Netflix
+- **Series Killer**: Watch 100 series or more on Netflix
+- **Marathoner**: Watch Netflix for 6 hours or more in a day
+- **Iron Man**: Watch Netflix for 12 hours or more in a day
+- **Matrix**: Watch Netflix on 5 or more different devices
+- **One of Ours**: Being suscribed to Netflix for 24 months or more
+- **I Am Legend**: Watch 5000 titles on Netflix
+- **Mission: Impossible**: Get all the achievements
+
+In the **Viewing activity** section you can see, sort and filter the whole user's viewing activity.
 
 ## Requirements
 
