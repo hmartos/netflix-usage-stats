@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extensionTitle__",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "permissions": ["activeTab", "declarativeContent", "https://*.netflix.com/*"],
@@ -22,6 +22,7 @@
         "utils/loader.js",
         "utils/activity.js",
         "utils/stats.js",
+        "utils/achievements.js",
         "utils/chart.js",
         "utils/viewing.js",
         "utils/format.js",
@@ -42,7 +43,10 @@
   "web_accessible_resources": [
     "dashboard/dashboard.html",
     "empty.html",
-    "error.html"
+    "error.html",
+    "images/tv.svg",
+    "images/movie.svg",
+    "images/ani_netflix_stats.gif"
   ],
   "page_action": {
     "default_popup": "popup/popup.html",

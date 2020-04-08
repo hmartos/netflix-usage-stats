@@ -21,6 +21,12 @@
   "loadingMessage": {
     "message": "Cargando tu actividad de visionado, esto puede tardar un poco..."
   },
+  "summary": {
+    "message": "Resumen"
+  },
+  "achievements": {
+    "message": "Logros"
+  },
   "viewingSummary": {
     "message": "Resumen de visionado"
   },
@@ -177,6 +183,66 @@
   },
   "results": {
     "message": "resultados"  
+  },
+  "achievement1": {
+    "message": "Érase una vez en... Hollywood"
+  },
+  "achievement1Description": {
+    "message": "Ver tu primera película en Netflix"
+  },
+  "achievement2": {
+    "message": "Series y otras drogas"
+  },
+  "achievement2Description": {
+    "message": "Ver tu primer capítulo de una serie en Netflix"
+  },
+  "achievement3": {
+    "message": "Cinéfilo"
+  },
+  "achievement3Description": {
+    "message": "Ver 1000 películas o más en Netflix"
+  },
+  "achievement4": {
+    "message": "Asesino en serie"
+  },
+  "achievement4Description": {
+    "message": "Ver 100 series o más en Netflix"
+  },
+  "achievement5": {
+    "message": "Maratoniano"
+  },
+  "achievement5Description": {
+    "message": "Ver Netflix durante 6 horas o más en un solo día"
+  },
+  "achievement6": {
+    "message": "Iron Man"
+  },
+  "achievement6Description": {
+    "message": "Ver Netflix durante 12 horas o más en un solo día"
+  },
+  "achievement7": {
+    "message": "Matrix"
+  },
+  "achievement7Description": {
+    "message": "Ver Netflix en 5 o más dispositivos distintos"
+  },
+  "achievement8": {
+    "message": "Uno de los nuestros"
+  },
+  "achievement8Description": {
+    "message": "Estar suscrito a Netflix durante 24 meses o más"
+  },
+  "achievement9": {
+    "message": "Soy leyenda"
+  },
+  "achievement9Description": {
+    "message": "Ver 5000 títulos en Netflix"
+  },
+  "achievement10": {
+    "message": "Misión Imposible"
+  },
+  "achievement10Description": {
+    "message": "Conseguir todos los logros"
   },
   "errorMessage": {
     "message": "Vaya, ocurrió un error, lo siento mucho."

@@ -75,9 +75,12 @@ function renderViewingActivityList(viewedItems) {
     duration.classList = ['col report'];
     duration.innerText = viewedItem.durationFormatted;
 
-    const type = document.createElement('i');
-    type.classList = ['material-icons ns-icon-list'];
-    type.innerText = viewedItem.type === `${chrome.i18n.getMessage('movie')}` ? 'local_movies' : 'tv';
+    const type = document.createElement('img');
+    type.src =
+      viewedItem.type === `${chrome.i18n.getMessage('serie')}`
+        ? chrome.runtime.getURL('/images/tv.svg')
+        : chrome.runtime.getURL('/images/movie.svg');
+    type.className = 'ns-image-type';
 
     const typeContainer = document.createElement('div');
     typeContainer.classList = ['col delete'];

@@ -1,7 +1,7 @@
 /**
  * Create time watching movies vs series pie chart
  */
-function createTvVsseriesTimeChart() {
+function createTvVsSeriesTimeChart() {
   // Generates chart
   var ctx = document.getElementById('moviesVsTvTimeChart');
   var myChart = new Chart(ctx, {

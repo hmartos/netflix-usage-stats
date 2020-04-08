@@ -28,6 +28,14 @@
     "message": "Loading your viewing activity, this may take some time...",
     "description": "Message to show loading can take some time"
   },
+  "summary": {
+    "message": "Summary",
+    "description": ""
+  },
+  "achievements": {
+    "message": "Achievements",
+    "description": ""
+  },
   "viewingSummary": {
     "message": "Viewing summary",
     "description": ""
@@ -235,6 +243,76 @@
   "results": {
     "message": "results",
     "description": ""
+  },
+  "achievement1": {
+    "message": "Once Upon a Time in... Hollywood",
+    "description": ""
+  },
+  "achievement1Description": {
+    "message": "Watch your first movie on Netflix",
+    "description": ""
+  },
+  "achievement2": {
+    "message": "Series and Other Drugs",
+    "description": ""
+  },
+  "achievement2Description": {
+    "message": "Watch your first episode of a series on Netflix",
+    "description": ""
+  },
+  "achievement3": {
+    "message": "Cinephile",
+    "description": ""
+  },
+  "achievement3Description": {
+    "message": "Watch 1000 movies or more on Netflix",
+    "description": ""
+  },
+  "achievement4": {
+    "message": "Series Killer",
+    "description": ""
+  },
+  "achievement4Description": {
+    "message": "Watch 100 series or more on Netflix",
+    "description": ""
+  },
+  "achievement5": {
+    "message": "Marathoner",
+    "description": ""
+  },
+  "achievement5Description": {
+    "message": "Watch Netflix for 6 hours or more in a day",
+    "description": ""
+  },
+  "achievement6": {
+    "message": "Iron Man"
+  },
+  "achievement6Description": {
+    "message": "Watch Netflix for 12 hours or more in a day"
+  },
+  "achievement7": {
+    "message": "Matrix"
+  },
+  "achievement7Description": {
+    "message": "Watch Netflix on 5 or more different devices"
+  },
+  "achievement8": {
+    "message": "One of Ours"
+  },
+  "achievement8Description": {
+    "message": "Being suscribed to Netflix for 24 months or more"
+  },
+  "achievement9": {
+    "message": "I Am Legend"
+  },
+  "achievement9Description": {
+    "message": "Watch 5000 titles on Netflix"
+  },
+  "achievement10": {
+    "message": "Mission: Impossible"
+  },
+  "achievement10Description": {
+    "message": "Get all the achievements"
   },
   "errorMessage": {
     "message": "Oh, an error ocurred, I'm so sorry.",
