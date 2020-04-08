@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extensionTitle__",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "permissions": ["activeTab", "declarativeContent", "https://*.netflix.com/*"],
