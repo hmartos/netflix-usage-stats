@@ -49,6 +49,10 @@ In the **Achievements** sections you can earn badges based on some goals:
 
 In the **Viewing activity** section you can see, sort and filter the whole user's viewing activity.
 
+## Screenshots
+
+- [Screenshots for Chrome Web Store](https://www.figma.com/file/hsSDfY3nw06MhwJnvCKyxc/screenshot-1280x800?node-id=5%3A2)
+
 ## Requirements
 
 - [Git](https://git-scm.com/)
