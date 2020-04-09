@@ -77,7 +77,7 @@ function renderViewingActivityList(viewedItems) {
 
     const type = document.createElement('img');
     type.src =
-      viewedItem.type === `${chrome.i18n.getMessage('movie')}`
+      viewedItem.type === `${chrome.i18n.getMessage('serie')}`
         ? chrome.runtime.getURL('/images/tv.svg')
         : chrome.runtime.getURL('/images/movie.svg');
     type.className = 'ns-image-type';
