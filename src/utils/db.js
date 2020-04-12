@@ -131,7 +131,7 @@ function saveViewedItems(db, viewedItems) {
   // Make a request to insert every viewed item into the object store
   let objectStore = transaction.objectStore(DB_STORE_NAME);
   viewedItems.forEach(function(viewedItem) {
-    let request = objectStore.add(viewedItem);
+    let request = objectStore.put(viewedItem);
 
     request.onsuccess = function(event) {
       //debug('Successfully saved viewed item in indexedDb', viewedItem, event);

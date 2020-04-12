@@ -50,36 +50,25 @@ function getFullActivity(buildId) {
   });
 }
 
+// Casos de prueba
+// Tenía 2 vistos, los borro y ahora hay 12 nuevos -> OK
+// Tenía 2 vistos, los borro y ahora hay 30 nuevos -> OK
+// Tenía 2 vistos, y ahora hay 12, 10 de ellos nuevos -> OK
+// Tenía 2 vistos, y ahora hay 30, 28 de ellos nuevos -> OK
+// Tenía 2 vistos, borro el último y ahora hay 12, 11 de ellos nuevos -> OK
+// Tenía 2 vistos, borro el primero y ahora hay 12, 11 de ellos nuevos -> OK
+// Tenía 2 vistos, borro uno de ellos y ahora hay 1 -> OK
+// Tenía 32 vistos, borro uno de ellos y ahora hay 31 ->
 /**
- * Load last viewing activity and add it to the saved activity
+ * Load viewing activity
+ * @param {*} buildId
+ * @param {*} savedViewedItems
  */
-function getLastActivity(buildId, savedViewedItems) {
-  //TODO Ya no se pueden lanzar todas las páginas a la vez, sino que hay que hay que cargarla una a una
-  // Hay que revisar para cada uno de los 20 elementos de cada página si coincide con el último elemento
-  // Para que haya coincidencia debe coincidir el movieID y el date
-  // ¿Qué pasa si el usuario ha borrado de la actividad de visionado el último elemento visto? --> Ya no lo vamos a encontrar
-  // Pero estará el anterior!!! y si no el anterior, y si no el anterior... y si no estará vacía
-  // Si se borran títulos anteriores no hay problema, en el dashboard seguirán apareciendo
-  // Si se borran títulos no sincronizados aún no hay problema, no vendrán desde la API
-  // Se puede cargar la información de la API mientras el date del último elemento de cada página sea mayor al date del último elemento guardado
-  // Cuando esto suceda hay que eliminar los elementos de la última página cargada que ya estuvieran guardados en la db
-  // Esto también se puede hacer por date
-
-  // Casos de prueba
-  // Tenía 2 vistos, los borro y ahora hay 12 nuevos -> OK
-  // Tenía 2 vistos, los borro y ahora hay 30 nuevos -> OK
-  // Tenía 2 vistos, y ahora hay 12, 10 de ellos nuevos -> OK
-  // Tenía 2 vistos, y ahora hay 30, 28 de ellos nuevos -> OK
-  // Tenía 2 vistos, borro el último y ahora hay 12, 11 de ellos nuevos -> OK
-  // Tenía 2 vistos, borro el primero y ahora hay 12, 11 de ellos nuevos -> OK
-  // Tenía 2 vistos, borro uno de ellos y ahora hay 1 -> OK
-  // Tenía 32 vistos, borro uno de ellos y ahora hay 31 ->
-
-  //TODO Ordenar en los resolves!!
+function getViewingActivity(buildId, savedViewedItems) {
   return new Promise((resolve, reject) => {
     const savedViewedItemsSize = savedViewedItems.length;
     debug(`Saved viewing history size is ${savedViewedItemsSize}`);
-    const lastSavedItem = savedViewedItems[0];
+    const lastSavedItem = !_.isEmpty(savedViewedItems) ? savedViewedItems[0] : null;
     debug('Last saved viewed title', lastSavedItem);
 
     // Get first page of activity
@@ -95,20 +84,24 @@ function getLastActivity(buildId, savedViewedItems) {
         }
 
         const newViewedItems = data.viewedItems;
-
-        // Search last viewed title in retrieved activity page
-        lastViewedItemIndex = _.findIndex(newViewedItems, {
-          movieID: lastSavedItem.movieID,
-          date: lastSavedItem.date,
-        });
-
         let loadedViewingHistory;
-        if (lastViewedItemIndex !== -1) {
-          debug('Last saved viewed title found');
-          let newUniqueViewedItems = _.takeWhile(newViewedItems, (viewedItem, index) => {
-            return index < lastViewedItemIndex; // TODO REVIEW!!!
+
+        if (lastSavedItem) {
+          // Search last viewed title in retrieved activity page
+          lastViewedItemIndex = _.findIndex(newViewedItems, {
+            movieID: lastSavedItem.movieID,
+            date: lastSavedItem.date,
           });
-          loadedViewingHistory = savedViewedItems.concat(newUniqueViewedItems);
+
+          if (lastViewedItemIndex !== -1) {
+            debug('Last saved viewed title found');
+            let newUniqueViewedItems = _.takeWhile(newViewedItems, (viewedItem, index) => {
+              return index < lastViewedItemIndex;
+            });
+            loadedViewingHistory = savedViewedItems.concat(newUniqueViewedItems);
+          } else {
+            loadedViewingHistory = savedViewedItems.concat(newViewedItems);
+          }
         } else {
           loadedViewingHistory = savedViewedItems.concat(newViewedItems);
         }
@@ -135,6 +128,15 @@ function getLastActivity(buildId, savedViewedItems) {
   });
 }
 
+/**
+ * Load viewing activity recursively
+ * @param {*} buildId
+ * @param {*} page
+ * @param {*} pages
+ * @param {*} lastSavedItem
+ * @param {*} loadedViewingHistory
+ * @param {*} resolve
+ */
 function getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHistory, resolve) {
   getActivityPage(page, buildId)
     .then(response => response.json())
@@ -144,19 +146,22 @@ function getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHis
       const viewingHistorySize = data.vhSize;
       const newViewedItems = data.viewedItems;
 
-      // Search last viewed title in retrieved activity page
-      lastViewedItemIndex = _.findIndex(newViewedItems, {
-        movieID: lastSavedItem.movieID,
-        date: lastSavedItem.date,
-      });
-
-      let loadedViewingHistory;
-      if (lastViewedItemIndex !== -1) {
-        debug('Last saved viewed title found');
-        let newUniqueViewedItems = _.takeWhile(newViewedItems, (viewedItem, index) => {
-          return index < lastViewedItemIndex; // TODO REVIEW!!!
+      if (lastSavedItem) {
+        // Search last viewed title in retrieved activity page
+        lastViewedItemIndex = _.findIndex(newViewedItems, {
+          movieID: lastSavedItem.movieID,
+          date: lastSavedItem.date,
         });
-        loadedViewingHistory = loadedViewingHistory.concat(newUniqueViewedItems);
+
+        if (lastViewedItemIndex !== -1) {
+          debug('Last saved viewed title found');
+          let newUniqueViewedItems = _.takeWhile(newViewedItems, (viewedItem, index) => {
+            return index < lastViewedItemIndex;
+          });
+          loadedViewingHistory = loadedViewingHistory.concat(newUniqueViewedItems);
+        } else {
+          loadedViewingHistory = loadedViewingHistory.concat(newViewedItems);
+        }
       } else {
         loadedViewingHistory = loadedViewingHistory.concat(newViewedItems);
       }
@@ -170,7 +175,7 @@ function getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHis
           return resolve(_.sortBy(loadedViewingHistory, ['date']).reverse());
         } else {
           // Load page by page recursively until lastSavedItem is found or all the pages are loaded
-          return getRecentActivity(buildId, 1, pages, lastSavedItem, loadedViewingHistory, resolve);
+          return getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHistory, resolve);
         }
       }
     })

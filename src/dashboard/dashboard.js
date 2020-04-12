@@ -77,18 +77,20 @@ function main() {
     .then(statsTemplate => {
       getSavedViewingActivity(profileId)
         .then(savedViewedItems => {
-          if (!_.isEmpty(savedViewedItems)) {
-            // There is some data saved in the last visit
-            getLastActivity(buildId, savedViewedItems)
-              .then(viewedItems => {
-                hideLoader(statsTemplate);
+          getViewingActivity(buildId, savedViewedItems)
+            .then(viewedItems => {
+              // TODO Refactor so saveViewingActivity returns a promise? -> hideLoader and build dashboard
+              hideLoader(statsTemplate);
 
-                // Save viewing activity in indexedDb
-                saveViewingActivity(profileId, viewedItems);
+              // Save viewing activity in indexedDb
+              saveViewingActivity(profileId, viewedItems);
 
-                // Build dashboard
-                fillDashboardTemplate(viewedItems);
+              // Build dashboard
+              fillDashboardTemplate(viewedItems);
 
+              if (_.isEmpty(viewedItems)) {
+                showEmptyOrErrorSection();
+              } else {
                 calculateStats(viewedItems);
                 calculateAchievements(viewedItems);
 
@@ -99,43 +101,12 @@ function main() {
                 showStats();
 
                 createViewingActivityList(viewedItems);
-              })
-              .catch(error => {
-                console.error('Error loading viewing activity and calculating stats', error);
-                //TODO Show the saved viewing activity
-              });
-          } else {
-            // Get full viewing activity since there is no saved data
-            getFullActivity(buildId)
-              .then(viewedItems => {
-                hideLoader(statsTemplate);
-
-                // Save viewing activity in indexedDb
-                saveViewingActivity(profileId, viewedItems);
-
-                // Build dashboard
-                fillDashboardTemplate(viewedItems);
-
-                if (_.isEmpty(viewedItems)) {
-                  showEmptyOrErrorSection();
-                } else {
-                  calculateStats(viewedItems);
-                  calculateAchievements(viewedItems);
-
-                  createTvVsSeriesTimeChart();
-                  createMeanTimeByWeekDayChart();
-
-                  // Initialize dashboard with summary section
-                  showStats();
-
-                  createViewingActivityList(viewedItems);
-                }
-              })
-              .catch(error => {
-                console.error('Error loading viewing activity and calculating stats', error);
-                throw error;
-              });
-          }
+              }
+            })
+            .catch(error => {
+              console.error('Error loading viewing activity and calculating stats', error);
+              //TODO Show the saved viewing activity
+            });
         })
         .catch(error => {
           console.error('Error loading saved viewing activity from indexedDb and calculating stats', error);
