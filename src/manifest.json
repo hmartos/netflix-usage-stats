@@ -20,6 +20,7 @@
         "vendor/js/purify.min.js",
         "utils/template.js",
         "utils/loader.js",
+        "utils/db.js",
         "utils/activity.js",
         "utils/stats.js",
         "utils/achievements.js",

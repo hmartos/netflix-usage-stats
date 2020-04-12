@@ -1,5 +1,5 @@
 'use strict';
-const DEBUG_MODE = false;
+const DEBUG_MODE = true;
 const PAGE_SIZE = 20;
 const summary = {
   viewedItemsCount: 0,
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function main() {
   const BUILD_IDENTIFIER = getNetflixBuildId();
   // If BUILD_IDENTIFIER couldn't be retrieved, fallback to last working BUILD_IDENTIFIER
-  const buildId = BUILD_IDENTIFIER ? BUILD_IDENTIFIER : 'v04e0c12d';
+  const buildId = BUILD_IDENTIFIER ? BUILD_IDENTIFIER : 'vf10970d2';
   debug(`Netflix BUILD_IDENTIFIER: ${buildId}`);
 
   setupDashboardTemplate();
@@ -70,29 +70,70 @@ function main() {
   fetch(chrome.runtime.getURL('/dashboard/dashboard.html'))
     .then(response => response.text())
     .then(statsTemplate => {
-      // Get viewing activity
-      getActivity(buildId)
-        .then(viewedItems => {
-          hideLoader(statsTemplate);
+      getSavedViewingActivity()
+        .then(savedViewedItems => {
+          if (!_.isEmpty(savedViewedItems)) {
+            // There is some data saved in the last visit
+            getLastActivity(buildId, savedViewedItems)
+              .then(viewedItems => {
+                hideLoader(statsTemplate);
 
-          fillDashboardTemplate(viewedItems);
+                // Save viewing activity in indexedDb
+                saveViewingActivity(viewedItems);
 
-          if (_.isEmpty(viewedItems)) {
-            showEmptyOrErrorSection();
+                // Build dashboard
+                fillDashboardTemplate(viewedItems);
+
+                calculateStats(viewedItems);
+                calculateAchievements(viewedItems);
+
+                createTvVsSeriesTimeChart();
+                createMeanTimeByWeekDayChart();
+
+                // Initialize dashboard with summary section
+                showStats();
+
+                createViewingActivityList(viewedItems);
+              })
+              .catch(error => {
+                console.error('Error loading viewing activity and calculating stats', error);
+                //TODO Show the saved viewing activity
+              });
           } else {
-            calculateStats(viewedItems);
-            calculateAchievements(viewedItems);
+            // Get full viewing activity since there is no saved data
+            getFullActivity(buildId)
+              .then(viewedItems => {
+                hideLoader(statsTemplate);
 
-            createTvVsSeriesTimeChart();
-            createMeanTimeByWeekDayChart();
+                // Save viewing activity in indexedDb
+                saveViewingActivity(viewedItems);
 
-            showStats();
+                // Build dashboard
+                fillDashboardTemplate(viewedItems);
 
-            createViewingActivityList(viewedItems);
+                if (_.isEmpty(viewedItems)) {
+                  showEmptyOrErrorSection();
+                } else {
+                  calculateStats(viewedItems);
+                  calculateAchievements(viewedItems);
+
+                  createTvVsSeriesTimeChart();
+                  createMeanTimeByWeekDayChart();
+
+                  // Initialize dashboard with summary section
+                  showStats();
+
+                  createViewingActivityList(viewedItems);
+                }
+              })
+              .catch(error => {
+                console.error('Error loading viewing activity and calculating stats', error);
+                throw error;
+              });
           }
         })
         .catch(error => {
-          console.error('Error loading viewing activity and calculating stats', error);
+          console.error('Error loading saved viewing activity from indexedDb and calculating stats', error);
           throw error;
         });
     })
