@@ -115,13 +115,13 @@ function getLastActivity(buildId, savedViewedItems) {
 
         if (loadedViewingHistory.length >= viewingHistorySize) {
           // Full viewing activity loaded
-          resolve(loadedViewingHistory);
+          resolve(_.sortBy(loadedViewingHistory, ['date']).reverse());
         } else {
           let pages = Math.ceil(viewingHistorySize / PAGE_SIZE);
           debug(`Viewing history has ${pages} pages of ${PAGE_SIZE} elements per page`);
           if (page === pages) {
             // All pages loaded
-            resolve(loadedViewingHistory);
+            resolve(_.sortBy(loadedViewingHistory, ['date']).reverse());
           } else {
             // Load page by page recursively until lastSavedItem is found or all the pages are loaded
             return getRecentActivity(buildId, 1, pages, lastSavedItem, loadedViewingHistory, resolve);
@@ -130,7 +130,7 @@ function getLastActivity(buildId, savedViewedItems) {
       })
       .catch(error => {
         console.error('First page of last viewing activity could not be fetched', error);
-        resolve(savedViewedItems); // Resolve with the saved data we have
+        resolve(_.sortBy(savedViewedItems, ['date']).reverse()); // Resolve with the saved data we have
       });
   });
 }
@@ -156,18 +156,18 @@ function getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHis
         let newUniqueViewedItems = _.takeWhile(newViewedItems, (viewedItem, index) => {
           return index < lastViewedItemIndex; // TODO REVIEW!!!
         });
-        loadedViewingHistory = savedViewedItems.concat(newUniqueViewedItems);
+        loadedViewingHistory = loadedViewingHistory.concat(newUniqueViewedItems);
       } else {
-        loadedViewingHistory = savedViewedItems.concat(newViewedItems);
+        loadedViewingHistory = loadedViewingHistory.concat(newViewedItems);
       }
 
       if (loadedViewingHistory.length >= viewingHistorySize) {
         // Full viewing activity loaded
-        return resolve(loadedViewingHistory);
+        return resolve(_.sortBy(loadedViewingHistory, ['date']).reverse());
       } else {
         if (page === pages) {
           // All pages loaded
-          return resolve(loadedViewingHistory);
+          return resolve(_.sortBy(loadedViewingHistory, ['date']).reverse());
         } else {
           // Load page by page recursively until lastSavedItem is found or all the pages are loaded
           return getRecentActivity(buildId, 1, pages, lastSavedItem, loadedViewingHistory, resolve);
@@ -179,7 +179,7 @@ function getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHis
       page++;
       if (page === pages) {
         // All viewing activity loaded
-        return resolve(loadedViewingHistory);
+        return resolve(_.sortBy(loadedViewingHistory, ['date']).reverse());
       } else {
         // Continue trying to load more recent activity pages
         return getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHistory, resolve);

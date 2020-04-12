@@ -62,6 +62,11 @@ function main() {
   const buildId = BUILD_IDENTIFIER ? BUILD_IDENTIFIER : 'vf10970d2';
   debug(`Netflix BUILD_IDENTIFIER: ${buildId}`);
 
+  const PROFILE_ID = getProfileId();
+  // If PROFILE_ID couldn't be retrieved, fallback to default PROFILE_ID
+  const profileId = PROFILE_ID ? PROFILE_ID : 'default';
+  debug(`Netflix PROFILE_ID: ${profileId}`);
+
   setupDashboardTemplate();
 
   showLoader();
@@ -70,7 +75,7 @@ function main() {
   fetch(chrome.runtime.getURL('/dashboard/dashboard.html'))
     .then(response => response.text())
     .then(statsTemplate => {
-      getSavedViewingActivity()
+      getSavedViewingActivity(profileId)
         .then(savedViewedItems => {
           if (!_.isEmpty(savedViewedItems)) {
             // There is some data saved in the last visit
@@ -79,7 +84,7 @@ function main() {
                 hideLoader(statsTemplate);
 
                 // Save viewing activity in indexedDb
-                saveViewingActivity(viewedItems);
+                saveViewingActivity(profileId, viewedItems);
 
                 // Build dashboard
                 fillDashboardTemplate(viewedItems);
@@ -106,7 +111,7 @@ function main() {
                 hideLoader(statsTemplate);
 
                 // Save viewing activity in indexedDb
-                saveViewingActivity(viewedItems);
+                saveViewingActivity(profileId, viewedItems);
 
                 // Build dashboard
                 fillDashboardTemplate(viewedItems);
@@ -159,6 +164,24 @@ function getNetflixBuildId() {
   });
 
   return buildId;
+}
+
+/**
+ * Get Profile ID
+ */
+function getProfileId() {
+  const scripts = Array.prototype.slice.call(document.scripts);
+  let profileId = null;
+
+  scripts.forEach((script, index) => {
+    const profileIdIndex = script.innerHTML.indexOf('userGuid');
+    if (profileIdIndex > -1) {
+      const text = script.innerHTML.substring(profileIdIndex + 11);
+      profileId = text.substring(0, text.indexOf('"'));
+    }
+  });
+
+  return profileId;
 }
 
 /**
