@@ -39,6 +39,7 @@ function getSavedViewingActivity(profileId) {
     };
 
     request.onupgradeneeded = function(event) {
+      // TODO Extract to a function
       debug('Created or updated DB. Upgrade needed', event);
       let store = event.currentTarget.result.createObjectStore(DB_STORE_NAME, {
         keyPath: 'index',
@@ -63,6 +64,7 @@ function saveViewingActivity(profileId, viewedItems) {
   request.onsuccess = function(event) {
     let db = event.target.result;
     debug('Successfully opened DB', event);
+    // TODO Refactor to insert just new viewedItems instead of clearing and storing the full list?
     clearDataAndSave(db, viewedItems);
   };
 

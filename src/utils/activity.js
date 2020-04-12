@@ -1,56 +1,4 @@
-/**
- * Load full viewing activity
- */
-function getFullActivity(buildId) {
-  return new Promise((resolve, reject) => {
-    let viewedItems = [];
-
-    // Get first page of activity
-    getActivityPage(0, buildId)
-      .then(response => response.json())
-      .then(data => {
-        let viewingHistorySize = data.vhSize;
-
-        debug(`Viewing history size is ${viewingHistorySize}`);
-        let pages = Math.ceil(viewingHistorySize / PAGE_SIZE);
-
-        debug(`Viewing history has ${pages} pages of ${PAGE_SIZE} elements per page`);
-        viewedItems = viewedItems.concat(data.viewedItems);
-
-        const pageList = [];
-        for (let pageNumber = 1; pageNumber < pages; pageNumber++) {
-          pageList.push(pageNumber);
-        }
-
-        // Executes a request for each activity page
-        const promises = pageList.map(page => {
-          return getActivityPage(page, buildId)
-            .then(response => response.json())
-            .then(data => {
-              viewedItems = viewedItems.concat(data.viewedItems);
-            })
-            .catch(error => console.error(`Error loading activity page ${page}`, error));
-        });
-
-        // Synchronizes when all requests are resolved
-        Promise.all(promises)
-          .then(response => {
-            debug(`All pages loaded, viewed items: `, viewedItems);
-            resolve(_.sortBy(viewedItems, ['date']).reverse());
-          })
-          .catch(error => {
-            console.error(`Unknown error loading viewing activity pages`, error);
-            reject(error);
-          });
-      })
-      .catch(error => {
-        console.error('First page of viewing activity could not be fetched', error);
-        reject(error);
-      });
-  });
-}
-
-// Casos de prueba
+// TODO Casos de prueba
 // Tenía 2 vistos, los borro y ahora hay 12 nuevos -> OK
 // Tenía 2 vistos, los borro y ahora hay 30 nuevos -> OK
 // Tenía 2 vistos, y ahora hay 12, 10 de ellos nuevos -> OK
@@ -58,7 +6,7 @@ function getFullActivity(buildId) {
 // Tenía 2 vistos, borro el último y ahora hay 12, 11 de ellos nuevos -> OK
 // Tenía 2 vistos, borro el primero y ahora hay 12, 11 de ellos nuevos -> OK
 // Tenía 2 vistos, borro uno de ellos y ahora hay 1 -> OK
-// Tenía 32 vistos, borro uno de ellos y ahora hay 31 ->
+// Tenía 32 vistos, borro uno de ellos y ahora hay 31 -> OK
 /**
  * Load viewing activity
  * @param {*} buildId
@@ -66,6 +14,10 @@ function getFullActivity(buildId) {
  */
 function getViewingActivity(buildId, savedViewedItems) {
   return new Promise((resolve, reject) => {
+    if (_.isEmpty(savedViewedItems)) {
+      return getFullActivity(buildId, resolve, reject);
+    }
+
     const savedViewedItemsSize = savedViewedItems.length;
     debug(`Saved viewing history size is ${savedViewedItemsSize}`);
     const lastSavedItem = !_.isEmpty(savedViewedItems) ? savedViewedItems[0] : null;
@@ -126,6 +78,56 @@ function getViewingActivity(buildId, savedViewedItems) {
         resolve(_.sortBy(savedViewedItems, ['date']).reverse()); // Resolve with the saved data we have
       });
   });
+}
+
+/**
+ * Load full viewing activity
+ */
+function getFullActivity(buildId, resolve, reject) {
+  let viewedItems = [];
+
+  // Get first page of activity
+  getActivityPage(0, buildId)
+    .then(response => response.json())
+    .then(data => {
+      let viewingHistorySize = data.vhSize;
+
+      debug(`Viewing history size is ${viewingHistorySize}`);
+      let pages = Math.ceil(viewingHistorySize / PAGE_SIZE);
+
+      debug(`Viewing history has ${pages} pages of ${PAGE_SIZE} elements per page`);
+      viewedItems = viewedItems.concat(data.viewedItems);
+
+      const pageList = [];
+      for (let pageNumber = 1; pageNumber < pages; pageNumber++) {
+        pageList.push(pageNumber);
+      }
+
+      // Executes a request for each activity page
+      const promises = pageList.map(page => {
+        return getActivityPage(page, buildId)
+          .then(response => response.json())
+          .then(data => {
+            viewedItems = viewedItems.concat(data.viewedItems);
+          })
+          .catch(error => console.error(`Error loading activity page ${page}`, error));
+      });
+
+      // Synchronizes when all requests are resolved
+      Promise.all(promises)
+        .then(response => {
+          debug(`All pages loaded, viewed items: `, viewedItems);
+          resolve(_.sortBy(viewedItems, ['date']).reverse());
+        })
+        .catch(error => {
+          console.error(`Unknown error loading viewing activity pages`, error);
+          reject(error);
+        });
+    })
+    .catch(error => {
+      console.error('First page of viewing activity could not be fetched', error);
+      reject(error);
+    });
 }
 
 /**
