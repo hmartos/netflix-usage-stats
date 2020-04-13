@@ -20,7 +20,7 @@ function getViewingActivity(buildId, savedViewedItems) {
 
     const savedViewedItemsSize = savedViewedItems.length;
     debug(`Saved viewing history size is ${savedViewedItemsSize}`);
-    const lastSavedItem = !_.isEmpty(savedViewedItems) ? savedViewedItems[0] : null;
+    const lastSavedItem = !_.isEmpty(savedViewedItems) ? savedViewedItems[savedViewedItemsSize - 1] : null;
     debug('Last saved viewed title', lastSavedItem);
 
     // Get first page of activity
@@ -182,7 +182,7 @@ function getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHis
       }
     })
     .catch(error => {
-      console.log(`Error loading page ${page} of recent viewing activity`, error);
+      console.error(`Error loading page ${page} of recent viewing activity`, error);
       page++;
       if (page === pages) {
         // All viewing activity loaded

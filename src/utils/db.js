@@ -109,7 +109,6 @@ function saveViewedItems(db, viewedItems) {
 
   // Make a request to insert every viewed item into the object store
   let objectStore = transaction.objectStore(DB_STORE_NAME);
-  // TODO https://stackoverflow.com/questions/10471759/inserting-large-quantities-in-indexeddbs-objectstore-blocks-ui
   viewedItems.forEach(function(viewedItem) {
     let request = objectStore.add(viewedItem);
 
