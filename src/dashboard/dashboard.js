@@ -79,38 +79,34 @@ function main() {
         .then(savedViewedItems => {
           getViewingActivity(buildId, savedViewedItems)
             .then(viewedItems => {
-              // TODO Refactor so saveViewingActivity returns a promise? -> hideLoader and build dashboard
+              saveViewingActivity(profileId, savedViewedItems, viewedItems);
+
               hideLoader(statsTemplate);
 
-              // Save viewing activity in indexedDb
-              saveViewingActivity(profileId, viewedItems);
-
-              // Build dashboard
-              fillDashboardTemplate(viewedItems);
-
-              if (_.isEmpty(viewedItems)) {
-                showEmptyOrErrorSection();
-              } else {
-                calculateStats(viewedItems);
-                calculateAchievements(viewedItems);
-
-                createTvVsSeriesTimeChart();
-                createMeanTimeByWeekDayChart();
-
-                // Initialize dashboard with summary section
-                showStats();
-
-                createViewingActivityList(viewedItems);
-              }
+              buildDashboard(viewedItems);
             })
             .catch(error => {
-              console.error('Error loading viewing activity and calculating stats', error);
-              //TODO Show the saved viewing activity
+              console.error('Error loading viewing activity, showing saved viewing acitivy in indexedDb', error);
+
+              hideLoader(statsTemplate);
+
+              buildDashboard(savedViewedItems);
             });
         })
         .catch(error => {
-          console.error('Error loading saved viewing activity from indexedDb and calculating stats', error);
-          throw error;
+          console.error('Error loading saved viewing activity from indexedDb', error);
+          getViewingActivity(buildId, [])
+            .then(viewedItems => {
+              saveViewingActivity(profileId, [], viewedItems);
+
+              hideLoader(statsTemplate);
+
+              buildDashboard(viewedItems);
+            })
+            .catch(error => {
+              console.error('Error loading viewing activity', error);
+              throw error;
+            });
         });
     })
     .catch(error => {
@@ -153,6 +149,29 @@ function getProfileId() {
   });
 
   return profileId;
+}
+
+/**
+ * Calculate stats and build the dashboard
+ * @param {*} viewedItems
+ */
+function buildDashboard(viewedItems) {
+  fillDashboardTemplate(viewedItems);
+
+  if (_.isEmpty(viewedItems)) {
+    showEmptyOrErrorSection();
+  } else {
+    calculateStats(viewedItems);
+    calculateAchievements(viewedItems);
+
+    createTvVsSeriesTimeChart();
+    createMeanTimeByWeekDayChart();
+
+    // Initialize dashboard with summary section
+    showStats();
+
+    createViewingActivityList(viewedItems);
+  }
 }
 
 /**
