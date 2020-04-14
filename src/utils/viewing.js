@@ -124,11 +124,54 @@ function showResultsCountSummary(page) {
  * @param {*} viewingActivity
  */
 function showDownloadButton(viewingActivity) {
-  const csv = json2csv.parse(viewingActivity);
-  const downloadLink = document.querySelector('#downloadLink');
-  downloadLink.setAttribute('href', `data:text/csv;charset=utf-8,${csv}`);
-  downloadLink.setAttribute('download', `${chrome.i18n.getMessage('viewingActivity')}.csv`);
-  downloadLink.innerHTML = `${chrome.i18n.getMessage('download')}`;
+  try {
+    const fields = [
+      {
+        label: 'Title',
+        value: 'title',
+      },
+      {
+        label: 'Type',
+        value: 'type',
+      },
+      {
+        label: 'Movie ID',
+        value: 'movieID',
+      },
+      {
+        label: 'Top Node ID',
+        value: 'topNodeId',
+      },
+      {
+        label: 'Timestamp',
+        value: 'date',
+      },
+      {
+        label: 'Date',
+        value: 'dateFormatted',
+      },
+      {
+        label: 'Device Type',
+        value: 'deviceType',
+      },
+      {
+        label: 'Country',
+        value: 'country',
+      },
+      {
+        label: 'Rating',
+        value: 'estRating',
+      },
+    ];
+    const csv = json2csv.parse(viewingActivity, { fields });
+
+    const downloadLink = document.querySelector('#downloadLink');
+    downloadLink.setAttribute('href', `data:text/csv;charset=utf-8,${csv}`);
+    downloadLink.setAttribute('download', `${chrome.i18n.getMessage('viewingActivity')}.csv`);
+    downloadLink.innerHTML = `${chrome.i18n.getMessage('download')}`;
+  } catch (error) {
+    console.error('Error showing download button to export viewing activity', error);
+  }
 }
 
 /**
