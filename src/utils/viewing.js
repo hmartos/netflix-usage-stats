@@ -119,12 +119,15 @@ function showResultsCountSummary(page) {
   debug(`Showing results ${startRange} - ${endRange} of ${_viewingActivity.length} results`);
 }
 
+/**
+ * Show a download link to export the viewing activity in CSV format
+ * @param {*} viewingActivity
+ */
 function showDownloadButton(viewingActivity) {
   const csv = json2csv.parse(viewingActivity);
   const downloadLink = document.querySelector('#downloadLink');
-  downloadLink.setAttribute('value', 'dasdasdasdasp');
   downloadLink.setAttribute('href', `data:text/csv;charset=utf-8,${csv}`);
-  downloadLink.setAttribute('download', 'viewingActivity.csv');
+  downloadLink.setAttribute('download', `${chrome.i18n.getMessage('viewingActivity')}.csv`);
   downloadLink.innerHTML = `${chrome.i18n.getMessage('download')}`;
 }
 
