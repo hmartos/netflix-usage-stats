@@ -244,6 +244,10 @@
     "message": "results",
     "description": ""
   },
+  "download": {
+    "message": "Download",
+    "description": ""
+  },
   "achievement1": {
     "message": "Once Upon a Time in... Hollywood",
     "description": ""

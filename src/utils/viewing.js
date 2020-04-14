@@ -39,6 +39,7 @@ function showViewingActivityPage(page) {
   const viewingActivityPage = _.slice(_viewingActivity, page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
   renderViewingActivityList(viewingActivityPage);
   showResultsCountSummary(page);
+  showDownloadButton(_viewingActivity);
 
   // Hide 'Show more' button if it's the last chunk or show it again if not
   const showMoreBtn = $('#showMoreBtn');
@@ -116,6 +117,15 @@ function showResultsCountSummary(page) {
   resultsCountContainer.replaceWith(resultsCount);
 
   debug(`Showing results ${startRange} - ${endRange} of ${_viewingActivity.length} results`);
+}
+
+function showDownloadButton(viewingActivity) {
+  const csv = json2csv.parse(viewingActivity);
+  const downloadLink = document.querySelector('#downloadLink');
+  downloadLink.setAttribute('value', 'dasdasdasdasp');
+  downloadLink.setAttribute('href', `data:text/csv;charset=utf-8,${csv}`);
+  downloadLink.setAttribute('download', 'viewingActivity.csv');
+  downloadLink.innerHTML = `${chrome.i18n.getMessage('download')}`;
 }
 
 /**
