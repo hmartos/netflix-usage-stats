@@ -1,12 +1,12 @@
 // TODO Casos de prueba
-// Tenía 2 vistos, los borro y ahora hay 12 nuevos -> OK
-// Tenía 2 vistos, los borro y ahora hay 30 nuevos -> OK
-// Tenía 2 vistos, y ahora hay 12, 10 de ellos nuevos -> OK
-// Tenía 2 vistos, y ahora hay 30, 28 de ellos nuevos -> OK
-// Tenía 2 vistos, borro el último y ahora hay 12, 11 de ellos nuevos -> OK
-// Tenía 2 vistos, borro el primero y ahora hay 12, 11 de ellos nuevos -> OK
-// Tenía 2 vistos, borro uno de ellos y ahora hay 1 -> OK
-// Tenía 32 vistos, borro uno de ellos y ahora hay 31 -> OK
+// Tenía 2 vistos, los borro y ahora hay 12 nuevos ->
+// Tenía 2 vistos, los borro y ahora hay 30 nuevos ->
+// Tenía 2 vistos, y ahora hay 12, 10 de ellos nuevos ->
+// Tenía 2 vistos, y ahora hay 30, 28 de ellos nuevos ->
+// Tenía 2 vistos, borro el último y ahora hay 12, 11 de ellos nuevos ->
+// Tenía 2 vistos, borro el primero y ahora hay 12, 11 de ellos nuevos ->
+// Tenía 1272 vistos, borro uno de ellos y ahora hay 1271 -> OK
+// Tenía 1272 vistos, borro uno el primero y ahora hay 1271 -> OK
 /**
  * Load viewing activity
  * @param {*} buildId
@@ -15,12 +15,13 @@
 function getViewingActivity(buildId, savedViewedItems) {
   return new Promise((resolve, reject) => {
     if (_.isEmpty(savedViewedItems)) {
+      debug(`Saved viewing history is empty, loading full activity...`);
       return getFullActivity(buildId, resolve, reject);
     }
 
     const savedViewedItemsSize = savedViewedItems.length;
     debug(`Saved viewing history size is ${savedViewedItemsSize}`);
-    const lastSavedItem = !_.isEmpty(savedViewedItems) ? savedViewedItems[savedViewedItemsSize - 1] : null;
+    const lastSavedItem = savedViewedItems[savedViewedItemsSize - 1];
     debug('Last saved viewed title', lastSavedItem);
 
     // Get first page of activity
@@ -36,27 +37,18 @@ function getViewingActivity(buildId, savedViewedItems) {
         }
 
         const newViewedItems = data.viewedItems;
-        let loadedViewingHistory;
+        let loadedViewingHistory = savedViewedItems;
 
-        if (lastSavedItem) {
-          // Search last viewed title in retrieved activity page
-          lastViewedItemIndex = _.findIndex(newViewedItems, {
-            movieID: lastSavedItem.movieID,
-            date: lastSavedItem.date,
-          });
-
-          if (lastViewedItemIndex !== -1) {
-            debug('Last saved viewed title found');
-            let newUniqueViewedItems = _.takeWhile(newViewedItems, (viewedItem, index) => {
-              return index < lastViewedItemIndex;
-            });
-            loadedViewingHistory = savedViewedItems.concat(newUniqueViewedItems);
-          } else {
-            loadedViewingHistory = savedViewedItems.concat(newViewedItems);
-          }
-        } else {
-          loadedViewingHistory = savedViewedItems.concat(newViewedItems);
-        }
+        // Add only new viewed titles to the viewing history
+        let newUniqueViewedItems = _.takeWhile(newViewedItems, (viewedItem, index) => {
+          return (
+            _.findIndex(savedViewedItems, {
+              movieID: viewedItem.movieID,
+              date: viewedItem.date,
+            }) === -1
+          );
+        });
+        loadedViewingHistory = loadedViewingHistory.concat(newUniqueViewedItems);
 
         if (loadedViewingHistory.length >= viewingHistorySize) {
           // Full viewing activity loaded
@@ -148,25 +140,15 @@ function getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHis
       const viewingHistorySize = data.vhSize;
       const newViewedItems = data.viewedItems;
 
-      if (lastSavedItem) {
-        // Search last viewed title in retrieved activity page
-        lastViewedItemIndex = _.findIndex(newViewedItems, {
-          movieID: lastSavedItem.movieID,
-          date: lastSavedItem.date,
-        });
-
-        if (lastViewedItemIndex !== -1) {
-          debug('Last saved viewed title found');
-          let newUniqueViewedItems = _.takeWhile(newViewedItems, (viewedItem, index) => {
-            return index < lastViewedItemIndex;
-          });
-          loadedViewingHistory = loadedViewingHistory.concat(newUniqueViewedItems);
-        } else {
-          loadedViewingHistory = loadedViewingHistory.concat(newViewedItems);
-        }
-      } else {
-        loadedViewingHistory = loadedViewingHistory.concat(newViewedItems);
-      }
+      let newUniqueViewedItems = _.takeWhile(newViewedItems, (viewedItem, index) => {
+        return (
+          _.findIndex(loadedViewingHistory, {
+            movieID: viewedItem.movieID,
+            date: viewedItem.date,
+          }) === -1
+        );
+      });
+      loadedViewingHistory = loadedViewingHistory.concat(newUniqueViewedItems);
 
       if (loadedViewingHistory.length >= viewingHistorySize) {
         // Full viewing activity loaded
