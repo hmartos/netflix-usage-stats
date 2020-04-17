@@ -34,7 +34,7 @@ describe('Stats', () => {
     statsModule.__set__('summary', {});
     statsModule.__set__('_', _);
     statsModule.__set__('debug', (msg, data) => {
-      console.log(msg, data);
+      // console.log(msg, data);
     });
     statsModule.__set__('secondsToYdhms', secondsToYdhms);
     formatModule.__set__('chrome', {

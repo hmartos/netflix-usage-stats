@@ -9,68 +9,68 @@ describe('Viewing Activity', () => {
   beforeAll(() => {
     viewingModule.__set__('_', _);
     viewingModule.__set__('debug', (msg, data) => {
-      console.log(msg, data);
+      // console.log(msg, data);
     });
   });
 
   it('should filter viewing activity', async () => {
     const viewingActivity = [
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'B title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'B title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
     ];
     viewingModule.__set__('viewingActivityCopy', viewingActivity);
 
     filterViewingActivity('A title');
-    let expected = [{ date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' }];
+    let expected = [{ date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' }];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
 
     filterViewingActivity('B');
     expected = [
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'B title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'B title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
     ];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
 
     filterViewingActivity('TíTlë');
     expected = [
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'B title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'B title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
     ];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
 
     filterViewingActivity('c');
-    expected = [{ date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' }];
+    expected = [{ date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' }];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
 
     filterViewingActivity('');
     expected = [
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'B title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'B title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
     ];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
 
     filterViewingActivity();
     expected = [
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'B title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'B title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
     ];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
   });
 
   it('should set the sorting model for viewing activity', async () => {
     viewingModule.__set__('clearSortingIcon', () => {
-      console.log('Calling clearSortingIcon function');
+      // console.log('Calling clearSortingIcon function');
     });
     viewingModule.__set__('setSortingIcon', column => {
-      console.log(`Calling setSortingIcon function with column: ${column}`);
+      // console.log(`Calling setSortingIcon function with column: ${column}`);
     });
 
     viewingModule.__set__('sortBy', { date: false });
@@ -102,10 +102,10 @@ describe('Viewing Activity', () => {
 
   it('should sort viewing activity', async () => {
     const viewingActivity = [
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'D title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'D title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
     ];
     viewingModule.__set__('_viewingActivity', viewingActivity);
 
@@ -114,64 +114,64 @@ describe('Viewing Activity', () => {
 
     sortViewingActivity('date', false);
     let expected = [
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'D title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'D title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
     ];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
 
-    sortViewingActivity('title', true);
+    sortViewingActivity('showTitle', true);
     expected = [
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'D title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'D title', duration: 30, type: 'serie' },
     ];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
 
-    sortViewingActivity('title', false);
+    sortViewingActivity('showTitle', false);
     expected = [
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'D title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'D title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
     ];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
 
     sortViewingActivity('duration', true);
     expected = [
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'D title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'D title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
     ];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
 
     sortViewingActivity('duration', false);
     expected = [
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'D title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'D title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
     ];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
 
     sortViewingActivity('type', true);
     expected = [
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'D title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'D title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
     ];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
 
     sortViewingActivity('type', false);
     expected = [
-      { date: new Date(2019, 2, 2, 0, 0, 0, 0), title: 'A title', duration: 25, type: 'serie' },
-      { date: new Date(2019, 3, 3, 0, 0, 0, 0), title: 'D title', duration: 30, type: 'serie' },
-      { date: new Date(2019, 4, 4, 0, 0, 0, 0), title: 'B title', duration: 20, type: 'movie' },
-      { date: new Date(2019, 1, 1, 0, 0, 0, 0), title: 'C title', duration: 35, type: 'movie' },
+      { date: new Date(2019, 2, 2, 0, 0, 0, 0), showTitle: 'A title', duration: 25, type: 'serie' },
+      { date: new Date(2019, 3, 3, 0, 0, 0, 0), showTitle: 'D title', duration: 30, type: 'serie' },
+      { date: new Date(2019, 4, 4, 0, 0, 0, 0), showTitle: 'B title', duration: 20, type: 'movie' },
+      { date: new Date(2019, 1, 1, 0, 0, 0, 0), showTitle: 'C title', duration: 35, type: 'movie' },
     ];
     expect(viewingModule.__get__('_viewingActivity')).toEqual(expected);
   });
