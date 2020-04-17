@@ -12,10 +12,6 @@
     "message": "SHOW STATS",
     "description": "Show stats text in popup button"
   },
-  "viewingStats": {
-    "message": "Viewing stats",
-    "description": "Link text on my account page"
-  },
   "myViewingStats": {
     "message": "My viewing stats",
     "description": ""
