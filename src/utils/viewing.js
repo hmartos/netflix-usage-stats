@@ -280,6 +280,11 @@ function setSortingIcon(column) {
  * @param {*} ascending - true ascending, false descending
  */
 function sortViewingActivity(column, ascending) {
+  // When sorting by column 'title' sort by 'showTitle'
+  if (column === 'title') {
+    column = 'showTitle';
+  }
+
   _viewingActivity = _.sortBy(_viewingActivity, column);
   if (!ascending) {
     _viewingActivity.reverse();

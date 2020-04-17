@@ -15,7 +15,7 @@ describe('Achievements', () => {
     achievementsModule.__set__('_', _);
     achievementsModule.__set__('sec2time', sec2time);
     achievementsModule.__set__('debug', (msg, data) => {
-      console.log(msg, data);
+      // console.log(msg, data);
     });
     achievementsModule.__set__('chrome', {
       i18n: {
@@ -314,7 +314,7 @@ describe('Achievements', () => {
 
   // Private functions
   function checkExpectedAchievementsWon(summary, expectedAchievementsWon) {
-    console.log('Expected achievements won', expectedAchievementsWon);
+    // console.log('Expected achievements won', expectedAchievementsWon);
     _.keys(summary.achievements).forEach(achievement => {
       if (_.indexOf(expectedAchievementsWon, achievement) !== -1) {
         expect(summary.achievements[achievement].won).toEqual(true);
