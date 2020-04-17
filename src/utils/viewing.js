@@ -9,7 +9,9 @@ let viewingActivityCopy;
  */
 function createViewingActivityList(viewedItems) {
   const viewingActivity = viewedItems.map(viewedItem => {
-    viewedItem.title = viewedItem.series ? `${viewedItem.seriesTitle} - ${viewedItem.title}` : `${viewedItem.title}`;
+    viewedItem.showTitle = viewedItem.series
+      ? `${viewedItem.seriesTitle} - ${viewedItem.title}`
+      : `${viewedItem.title}`;
     viewedItem.dateFormatted = formatFullDate(viewedItem.date);
     viewedItem.durationFormatted = secondsToHoursMinutesSeconds(viewedItem.duration);
     viewedItem.type = viewedItem.series ? `${chrome.i18n.getMessage('serie')}` : `${chrome.i18n.getMessage('movie')}`;
@@ -65,7 +67,7 @@ function renderViewingActivityList(viewedItems) {
 
     const title = document.createElement('a');
     title.href = `/title/${viewedItem.movieID}`;
-    title.innerText = viewedItem.title;
+    title.innerText = viewedItem.showTitle;
 
     const titleContainer = document.createElement('div');
     titleContainer.classList = ['col title'];
@@ -157,7 +159,7 @@ function filterViewingActivity(search) {
     _viewingActivity = _.cloneDeep(viewingActivityCopy);
   } else {
     _viewingActivity = _.filter(viewingActivityCopy, item => {
-      return _.includes(_.toLower(item.title), _.toLower(_.deburr(search)));
+      return _.includes(_.toLower(item.showTitle), _.toLower(_.deburr(search)));
     });
     debug('Filtered viewing actitvity', _viewingActivity);
   }

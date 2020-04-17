@@ -20,6 +20,7 @@
         "vendor/js/purify.min.js",
         "utils/template.js",
         "utils/loader.js",
+        "utils/db.js",
         "utils/activity.js",
         "utils/stats.js",
         "utils/achievements.js",
@@ -32,12 +33,6 @@
         "vendor/css/material-icons.css", 
         "dashboard/dashboard.css"],
       "run_at": "document_start"
-    },
-    {
-      "matches": [
-        "https://www.netflix.com/YourAccount*"
-      ],
-      "js": ["account.js"]
     }
   ],
   "web_accessible_resources": [

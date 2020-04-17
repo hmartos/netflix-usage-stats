@@ -59,8 +59,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function main() {
   const BUILD_IDENTIFIER = getNetflixBuildId();
   // If BUILD_IDENTIFIER couldn't be retrieved, fallback to last working BUILD_IDENTIFIER
-  const buildId = BUILD_IDENTIFIER ? BUILD_IDENTIFIER : 'v04e0c12d';
+  const buildId = BUILD_IDENTIFIER ? BUILD_IDENTIFIER : 'vf10970d2';
   debug(`Netflix BUILD_IDENTIFIER: ${buildId}`);
+
+  const PROFILE_ID = getProfileId();
+  // If PROFILE_ID couldn't be retrieved, fallback to default PROFILE_ID
+  const profileId = PROFILE_ID ? PROFILE_ID : 'default';
+  debug(`Netflix PROFILE_ID: ${profileId}`);
 
   setupDashboardTemplate();
 
@@ -70,30 +75,38 @@ function main() {
   fetch(chrome.runtime.getURL('/dashboard/dashboard.html'))
     .then(response => response.text())
     .then(statsTemplate => {
-      // Get viewing activity
-      getActivity(buildId)
-        .then(viewedItems => {
-          hideLoader(statsTemplate);
+      getSavedViewingActivity(profileId)
+        .then(savedViewedItems => {
+          getViewingActivity(buildId, savedViewedItems)
+            .then(viewedItems => {
+              saveViewingActivity(profileId, savedViewedItems, viewedItems);
 
-          fillDashboardTemplate(viewedItems);
+              hideLoader(statsTemplate);
 
-          if (_.isEmpty(viewedItems)) {
-            showEmptyOrErrorSection();
-          } else {
-            calculateStats(viewedItems);
-            calculateAchievements(viewedItems);
+              buildDashboard(viewedItems);
+            })
+            .catch(error => {
+              console.error('Error loading viewing activity, showing saved viewing acitivy in indexedDb', error);
 
-            createTvVsSeriesTimeChart();
-            createMeanTimeByWeekDayChart();
+              hideLoader(statsTemplate);
 
-            showStats();
-
-            createViewingActivityList(viewedItems);
-          }
+              buildDashboard(savedViewedItems);
+            });
         })
         .catch(error => {
-          console.error('Error loading viewing activity and calculating stats', error);
-          throw error;
+          console.error('Error loading saved viewing activity from indexedDb', error);
+          getViewingActivity(buildId, [])
+            .then(viewedItems => {
+              saveViewingActivity(profileId, [], viewedItems);
+
+              hideLoader(statsTemplate);
+
+              buildDashboard(viewedItems);
+            })
+            .catch(error => {
+              console.error('Error loading viewing activity', error);
+              throw error;
+            });
         });
     })
     .catch(error => {
@@ -118,6 +131,47 @@ function getNetflixBuildId() {
   });
 
   return buildId;
+}
+
+/**
+ * Get Profile ID
+ */
+function getProfileId() {
+  const scripts = Array.prototype.slice.call(document.scripts);
+  let profileId = null;
+
+  scripts.forEach((script, index) => {
+    const profileIdIndex = script.innerHTML.indexOf('userGuid');
+    if (profileIdIndex > -1) {
+      const text = script.innerHTML.substring(profileIdIndex + 11);
+      profileId = text.substring(0, text.indexOf('"'));
+    }
+  });
+
+  return profileId;
+}
+
+/**
+ * Calculate stats and build the dashboard
+ * @param {*} viewedItems
+ */
+function buildDashboard(viewedItems) {
+  fillDashboardTemplate(viewedItems);
+
+  if (_.isEmpty(viewedItems)) {
+    showEmptyOrErrorSection();
+  } else {
+    calculateStats(viewedItems);
+    calculateAchievements(viewedItems);
+
+    createTvVsSeriesTimeChart();
+    createMeanTimeByWeekDayChart();
+
+    // Initialize dashboard with summary section
+    showStats();
+
+    createViewingActivityList(viewedItems);
+  }
 }
 
 /**
