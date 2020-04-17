@@ -1,12 +1,3 @@
-// TODO Casos de prueba
-// Tenía 2 vistos, los borro y ahora hay 12 nuevos ->
-// Tenía 2 vistos, los borro y ahora hay 30 nuevos ->
-// Tenía 2 vistos, y ahora hay 12, 10 de ellos nuevos ->
-// Tenía 2 vistos, y ahora hay 30, 28 de ellos nuevos ->
-// Tenía 2 vistos, borro el último y ahora hay 12, 11 de ellos nuevos ->
-// Tenía 2 vistos, borro el primero y ahora hay 12, 11 de ellos nuevos ->
-// Tenía 1272 vistos, borro uno de ellos y ahora hay 1271 -> OK
-// Tenía 1272 vistos, borro uno el primero y ahora hay 1271 -> OK
 /**
  * Load viewing activity
  * @param {*} buildId
