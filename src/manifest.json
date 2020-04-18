@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extensionTitle__",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "permissions": ["activeTab", "declarativeContent", "https://*.netflix.com/*"],
@@ -16,10 +16,12 @@
       "js": [
         "vendor/js/lodash.min.js", 
         "vendor/js/chart.min.js", 
+        "vendor/js/json2csv.min.js", 
         "vendor/js/jquery.min.js", 
         "vendor/js/purify.min.js",
         "utils/template.js",
         "utils/loader.js",
+        "utils/db.js",
         "utils/activity.js",
         "utils/stats.js",
         "utils/achievements.js",
@@ -32,12 +34,6 @@
         "vendor/css/material-icons.css", 
         "dashboard/dashboard.css"],
       "run_at": "document_start"
-    },
-    {
-      "matches": [
-        "https://www.netflix.com/YourAccount*"
-      ],
-      "js": ["account.js"]
     }
   ],
   "web_accessible_resources": [

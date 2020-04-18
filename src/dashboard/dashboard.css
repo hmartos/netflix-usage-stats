@@ -312,6 +312,11 @@
   position: absolute;
 }
 
+.ns-download-link {
+  display: block;
+  text-align: right;
+}
+
 /* Section Error */
 .ns-error-section {
   text-align: center;
