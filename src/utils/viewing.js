@@ -208,7 +208,7 @@ function filterViewingActivity(search) {
     _viewingActivity = _.cloneDeep(viewingActivityCopy);
   } else {
     _viewingActivity = _.filter(viewingActivityCopy, item => {
-      return _.includes(_.toLower(item.showTitle), _.toLower(_.deburr(search)));
+      return _.includes(_.toLower(_.deburr(item.showTitle)), _.toLower(_.deburr(search)));
     });
     debug('Filtered viewing actitvity', _viewingActivity);
   }
