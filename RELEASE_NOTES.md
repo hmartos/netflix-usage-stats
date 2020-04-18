@@ -2,6 +2,20 @@
 
 This file contains changes based on [this template](https://github.com/palantir/plottable/wiki/Release-Notes-Template)
 
+## 2.2.0
+
+### New Features
+
+- Now you can donwload your full viewing activity in a CSV file using the link 'Download all' at the bottom of the viewing activity section
+
+### Improvements
+
+- Now the loaded viewing activity will be stored in indexedDb. The next time you visit your viewing stats dashboard the viewing activity will be retrieved from the indexedDb and completed with the most recent viewing activity
+
+### Bug Fixes
+
+- Fixed bug in the search of viewing activity for latin words with special characters
+
 ## 2.1.0
 
 ### New Features
