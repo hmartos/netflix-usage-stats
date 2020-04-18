@@ -29,6 +29,7 @@ function createViewingActivityList(viewedItems) {
     bindSortingHeaders(column);
   });
   bindSearch();
+  bindDownloadButton(_viewingActivity);
 
   setSortingIcon('date');
 }
@@ -118,6 +119,54 @@ function showResultsCountSummary(page) {
   resultsCountContainer.replaceWith(resultsCount);
 
   debug(`Showing results ${startRange} - ${endRange} of ${_viewingActivity.length} results`);
+}
+
+/**
+ * Show a download link to export the viewing activity in CSV format
+ * @param {*} viewingActivity
+ */
+function bindDownloadButton(viewingActivity) {
+  try {
+    const fields = [
+      {
+        label: 'Title',
+        value: 'showTitle',
+      },
+      {
+        label: 'Type',
+        value: 'type',
+      },
+      {
+        label: 'Movie ID',
+        value: row => row['movieID'].toString(),
+      },
+      {
+        label: 'Top Node ID',
+        value: 'topNodeId',
+      },
+      {
+        label: 'Timestamp',
+        value: row => new Date(row['date']).toISOString(),
+      },
+      {
+        label: 'Device Type',
+        value: row => row['deviceType'].toString(),
+      },
+      {
+        label: 'Country',
+        value: 'country',
+      },
+    ];
+    const csv = json2csv.parse(viewingActivity, { fields, escapedQuote: "'" });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+
+    const downloadLink = document.querySelector('#downloadLink');
+    downloadLink.setAttribute('href', URL.createObjectURL(blob));
+    downloadLink.setAttribute('download', `${chrome.i18n.getMessage('viewingActivity')}.csv`);
+    downloadLink.innerHTML = `${chrome.i18n.getMessage('download')}`;
+  } catch (error) {
+    console.error('Error showing download button to export viewing activity', error);
+  }
 }
 
 /**

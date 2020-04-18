@@ -240,6 +240,10 @@
     "message": "results",
     "description": ""
   },
+  "download": {
+    "message": "Download all",
+    "description": ""
+  },
   "achievement1": {
     "message": "Once Upon a Time in... Hollywood",
     "description": ""

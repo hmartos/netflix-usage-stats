@@ -181,6 +181,9 @@
   "results": {
     "message": "resultados"  
   },
+  "download": {
+    "message": "Descargar todo"
+  },
   "achievement1": {
     "message": "Érase una vez en... Hollywood"
   },
