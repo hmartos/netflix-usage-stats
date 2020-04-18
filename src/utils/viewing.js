@@ -138,7 +138,7 @@ function bindDownloadButton(viewingActivity) {
       },
       {
         label: 'Movie ID',
-        value: 'movieID',
+        value: row => row['movieID'].toString(),
       },
       {
         label: 'Top Node ID',
@@ -146,23 +146,15 @@ function bindDownloadButton(viewingActivity) {
       },
       {
         label: 'Timestamp',
-        value: 'date',
-      },
-      {
-        label: 'Date',
-        value: 'dateFormatted',
+        value: row => new Date(row['date']).toISOString(),
       },
       {
         label: 'Device Type',
-        value: 'deviceType',
+        value: row => row['deviceType'].toString(),
       },
       {
         label: 'Country',
         value: 'country',
-      },
-      {
-        label: 'Rating',
-        value: 'estRating',
       },
     ];
     const csv = json2csv.parse(viewingActivity, { fields, escapedQuote: "'" });
