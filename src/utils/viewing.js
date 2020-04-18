@@ -29,6 +29,7 @@ function createViewingActivityList(viewedItems) {
     bindSortingHeaders(column);
   });
   bindSearch();
+  bindDownloadButton(_viewingActivity);
 
   setSortingIcon('date');
 }
@@ -41,7 +42,6 @@ function showViewingActivityPage(page) {
   const viewingActivityPage = _.slice(_viewingActivity, page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
   renderViewingActivityList(viewingActivityPage);
   showResultsCountSummary(page);
-  showDownloadButton(_viewingActivity);
 
   // Hide 'Show more' button if it's the last chunk or show it again if not
   const showMoreBtn = $('#showMoreBtn');
@@ -125,12 +125,12 @@ function showResultsCountSummary(page) {
  * Show a download link to export the viewing activity in CSV format
  * @param {*} viewingActivity
  */
-function showDownloadButton(viewingActivity) {
+function bindDownloadButton(viewingActivity) {
   try {
     const fields = [
       {
         label: 'Title',
-        value: 'title',
+        value: 'showTitle',
       },
       {
         label: 'Type',
@@ -165,10 +165,11 @@ function showDownloadButton(viewingActivity) {
         value: 'estRating',
       },
     ];
-    const csv = json2csv.parse(viewingActivity, { fields });
+    const csv = json2csv.parse(viewingActivity, { fields, escapedQuote: "'" });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
 
     const downloadLink = document.querySelector('#downloadLink');
-    downloadLink.setAttribute('href', `data:text/csv;charset=utf-8,${csv}`);
+    downloadLink.setAttribute('href', URL.createObjectURL(blob));
     downloadLink.setAttribute('download', `${chrome.i18n.getMessage('viewingActivity')}.csv`);
     downloadLink.innerHTML = `${chrome.i18n.getMessage('download')}`;
   } catch (error) {
