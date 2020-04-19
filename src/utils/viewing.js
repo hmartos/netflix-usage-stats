@@ -129,8 +129,20 @@ function bindDownloadButton(viewingActivity) {
   try {
     const fields = [
       {
+        label: 'Timestamp',
+        value: row => new Date(row['date']).toISOString(),
+      },
+      {
         label: 'Title',
         value: 'showTitle',
+      },
+      {
+        label: 'Duration',
+        value: 'durationFormatted',
+      },
+      {
+        label: 'Duration (s)',
+        value: 'duration',
       },
       {
         label: 'Type',
@@ -143,10 +155,6 @@ function bindDownloadButton(viewingActivity) {
       {
         label: 'Top Node ID',
         value: 'topNodeId',
-      },
-      {
-        label: 'Timestamp',
-        value: row => new Date(row['date']).toISOString(),
       },
       {
         label: 'Device Type',
