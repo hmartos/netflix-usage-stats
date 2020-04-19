@@ -19,6 +19,9 @@ function getViewingActivity(buildId, savedViewedItems) {
     getActivityPage(0, buildId)
       .then(response => response.json())
       .then(data => {
+        let page = 1;
+        debug(`Loaded page ${page} of recent viewing activity`);
+
         const viewingHistorySize = data.vhSize;
         debug(`Viewing history size is ${viewingHistorySize}`);
         if (viewingHistorySize < savedViewedItemsSize) {
@@ -52,7 +55,7 @@ function getViewingActivity(buildId, savedViewedItems) {
             resolve(_.sortBy(loadedViewingHistory, ['date']).reverse());
           } else {
             // Load page by page recursively until lastSavedItem is found or all the pages are loaded
-            return getRecentActivity(buildId, 1, pages, lastSavedItem, loadedViewingHistory, resolve);
+            return getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHistory, resolve);
           }
         }
       })
@@ -126,7 +129,7 @@ function getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHis
   getActivityPage(page, buildId)
     .then(response => response.json())
     .then(data => {
-      debug(`Loaded page ${page} pages of recent viewing activity`);
+      debug(`Loaded page ${page} of recent viewing activity`);
       page++;
       const viewingHistorySize = data.vhSize;
       const newViewedItems = data.viewedItems;
