@@ -2,6 +2,12 @@
 
 This file contains changes based on [this template](https://github.com/palantir/plottable/wiki/Release-Notes-Template)
 
+## 2.2.1
+
+### Improvements
+
+- Added formatted duration and duration in seconds for each title in the exported viewing activity CSV
+
 ## 2.2.0
 
 ### New Features
