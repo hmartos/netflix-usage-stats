@@ -71,11 +71,13 @@ function getViewingActivity(buildId, savedViewedItems) {
  */
 function getFullActivity(buildId, resolve, reject) {
   let viewedItems = [];
+  let loadedPages = 0;
 
   // Get first page of activity
   getActivityPage(0, buildId)
     .then(response => response.json())
     .then(data => {
+      loadedPages++;
       let viewingHistorySize = data.vhSize;
 
       debug(`Viewing history size is ${viewingHistorySize}`);
@@ -83,6 +85,7 @@ function getFullActivity(buildId, resolve, reject) {
 
       debug(`Viewing history has ${pages} pages of ${PAGE_SIZE} elements per page`);
       viewedItems = viewedItems.concat(data.viewedItems);
+      updateLoadingProgress(loadedPages, pages);
 
       const pageList = [];
       for (let pageNumber = 1; pageNumber < pages; pageNumber++) {
@@ -94,9 +97,15 @@ function getFullActivity(buildId, resolve, reject) {
         return getActivityPage(page, buildId)
           .then(response => response.json())
           .then(data => {
+            loadedPages++;
             viewedItems = viewedItems.concat(data.viewedItems);
+            updateLoadingProgress(loadedPages, pages);
           })
-          .catch(error => console.error(`Error loading activity page ${page}`, error));
+          .catch(error => {
+            loadedPages++;
+            console.error(`Error loading activity page ${page}`, error);
+            updateLoadingProgress(loadedPages, pages);
+          });
       });
 
       // Synchronizes when all requests are resolved
@@ -178,4 +187,21 @@ function getActivityPage(page, buildId) {
   return fetch(`https://www.netflix.com/api/shakti/${buildId}/viewingactivity?pg=${page}&pgSize=${PAGE_SIZE}`, {
     credentials: 'same-origin',
   });
+}
+
+/**
+ * Update viewing activity loading progress
+ * @param {*} loadedPages
+ * @param {*} pages
+ */
+function updateLoadingProgress(loadedPages, pages) {
+  try {
+    let progress = Math.ceil((loadedPages / pages) * 100);
+    console.log('Loading progress', progress);
+
+    let loadingProgress = document.querySelector('.ns-loading-progress');
+    loadingProgress.innerText = `${progress}%`;
+  } catch (error) {
+    console.error('Error updating loading progress', error);
+  }
 }
