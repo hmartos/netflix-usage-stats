@@ -29,6 +29,10 @@ function getViewingActivity(buildId, savedViewedItems) {
             'Viewing history size is lower than saved viewing history!. This usually means that user has remove titles from viewing activity'
           );
         }
+        const expectedPagesToLoad =
+          Math.ceil((viewingHistorySize - savedViewedItemsSize) / PAGE_SIZE) >= 1
+            ? Math.ceil((viewingHistorySize - savedViewedItemsSize) / PAGE_SIZE)
+            : 1;
 
         const newViewedItems = data.viewedItems;
         let loadedViewingHistory = savedViewedItems;
@@ -43,6 +47,9 @@ function getViewingActivity(buildId, savedViewedItems) {
           );
         });
         loadedViewingHistory = loadedViewingHistory.concat(newUniqueViewedItems);
+        if (expectedPagesToLoad >= SHOW_LOADER_THRESHOLD) {
+          updateLoadingProgress(page, expectedPagesToLoad);
+        }
 
         if (loadedViewingHistory.length >= viewingHistorySize) {
           // Full viewing activity loaded
@@ -54,8 +61,8 @@ function getViewingActivity(buildId, savedViewedItems) {
             // All pages loaded
             resolve(_.sortBy(loadedViewingHistory, ['date']).reverse());
           } else {
-            // Load page by page recursively until lastSavedItem is found or all the pages are loaded
-            return getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHistory, resolve);
+            // Load page by page recursively until the full recent activity is loaded
+            return getRecentActivity(buildId, page, pages, expectedPagesToLoad, loadedViewingHistory, resolve);
           }
         }
       })
@@ -130,11 +137,11 @@ function getFullActivity(buildId, resolve, reject) {
  * @param {*} buildId
  * @param {*} page
  * @param {*} pages
- * @param {*} lastSavedItem
+ * @param {*} expectedPagesToLoad
  * @param {*} loadedViewingHistory
  * @param {*} resolve
  */
-function getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHistory, resolve) {
+function getRecentActivity(buildId, page, pages, expectedPagesToLoad, loadedViewingHistory, resolve) {
   getActivityPage(page, buildId)
     .then(response => response.json())
     .then(data => {
@@ -152,6 +159,9 @@ function getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHis
         );
       });
       loadedViewingHistory = loadedViewingHistory.concat(newUniqueViewedItems);
+      if (expectedPagesToLoad >= SHOW_LOADER_THRESHOLD) {
+        updateLoadingProgress(page, expectedPagesToLoad);
+      }
 
       if (loadedViewingHistory.length >= viewingHistorySize) {
         // Full viewing activity loaded
@@ -161,20 +171,25 @@ function getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHis
           // All pages loaded
           return resolve(_.sortBy(loadedViewingHistory, ['date']).reverse());
         } else {
-          // Load page by page recursively until lastSavedItem is found or all the pages are loaded
-          return getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHistory, resolve);
+          // Load page by page recursively until all the full recent activity is loaded
+          return getRecentActivity(buildId, page, pages, expectedPagesToLoad, loadedViewingHistory, resolve);
         }
       }
     })
     .catch(error => {
       console.error(`Error loading page ${page} of recent viewing activity`, error);
       page++;
+
+      if (expectedPagesToLoad >= SHOW_LOADER_THRESHOLD) {
+        updateLoadingProgress(page, expectedPagesToLoad);
+      }
+
       if (page === pages) {
         // All viewing activity loaded
         return resolve(_.sortBy(loadedViewingHistory, ['date']).reverse());
       } else {
         // Continue trying to load more recent activity pages
-        return getRecentActivity(buildId, page, pages, lastSavedItem, loadedViewingHistory, resolve);
+        return getRecentActivity(buildId, page, pages, expectedPagesToLoad, loadedViewingHistory, resolve);
       }
     });
 }
