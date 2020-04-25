@@ -2,6 +2,12 @@
 
 This file contains changes based on [this template](https://github.com/palantir/plottable/wiki/Release-Notes-Template)
 
+## 2.3.0
+
+### Improvements
+
+- Added loading progress of the viewing activity
+
 ## 2.2.1
 
 ### Improvements

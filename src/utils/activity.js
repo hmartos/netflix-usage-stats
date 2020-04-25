@@ -212,7 +212,7 @@ function getActivityPage(page, buildId) {
 function updateLoadingProgress(loadedPages, pages) {
   try {
     let progress = Math.ceil((loadedPages / pages) * 100);
-    console.log('Loading progress', progress);
+    debug('Loading progress', progress);
 
     let loadingProgress = document.querySelector('.ns-loading-progress');
     loadingProgress.innerText = `${progress}%`;
