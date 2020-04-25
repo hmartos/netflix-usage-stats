@@ -1,6 +1,7 @@
 'use strict';
 const DEBUG_MODE = false;
 const PAGE_SIZE = 20;
+const SHOW_LOADER_THRESHOLD = 4; // Minimum expected number of pages of viewing actity to show loader
 const summary = {
   viewedItemsCount: 0,
   totalTime: 0,
