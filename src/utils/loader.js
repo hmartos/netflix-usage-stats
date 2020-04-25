@@ -9,12 +9,16 @@ function showLoader() {
   let loader = document.createElement('div');
   loader.className = 'ns-loader';
 
+  let progress = document.createElement('span');
+  progress.className = 'ns-loading-progress';
+
   let paragraph = document.createElement('p');
   paragraph.className = 'ns-loading-message';
   let message = document.createTextNode(`${chrome.i18n.getMessage('loadingMessage')}`);
   paragraph.appendChild(message);
 
   container.appendChild(loader);
+  container.appendChild(progress);
   container.appendChild(paragraph);
 
   // Get Netflix activity table

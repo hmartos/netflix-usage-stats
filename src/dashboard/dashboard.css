@@ -44,6 +44,14 @@
   transform: translateX(-50%) translateY(-50%);
 }
 
+.ns-loading-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 46px 0 0 -21px;
+  font-size: 14px;
+}
+
 /* Add properties to this style for improve layout */
 .ns-section-title {
   margin-bottom: 20px;
