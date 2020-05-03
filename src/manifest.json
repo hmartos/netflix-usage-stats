@@ -1,13 +1,9 @@
 {
   "name": "__MSG_extensionTitle__",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "permissions": ["activeTab", "declarativeContent", "https://*.netflix.com/*"],
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
   "content_scripts": [
     {
       "matches": [
@@ -44,7 +40,7 @@
     "images/movie.svg",
     "images/ani_netflix_stats.gif"
   ],
-  "page_action": {
+  "browser_action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
       "16": "images/logo16.png",
