@@ -2,6 +2,12 @@
 
 This file contains changes based on [this template](https://github.com/palantir/plottable/wiki/Release-Notes-Template)
 
+## 2.3.1
+
+### Improvements
+
+- Now the extension popup is enabled for all domains, not only in the Netflix domain
+
 ## 2.3.0
 
 ### Improvements
@@ -18,7 +24,7 @@ This file contains changes based on [this template](https://github.com/palantir/
 
 ### New Features
 
-- Now you can donwload your full viewing activity in a CSV file using the link 'Download all' at the bottom of the viewing activity section
+- Now you can download your full viewing activity in a CSV file using the link 'Download all' at the bottom of the viewing activity section
 
 ### Improvements
 
