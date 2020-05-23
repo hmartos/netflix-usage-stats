@@ -2,6 +2,16 @@
 
 This file contains changes based on [this template](https://github.com/palantir/plottable/wiki/Release-Notes-Template)
 
+## 2.3.2
+
+### Improvements
+
+- Added title attribute to viewing activity dates with the date formatted to avoid confusion on ambiguous dates
+
+### Bug Fixes
+
+- Fixed bug with the navigation from popup to the viewing stats dashboard not working on specific pages
+
 ## 2.3.1
 
 ### Improvements
