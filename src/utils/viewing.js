@@ -65,6 +65,7 @@ function renderViewingActivityList(viewedItems) {
     const date = document.createElement('div');
     date.classList = ['col date nowrap'];
     date.innerText = viewedItem.dateFormatted;
+    date.setAttribute('title', `${formatDate4Title(viewedItem.date, true)}`);
 
     const title = document.createElement('a');
     title.href = `/title/${viewedItem.movieID}`;
