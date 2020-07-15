@@ -2,6 +2,12 @@
 
 This file contains changes based on [this template](https://github.com/palantir/plottable/wiki/Release-Notes-Template)
 
+## 2.3.3
+
+### Bug Fixes
+
+- Netflix changed the URL of the viewing activity section and the extension was throwing an error while loading the viewing stats dashboard
+
 ## 2.3.2
 
 ### Improvements
