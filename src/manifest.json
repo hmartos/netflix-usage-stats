@@ -1,13 +1,13 @@
 {
   "name": "__MSG_extensionTitle__",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "permissions": ["activeTab", "https://*.netflix.com/*"],
   "content_scripts": [
     {
       "matches": [
-        "https://www.netflix.com/viewingactivity?stats=true"
+        "https://www.netflix.com/settings/viewed?stats=true"
       ],
       "js": [
         "vendor/js/lodash.min.js", 
