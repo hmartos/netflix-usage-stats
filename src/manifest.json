@@ -7,7 +7,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.netflix.com/viewingactivity?stats=true"
+        "https://www.netflix.com/settings/viewed?stats=true"
       ],
       "js": [
         "vendor/js/lodash.min.js", 
