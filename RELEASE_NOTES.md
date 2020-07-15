@@ -4,9 +4,9 @@ This file contains changes based on [this template](https://github.com/palantir/
 
 ## 2.3.3
 
-### Bug Fixes
+### Improvements
 
-- Netflix changed the URL of the viewing activity section and the extension was throwing an error while loading the viewing stats dashboard
+- It seems that Netflix is eventually going to change the URL of the viewing activity page from [https://www.netflix.com/viewingactivity](https://www.netflix.com/viewingactivity) to [https://www.netflix.com/settings/viewed](https://www.netflix.com/settings/viewed) so the new URL has been added to the list of matches in manifest.json and the popup button now redirects to the new URL.
 
 ## 2.3.2
 
