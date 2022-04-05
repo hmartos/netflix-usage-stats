@@ -15,6 +15,7 @@ function createViewingActivityList(viewedItems) {
     viewedItem.dateFormatted = formatFullDate(viewedItem.date);
     viewedItem.durationFormatted = secondsToHoursMinutesSeconds(viewedItem.duration);
     viewedItem.type = viewedItem.series ? `${chrome.i18n.getMessage('serie')}` : `${chrome.i18n.getMessage('movie')}`;
+    viewedItem.bookmark = viewedItem.bookmark;
     return viewedItem;
   });
   debug(`Viewing Activity list data`, viewingActivity);
@@ -164,6 +165,10 @@ function bindDownloadButton(viewingActivity) {
       {
         label: 'Country',
         value: 'country',
+      },
+      {
+        label: 'Bookmark',
+        value: 'bookmark',
       },
     ];
     const csv = json2csv.parse(viewingActivity, { fields, escapedQuote: "'" });
