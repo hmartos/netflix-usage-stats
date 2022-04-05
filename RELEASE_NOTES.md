@@ -2,6 +2,12 @@
 
 This file contains changes based on [this template](https://github.com/palantir/plottable/wiki/Release-Notes-Template)
 
+## 2.4.0
+
+### Improvements
+
+- Added `bookmark` field to exported CSV with viewing activity
+
 ## 2.3.3
 
 ### Improvements
