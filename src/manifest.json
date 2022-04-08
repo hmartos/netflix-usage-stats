@@ -7,7 +7,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.netflix.com/settings/viewed?stats=true"
+        "https://www.netflix.com/settings/viewed?stats=true*"
       ],
       "js": [
         "vendor/js/lodash.min.js", 
@@ -24,6 +24,7 @@
         "utils/chart.js",
         "utils/viewing.js",
         "utils/format.js",
+        "utils/filters.js",
         "utils/debug.js",
         "dashboard/dashboard.js"],
       "css": [
